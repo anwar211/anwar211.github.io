@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="关于, Anwar">
+    <meta name="keywords" content="文件上传漏洞, Anwar">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>关于 | Anwar</title>
+    <title>文件上传漏洞 | Anwar</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -205,12 +205,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">about</h1>
+                    <h1 class="description center-align post-title">文件上传漏洞</h1>
                 </div>
             </div>
         </div>
@@ -324,9 +324,13 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/web/">
+                                <span class="chip bg-color">web</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
@@ -338,28 +342,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-01-31
+                    2021-02-01
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-01-31
+                    2021-02-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    0
+                    764
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -382,7 +386,35 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="文件上传漏洞原理"><a href="#文件上传漏洞原理" class="headerlink" title="文件上传漏洞原理"></a>文件上传漏洞原理</h1><p>文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的，“文件上传”本身没有问题，有问题的是文件上传后，服务器怎么处理、解释文件。</p>
+<h2 id="常见文件上传检测"><a href="#常见文件上传检测" class="headerlink" title="常见文件上传检测"></a>常见文件上传检测</h2><h3 id="1-客户端js检查"><a href="#1-客户端js检查" class="headerlink" title="1.客户端js检查"></a>1.客户端js检查</h3><p>js代码中加了拓展名的黑名单限制，防止一般用户上传不被允许的文件。</p>
+<p>绕过方式：</p>
+<p>1.burpsuite抓包修改</p>
+<p>2.前端修改js代码</p>
+<p>3.禁用浏览器js</p>
+<h3 id="2-服务端检测绕过"><a href="#2-服务端检测绕过" class="headerlink" title="2.服务端检测绕过"></a>2.服务端检测绕过</h3><h4 id="MIME-类型检测"><a href="#MIME-类型检测" class="headerlink" title="MIME 类型检测"></a>MIME 类型检测</h4><p>主要是检测Content-Type: 字段</p>
+<p>就是检查Content-Type的值，MIME类型决定了某种扩展名用什么应用程序打开，GIF的MIME值为image/gif</p>
+<p>绕过方式：</p>
+<p>burp抓包修改Content-Type: 为允许的字段<br>Content-Type: image/gif<br>Content-Type: image/png<br>Content-Type: image/jpeg</p>
+<h4 id="文件拓展名检查"><a href="#文件拓展名检查" class="headerlink" title="文件拓展名检查"></a>文件拓展名检查</h4><p>与前端js后缀名检测类似，只不过是在后端进行检查，有时候还可以配合解析漏洞结合目录路径攻击，例如test.asp/test.jpg。后端后缀名检查也分两种，黑名单与白名单。</p>
+<p>黑名单检查绕过：</p>
+<ul>
+<li>文件名大小写绕过，例代码中有php规则，那么可以使用PHP或pHP绕过。</li>
+<li>黑名单列表绕过，对黑名单列表中没有的扩展名进行攻击，比如asa、cer等。</li>
+<li>利用windows和Linux系统的特性进行特殊文件名绕过，a.asp. a.asp_等。</li>
+<li>htaccess 文件攻击。</li>
+<li>配合解析漏洞(IIS、Apache等)。</li>
+</ul>
+<p>白名单绕过：</p>
+<ul>
+<li>截断攻击，比如a.asp%00.gif等。</li>
+<li>配合解析漏洞。</li>
+</ul>
+<h4 id="目录路径的检查"><a href="#目录路径的检查" class="headerlink" title="目录路径的检查"></a>目录路径的检查</h4><p>对目录路径可进行0x00截断绕过；以及可以控制目录地址，上传文件夹的参数可控)</p>
+<h4 id="检测文件内容是否包含恶意代码"><a href="#检测文件内容是否包含恶意代码" class="headerlink" title="检测文件内容是否包含恶意代码"></a>检测文件内容是否包含恶意代码</h4><p>这种方式主要检查图片文件的幻数，比如GIF的值为GIF89a，后端代码会检测改值判断是否为GIF图片文件，想要绕过只要在幻数后面加上一句话木马就行。</p>
+<h4 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h4><p><strong>iis解析漏洞</strong><br>1 目录解析<br>以*.asp命名的文件夹里的文件都将会被当成ASP文件执行。<br>2 文件解析<br>*.asp;.jpg 像这种畸形文件名在“；”后面的直接被忽略，也就是说当成 <em>.asp文件执行。<br>IIS6.0 默认的可执行文件除了asp还包含这三种 *.asa *.cer *.cdx<br>3 默认解析<br>.asp .aspx .ashx .asa .cer这是系统默默认的后缀名<br>*</em>Apache解析漏洞**<br>Apache 是从右到左开始判断解析,如果为不可识别解析,就再往左判断。比如xxx.php.rar对apache来说rar是不可解析的，所以就会解析成xxx.php</p>
+<p><strong>nginx解析漏洞</strong><br>开启cgi:SCRIPT_NAME FASTCGI:<br><a target="_blank" rel="noopener" href="http://www.xx.com/a.jpg/.php(%E4%BB%BB%E4%BD%95%E4%B8%8D%E5%AD%98%E5%9C%A8%E6%96%87%E4%BB%B6)-----%E5%8F%AF%E4%BB%A5%E8%A7%A3%E6%9E%90%E4%B8%BA.php%E6%96%87%E4%BB%B6">www.xx.com/a.jpg/.php(任何不存在文件)-----可以解析为.php文件</a><br>a.jpg:<!--?php phpinfo();?--><br>a.php%00.jpg—-解析为a.php</p>
+
                 
             </div>
             <hr/>
@@ -408,7 +440,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://anwar211.top/about/index.html">https://anwar211.top/about/index.html</a>
+                    <a href="https://anwar211.top/2021/02/01/wen-jian-shang-chuan-lou-dong/">https://anwar211.top/2021/02/01/wen-jian-shang-chuan-lou-dong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -445,7 +477,11 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
+                            
+                                <a href="/tags/web/">
+                                    <span class="chip bg-color">web</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -486,18 +522,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/about/index.html">
+                <a href="/2021/02/01/zheng-ze-biao-da-shi-xue-xi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="about">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="正则表达式学习">
                         
-                        <span class="card-title">about</span>
+                        <span class="card-title">正则表达式学习</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -507,9 +542,9 @@
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-31
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-01
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -518,7 +553,14 @@
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/web/">
+                        <span class="chip bg-color">web</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -526,16 +568,16 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/about/index.html">
+                <a href="/2021/02/01/web-ji-chu/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="about">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="web基础">
                         
-                        <span class="card-title">about</span>
+                        <span class="card-title">web基础</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -546,7 +588,7 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-01-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-01
                             </span>
                         <span class="publish-author">
                             
@@ -556,7 +598,14 @@
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/web/">
+                        <span class="chip bg-color">web</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
