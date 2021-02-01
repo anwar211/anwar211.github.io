@@ -528,7 +528,7 @@ header .go-back i {
     line-height: 56px;
 }
 
-/* 背景图效果.
+/*背景图效果.*/
 .bg-cover {
     position: relative;
     display: flex;
@@ -540,7 +540,7 @@ header .go-back i {
     background-position: center center;
     background-size: cover;
     transform: translate3d(0px, 0px, 0px);
-} */
+}
 
 .index-cover {
     height: 100vh;
