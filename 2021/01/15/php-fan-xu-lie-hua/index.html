@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-02-07
+                    2021-02-08
                 </div>
                 
 
@@ -414,7 +414,7 @@ unserialize()   //将字符串还原成一个对象<span aria-hidden="true" clas
 <span class="token variable">$data</span> <span class="token operator">=</span> <span class="token function">serialize</span><span class="token punctuation">(</span><span class="token variable">$test</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">echo</span> <span class="token variable">$data</span><span class="token punctuation">;</span>
 </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://anwar.oss-cn-shenzhen.aliyuncs.com/picgo/image-20210116213945438.png" alt="image-20210116213945438"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201707028.png" alt="image-20210208201707028"></p>
 <pre class="line-numbers language-none"><code class="language-none">一些字符缩写
 a - array                  b - boolean  
 d - double                 i - integer
@@ -500,7 +500,7 @@ __invoke() //当脚本尝试将对象调用为函数时触发<span aria-hidden="
 <span class="token variable">$me</span><span class="token operator">-&gt;</span><span class="token function">getInfo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token delimiter important">?&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://anwar.oss-cn-shenzhen.aliyuncs.com/picgo/image-20210116224757374.png" alt="image-20210116224757374"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201751912.png" alt="image-20210208201751912"></p>
 <h4 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="__toString()"></a>__toString()</h4><blockquote>
 <p>__toString() 方法用于一个类被当成字符串时应怎样回应。例如 echo $obj; 应该显示些什么。此方法必须返回一个字符串，否则将发出一条 E_RECOVERABLE_ERROR 级别的致命错误。</p>
 </blockquote>
@@ -521,7 +521,7 @@ __invoke() //当脚本尝试将对象调用为函数时触发<span aria-hidden="
 <span class="token variable">$me</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'smi1e'</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token string single-quoted-string">'male'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">echo</span> <span class="token string single-quoted-string">'__toString:'</span> <span class="token operator">.</span> <span class="token variable">$me</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'&lt;br&gt;'</span><span class="token punctuation">;</span>
 <span class="token delimiter important">?&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://anwar.oss-cn-shenzhen.aliyuncs.com/picgo/image-20210116225051701.png" alt="image-20210116225051701"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201815930.png" alt="image-20210208201815930"></p>
 <h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><h4 id="以前做过的一个题"><a href="#以前做过的一个题" class="headerlink" title="以前做过的一个题"></a>以前做过的一个题</h4><p>主要代码为</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 <span class="token keyword">include</span> <span class="token string single-quoted-string">'flag.php'</span><span class="token punctuation">;</span>
@@ -579,7 +579,7 @@ __invoke() //当脚本尝试将对象调用为函数时触发<span aria-hidden="
 <p>序列化之后并不是最终的payload，这里反序列的时候先调用_wakeup()函数，会把username初始化为guest，所以需要绕过它。</p>
 <p>而绕过_wakeup()函数只需要让对象的属性数比它实际的大就行</p>
 <h4 id="安洵杯-2019-easy-serialize-php"><a href="#安洵杯-2019-easy-serialize-php" class="headerlink" title="[安洵杯 2019]easy_serialize_php"></a>[安洵杯 2019]easy_serialize_php</h4><p>根据代码提示，在phpinfo里面找到一个这个</p>
-<p><img src="https://anwar.oss-cn-shenzhen.aliyuncs.com/picgo/image-20210116234920656.png" alt="image-20210116234920656"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201837952.png" alt="image-20210208201837952"></p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 
 <span class="token variable">$function</span> <span class="token operator">=</span> @<span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'f'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -651,12 +651,12 @@ echo file_get_contents(base64_decode($userinfo['img']));<span aria-hidden="true"
 <p>所以只需要一个键值对就行了，我们直接构造会被过滤的键，这样值得一部分充当键，剩下得一部分作为单独得键值对</p>
 <pre class="line-numbers language-none"><code class="language-none">_SESSION[flagflag]=;s:1:"1";s:3:"img";s:20:"ZDBnM19mMWFnLnBocA==";}<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>所以这样子构造</p>
-<p><img src="https://anwar.oss-cn-shenzhen.aliyuncs.com/picgo/image-20210117062536421.png" alt="image-20210117062536421"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201854946.png" alt="image-20210208201854946"></p>
 <p>提交之后发现一片空白，查看源码发现有个提示</p>
-<p><img src="https://anwar.oss-cn-shenzhen.aliyuncs.com/picgo/image-20210117062643391.png" alt="image-20210117062643391"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201905995.png" alt="image-20210208201905995"></p>
 <p>flag就在这里面了</p>
 <p>还是同样的方法，对<code>/d0g3_fllllllag</code>base64加密，得<code>L2QwZzNfZmxsbGxsbGFn</code>，只需要把原来的base64换成这个就行了</p>
-<p><img src="https://anwar.oss-cn-shenzhen.aliyuncs.com/picgo/image-20210117062900840.png" alt="image-20210117062900840"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208203425686.png" alt="image-20210208203425686"></p>
 
                 
             </div>
@@ -769,13 +769,12 @@ echo file_get_contents(base64_decode($userinfo['img']));<span aria-hidden="true"
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/02/02/2021-chun-qiu-bei/">
+                <a href="/2021/02/01/pikachu/">
                     <div class="card-image">
                         
+                        <img src="https://anwar.oss-cn-shenzhen.aliyuncs.com/picgo/image-20210208152109580.png" class="responsive-img" alt="pikachu漏洞刷题记录">
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="2021春秋杯">
-                        
-                        <span class="card-title">2021春秋杯</span>
+                        <span class="card-title">pikachu漏洞刷题记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -786,7 +785,7 @@ echo file_get_contents(base64_decode($userinfo['img']));<span aria-hidden="true"
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-02
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-01
                         </span>
                         <span class="publish-author">
                             
