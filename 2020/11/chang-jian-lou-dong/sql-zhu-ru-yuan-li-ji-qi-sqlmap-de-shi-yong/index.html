@@ -811,7 +811,7 @@ sqlmap.py -url "www.baidu.com:8080/user.php?id=7"<span aria-hidden="true" class=
 
         var selection = window.getSelection();
         // if the selection is short let's not annoy our users.
-        if (('' + selection).length < Number.parseInt('120')) {
+        if (('' + selection).length < Number.parseInt('20')) {
             return;
         }
 
