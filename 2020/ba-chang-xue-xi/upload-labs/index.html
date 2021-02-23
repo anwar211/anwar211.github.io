@@ -29,7 +29,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -407,6 +407,7 @@
         <span class="token keyword">return</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>直接在js上添加php或者禁用js或者burp改包就好了</p>
 <h3 id="Pass-02-只验证Content-type"><a href="#Pass-02-只验证Content-type" class="headerlink" title="Pass-02 只验证Content-type"></a>Pass-02 只验证Content-type</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
@@ -427,6 +428,7 @@
         <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">UPLOAD_PATH</span><span class="token operator">.</span><span class="token string single-quoted-string">'文件夹不存在,请手工创建！'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>抓包改Content-Type即可。</p>
 <h3 id="Pass-03-黑名单绕过"><a href="#Pass-03-黑名单绕过" class="headerlink" title="Pass-03 黑名单绕过"></a>Pass-03 黑名单绕过</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
@@ -455,14 +457,18 @@
         <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">UPLOAD_PATH</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'文件夹不存在,请手工创建！'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>这里不允许上传 .asp, .aspx, .php, .jsp后缀文件，但可以上传其他的后缀,如</p>
 <pre class="line-numbers language-none"><code class="language-none">.phtml .phps .php5 .pht<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>前提是 apache 的 httpd.conf 中有如下配置代码</p>
 <pre class="line-numbers language-none"><code class="language-none">AddType application/x-httpd-php .php .phtml .phps .php5 .pht<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>或者上传 .htaccess 文件</p>
 <pre class="line-numbers language-none"><code class="language-none">&lt;FilesMatch "shell.jpg&gt;
   SetHandler application/x-httpd-php
 &lt;/FilesMatch&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <p>但是需要mod_rewrite 开启；且AllowOverride All</p>
 <p>此时上传的 shell.jpg 会被解析成 php</p>
 <p>一般黑名单都可以利用apache解析漏洞绕过</p>
@@ -493,6 +499,7 @@
         <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">UPLOAD_PATH</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'文件夹不存在,请手工创建！'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>和上题一样，.htaccess绕过</p>
 <h3 id="Pass-05-大小写绕过"><a href="#Pass-05-大小写绕过" class="headerlink" title="Pass-05 大小写绕过"></a>Pass-05 大小写绕过</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
@@ -520,6 +527,7 @@
         <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">UPLOAD_PATH</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'文件夹不存在,请手工创建！'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>上传<code>Php</code>绕过黑名单</p>
 <h3 id="Pass-06-空格绕过"><a href="#Pass-06-空格绕过" class="headerlink" title="Pass-06 空格绕过"></a>Pass-06 空格绕过</h3><p>在文件后缀名上加一个空格就行了</p>
 <h3 id="Pass-07-点绕过"><a href="#Pass-07-点绕过" class="headerlink" title="Pass-07 点绕过"></a>Pass-07 点绕过</h3><p>上传<code>.php.</code>绕过</p>
@@ -549,6 +557,7 @@
         <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">UPLOAD_PATH</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'文件夹不存在,请手工创建！'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>利用Windows的特性如果文件名+ ::$DATA 会把::$DATA之后的数据当成文件流处理,不会检测后缀名.且保持 ::$DATA 之前的文件名 他的目的就是不检查后缀名,上传.php::$DATA绕过。</p>
 <h3 id="Pass-09-点-空格-点-绕过"><a href="#Pass-09-点-空格-点-绕过" class="headerlink" title="Pass-09 点 + 空格 + 点 绕过"></a>Pass-09 点 + 空格 + 点 绕过</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
@@ -577,6 +586,7 @@
         <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">UPLOAD_PATH</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'文件夹不存在,请手工创建！'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>还是会删除文件结尾的点。和第七题一样的方法就可以绕过。</p>
 <h3 id="Pass-10-双写绕过"><a href="#Pass-10-双写绕过" class="headerlink" title="Pass-10 双写绕过"></a>Pass-10 双写绕过</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
@@ -597,6 +607,7 @@
         <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">UPLOAD_PATH</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'文件夹不存在,请手工创建！'</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>主要是这个函数str_ireplace<code>$file_name = str_ireplace($deny_ext,"", $file_name);</code></p>
 <p>会把后缀替换为空</p>
 <p>双写绕过<code>.pphphp</code></p>

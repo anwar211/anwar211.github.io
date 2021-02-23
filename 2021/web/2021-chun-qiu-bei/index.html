@@ -29,7 +29,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -402,6 +402,7 @@
 9@0185(+7)&lt;%3#@^4
 &amp;@@&lt;.)$3*#%%&lt;&lt;*++
 .@.?=~**+!==65^@&amp;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>在网上兜兜转转找到解密方法<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1nX4y1u7Eo/">B站的一个视频讲的非常详细</a></p>
 <p>规则是从第一个开始，依次往下一行往右两格</p>
 <p>result：</p>
@@ -414,6 +415,7 @@
 +(^(*==$$5*=+#==^
 4&amp;~$7%6%.&amp;?#5)%51
 !)#?$&lt;&lt;^()8!?7%&lt;@<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>然后放到AZdecrypt里去解码就可以了</p>
 <p>解出来是这个</p>
 <pre class="line-numbers language-none"><code class="language-none">IKILLED A LOT OF PEOPLE AND THE PEOPLE I 
@@ -421,6 +423,7 @@ KILLED WILL BECOME SLAVES TO SERVE ME THIS
 IS FLAG WUUHUU TAKE OFF I HOPE YOU CAN DECRYPT 
 IT AS SOON AS POSSIBLE OR I WILL CONTINUE 
 TO COMMIT THE CRIME<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>flag{WUUHUUTAKEOFF}</p>
 <h2 id="puzzle"><a href="#puzzle" class="headerlink" title="puzzle"></a>puzzle</h2><p>要我们把这一千多张小图片拼成一张图片。。。</p>
 <p>找到有字符的图片，在那个动物的身上，直接拿ps拼</p>
@@ -537,6 +540,7 @@ hint2 <span class="token operator">=</span> sha256<span class="token punctuation
 <span class="token comment"># flag: flag{*********REDACTED**********}</span>
 <span class="token comment"># hint1: [(0, 1), (1, 0), (2, 6), (3, 4), (4, 3), (5, 6), (6, 5), (7, 8), (8, 7), (9, 1)]</span>
 <span class="token comment"># hint2: 502e0423b82c251f280e4c3261ee4d01dca4f6fe0b663817e9fd43dffefc5ce9</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>可以看到拿pytorch搭建了一个模型，然后生成对抗样本，接着把这些样本放到模型的分类中去，然后将样本保存，改名然后删掉原图</p>
 <p>因为修改文件名的原因，我们要找的样本都是后面重新保存的，所以和其他文件的生成时间不一样，把这些图片按照时间排序就能找到这些样本了</p>
 <p>当然这肯定是一种投机取巧的方法了，正确的解法太复杂，我目前的水平还理解不了</p>
@@ -547,6 +551,7 @@ hint2 <span class="token operator">=</span> sha256<span class="token punctuation
 <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'hint2:'</span><span class="token punctuation">,</span> hint2<span class="token punctuation">)</span>
 flag <span class="token operator">=</span> <span class="token string">'flag{'</span> <span class="token operator">+</span> md5<span class="token punctuation">(</span><span class="token builtin">str</span><span class="token punctuation">(</span><span class="token builtin">sorted</span><span class="token punctuation">(</span>adversarial_images<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>encode<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>hexdigest<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'}'</span>
 <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">'flag:'</span><span class="token punctuation">,</span> flag<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>flag{00d531934c171e1a71405f5e1f171d65}</p>
 <h2 id="snowww"><a href="#snowww" class="headerlink" title="snowww"></a>snowww</h2><p>分析这张图片后发现最后藏了一个rar的压缩包</p>
 <p>foremost直接把压缩包提取出来</p>
@@ -583,6 +588,7 @@ FA<span class="token operator">=</span><span class="token function">fft2</span><
 FB<span class="token operator">=</span>FA<span class="token operator">+</span>alpha<span class="token operator">*</span><span class="token function">double</span><span class="token punctuation">(</span>mark_<span class="token punctuation">)</span><span class="token punctuation">;</span>                      <span class="token comment">%%傅里叶+80*double（mark_)</span>
 FAO<span class="token operator">=</span><span class="token function">ifft2</span><span class="token punctuation">(</span>FB<span class="token punctuation">)</span><span class="token punctuation">;</span>                                  <span class="token comment">%%在进行逆变换</span>
 <span class="token function">imwrite</span><span class="token punctuation">(</span>FAO<span class="token punctuation">,</span><span class="token string">'snow.jpg'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                        <span class="token comment">%%最后导出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>payload</p>
 <pre class="line-numbers language-matlab" data-language="matlab"><code class="language-matlab"># 作者<span class="token punctuation">(</span>Author<span class="token punctuation">)</span>：Snowywar
 # 链接<span class="token punctuation">(</span>URL<span class="token punctuation">)</span>：http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>snowywar<span class="token punctuation">.</span>top<span class="token operator">/</span>wordpress<span class="token operator">/</span>index<span class="token punctuation">.</span>php<span class="token operator">/</span><span class="token number">2021</span><span class="token operator">/</span><span class="token number">01</span><span class="token operator">/</span><span class="token number">31</span><span class="token operator">/</span>ichunqiu<span class="token operator">-</span>write<span class="token operator">-</span>up<span class="token operator">/</span>
@@ -609,10 +615,12 @@ GG<span class="token operator">=</span>G<span class="token punctuation">;</span>
 <span class="token keyword">end</span>
 figure<span class="token punctuation">,</span><span class="token function">imshow</span><span class="token punctuation">(</span>GG<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token function">title</span><span class="token punctuation">(</span><span class="token string">'extracted watermark'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">imwrite</span><span class="token punctuation">(</span><span class="token function">uint8</span><span class="token punctuation">(</span>GG<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token string">'extracted watermark.jpg'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>flag就在解出来的图片里</p>
 <p>flag{c93fd2a3-103f-4539-9a51-ad5a6437daa1}</p>
 <h2 id="2019-nCoV"><a href="#2019-nCoV" class="headerlink" title="2019-nCoV"></a>2019-nCoV</h2><p>后面放了一个提示</p>
 <pre class="line-numbers language-none"><code class="language-none">NB2HI4B2F4XXO53XFZWWK4TSPFRGS3ZOMNXW2LTDNYXWE3DPM4XVGQKSKMWUG32WFUZC2Z3FNZXW22LDFVQW4YLMPFZWS4ZONB2G23AKNB2HI4DTHIXS653XO4XG4Y3CNEXG43DNFZXGS2BOM5XXML3POJTGM2LOMRSXELYKNB2HI4B2F4XXO53XFZWWK4TSPFRGS3ZOMNXW2LTDNYXWE3DPM4XWG33SN5XGC5TJOJ2XGLLJNZ2HE33EOVRXI2LPNYXGQ5DNNQFAUUDMMVQXGZJANZXXI2LDMUQFI2DFEBWGC4THMVZXIIDTORZHKY3UOVZGC3BAOBZG65DFNFXCAIAKORUGKIDQMFZXG53POJSCA2LTEB2GQZJAEBWWINJINF2CO4ZAM5SW4ZJAONSXC5LFNZRWKKJAMFXGIIDEN4QG433UEBWGK5BAORUGKIHCQCMFY3XCQCMSA2LOEBWWINJIFE======<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>base32解码：</p>
 <pre class="line-numbers language-none"><code class="language-none">http://www.merrybio.com.cn/blog/SARS-CoV-2-genomic-analysis.html
 https://www.ncbi.nlm.nih.gov/orffinder/
@@ -621,6 +629,7 @@ http://www.merrybio.com.cn/blog/coronavirus-introduction.html
 Please notice The largest structural protein  
 the password is the  md5(it's gene sequence) and do not let the ‘\n’ in md5()
 注意最大的结构蛋白，密码是基因序列的md5<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>给了几个网址让我去里面找线索</p>
 <p>直接ctrl+F找最大的结构蛋白</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194455739.png" alt="image-20210208194455739"></p>
@@ -632,14 +641,17 @@ the password is the  md5(it's gene sequence) and do not let the ‘\n’ in md5(
 <p>md5:98eb1b1760bcc837934c8695a1cee923</p>
 <p>拿MP3stego 解开 cov.mp3</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">MP3StegoDecode.exe -X -P 98eb1b1760bcc837934c8695a1cee923 cov.mp3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>得到一个压缩包 realflag.zip  密码为 2019-nCoV</p>
 <p>解压之后有提示2和一张图片</p>
 <pre class="line-numbers language-none"><code class="language-none">796f75206d7573742070617920617474656e74696f6e20746f204e2070726f7465696e202c486f7720646f20746861742067657420696e746f2074686520766972616c206361707369643f0a646f20796f75206b6e6f772073746567686964653f0a7468652070617373776f726420697320656e637279707420627920566967656ec3a87265204369706865720a74686520736372656374206b65792069732054686520746f702032302063686172616374657273207769746820746865206d6f7374206f6363757272656e6365732061726520636f756e7465642b434f4d424154<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>这个base16转码：</p>
 <pre class="line-numbers language-none"><code class="language-none">you must pay attention to N protein ,How do that get into the viral capsid? 核衣壳蛋白（nucleoprotein，N），它如何进入病毒衣壳内？
 do you know steghide? 
 the password is encrypt by Vigenère Cipher 
 the screct key is The top 20 characters with the most occurrences are counted+COMBAT<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>回到那个网站</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208211301543.png" alt="image-20210208211301543"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194530587.png" alt="image-20210208194530587"></p>
@@ -659,6 +671,7 @@ d <span class="token operator">=</span> <span class="token punctuation">{</span>
             <span class="token keyword">for</span> i <span class="token keyword">in</span> l<span class="token punctuation">:</span> 
                 r <span class="token operator">+=</span> i<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> 
                 <span class="token keyword">print</span><span class="token punctuation">(</span>r<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>解出来后是这个：<code>LGASTRIQKNDPFEVYMWHC</code></p>
 <p>根据提示最后还要+COMBAT</p>
 <p>用 SilentEye 对 pass.wav 解密</p>

