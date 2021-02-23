@@ -2065,7 +2065,7 @@ footer .copy-right {
     margin: 0;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width : 8px;
     height: 1px;
     }
@@ -2087,4 +2087,4 @@ footer .copy-right {
     box-shadow   : inset 0 0 5px rgba(0, 0, 0, 0.2);
     background   : #ededed;
     border-radius: 10px;
-    }
+    } */
