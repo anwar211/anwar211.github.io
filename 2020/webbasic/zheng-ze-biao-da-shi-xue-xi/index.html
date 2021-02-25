@@ -372,7 +372,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:
-                    5 分
+                    6 分
                 </div>
                 
 
@@ -596,19 +596,19 @@
 <td>后行否定断言,a只有不在b后面才进行匹配</td>
 </tr>
 </tbody></table>
-<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="来匹配个邮箱吧"><a href="#来匹配个邮箱吧" class="headerlink" title="来匹配个邮箱吧"></a>来匹配个邮箱吧</h3><pre class="line-numbers language-none"><code class="language-none">/^([\w-.]*)@([A-Za-z0-9]+).([A-Za-z]{2,10})$/gmi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><h3 id="来匹配个邮箱吧"><a href="#来匹配个邮箱吧" class="headerlink" title="来匹配个邮箱吧"></a>来匹配个邮箱吧</h3><pre class="line-numbers language-none"><code class="language-none">&#x2F;^([\w-.]*)@([A-Za-z0-9]+).([A-Za-z]&#123;2,10&#125;)$&#x2F;gmi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208204051643.png" alt="image-20210208204051643"></p>
 <p>发现有形如edu.cn的匹配不了了…..把.放进去就可以了</p>
-<pre class="line-numbers language-none"><code class="language-none">/^([\w-.]*)([@A-Za-z0-9]+\.)+([A-Za-z]{2,10})$/gmi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;^([\w-.]*)([@A-Za-z0-9]+\.)+([A-Za-z]&#123;2,10&#125;)$&#x2F;gmi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208204105174.png" alt="image-20210208204105174"></p>
 <p>应该都是能匹配上的,匹配的有些许的粗糙,目前只会写一点简单的</p>
 <h3 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h3><p>根据IP地址的特点,可以写出下面的正则来匹配</p>
-<pre class="line-numbers language-none"><code class="language-none">/^(\d{1}|[1-9]{1}\d{1}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1}|[1-9]{1}\d{1}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1}|[1-9]{1}\d{1}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1}|[1-9]{1}\d{1}|1\d\d|2[0-4]\d|25[0-5])$/gmi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;^(\d&#123;1&#125;|[1-9]&#123;1&#125;\d&#123;1&#125;|1\d\d|2[0-4]\d|25[0-5])\.(\d&#123;1&#125;|[1-9]&#123;1&#125;\d&#123;1&#125;|1\d\d|2[0-4]\d|25[0-5])\.(\d&#123;1&#125;|[1-9]&#123;1&#125;\d&#123;1&#125;|1\d\d|2[0-4]\d|25[0-5])\.(\d&#123;1&#125;|[1-9]&#123;1&#125;\d&#123;1&#125;|1\d\d|2[0-4]\d|25[0-5])$&#x2F;gmi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208204426135.png" alt="image-20210208204426135"></p>
-<h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><pre class="line-numbers language-none"><code class="language-none">/^\[(\d+)\/(\w+)\/(\d+):(\d+):(\d+):(\d+)\s\+(\d+)\]$/gmi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h3><pre class="line-numbers language-none"><code class="language-none">&#x2F;^\[(\d+)\&#x2F;(\w+)\&#x2F;(\d+):(\d+):(\d+):(\d+)\s\+(\d+)\]$&#x2F;gmi<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208204313878.png" alt="image-20210208204313878"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>对于正则表达式自己只学会了一些皮毛，不去练会儿过了一段时间很容易就忘掉了。</p>
@@ -994,7 +994,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">34.8k</span>&nbsp;字
+                class="white-color">36.1k</span>&nbsp;字
             
             
             

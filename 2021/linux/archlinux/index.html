@@ -464,7 +464,7 @@ mkfs.vfat  /dev/sdax            <span class="token comment">#格式化efi分区<
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pacstrap /mnt dhcpcd iwd <span class="token function">vim</span> <span class="token function">sudo</span> bash-completion   <span class="token comment">#一个有线所需 一个无线所需 一个编辑器  一个提权工具 一个补全工具 iwd也需要dhcpcd</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="12-生产-fstab"><a href="#12-生产-fstab" class="headerlink" title="12.生产 fstab"></a>12.生产 fstab</h3><p>fstab 用来定义磁盘分区</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">genfstab -U /mnt <span class="token operator">&gt;&gt;</span> /mnt/etc/fstab<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">genfstab -U /mnt <span class="token operator">>></span> /mnt/etc/fstab<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>复查一下 /mnt/etc/fstab 确保没有错误</p>
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> /mnt/etc/fstab<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
@@ -483,7 +483,7 @@ mkfs.vfat  /dev/sdax            <span class="token comment">#格式化efi分区<
 <pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">locale-gen<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>向 /etc/locale.conf 输入内容</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">'LANG=en_US.UTF-8'</span>  <span class="token operator">&gt;</span> /etc/locale.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">'LANG=en_US.UTF-8'</span>  <span class="token operator">></span> /etc/locale.conf<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="17-为-root-用户设置密码"><a href="#17-为-root-用户设置密码" class="headerlink" title="17.为 root 用户设置密码"></a>17.为 root 用户设置密码</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">passwd</span> root<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -888,7 +888,7 @@ iwctl               <span class="token comment">#和之前的方式一样，连�
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">34.8k</span>&nbsp;字
+                class="white-color">36.1k</span>&nbsp;字
             
             
             
