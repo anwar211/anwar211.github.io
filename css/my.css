@@ -1,10 +1,10 @@
 @font-face{
   font-family: 'Verdana';
-  src: url('https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io@main/font/Verdana.woff2');
+  src: url('https://cdn.jsdelivr.net/gh/anwarnu/anwarnu.github.io/font/Verdana.woff2');
 }
 @font-face {
   font-family: "JetBrains Mono";
-  src: url("https://cdn.jsdelivr.net/gh/anwar211/anwar211.github.io@main/font/JetBrainsMono-Regular.woff2");
+  src: url("https://cdn.jsdelivr.net/gh/anwarnu/anwarnu.github.io/font/JetBrainsMono-Regular.woff2");
 }
 body{
   font-family: 'Verdana';
