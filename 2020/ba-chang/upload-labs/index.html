@@ -205,7 +205,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208205421280.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306203157463.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -358,14 +358,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-02-28
+                    2021-03-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    1.5k
+                    1.6k
                 </div>
                 
 
@@ -390,7 +390,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Upload-labs"><a href="#Upload-labs" class="headerlink" title="Upload-labs"></a>Upload-labs</h2><h3 id="pass-01-js-audit"><a href="#pass-01-js-audit" class="headerlink" title="pass-01 js audit"></a>pass-01 js audit</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">function</span> <span class="token function">checkFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                <p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306203055304.png" alt="思维导图"></p>
+<h2 id="pass-01-js-audit"><a href="#pass-01-js-audit" class="headerlink" title="pass-01 js audit"></a>pass-01 js audit</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">function</span> <span class="token function">checkFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">var</span> file <span class="token operator">=</span> document<span class="token operator">.</span><span class="token function">getElementsByName</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'upload_file'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">.</span>value<span class="token punctuation">;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span>file <span class="token operator">==</span> <span class="token keyword type-declaration">null</span> <span class="token operator">||</span> <span class="token class-name">file</span> <span class="token operator">==</span> <span class="token string double-quoted-string">""</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
         <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"请选择要上传的文件!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -409,7 +410,7 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>直接在js上添加php或者禁用js或者burp改包就好了</p>
-<h3 id="Pass-02-只验证Content-type"><a href="#Pass-02-只验证Content-type" class="headerlink" title="Pass-02 只验证Content-type"></a>Pass-02 只验证Content-type</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+<h2 id="Pass-02-只验证Content-type"><a href="#Pass-02-只验证Content-type" class="headerlink" title="Pass-02 只验证Content-type"></a>Pass-02 只验证Content-type</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token constant">UPLOAD_PATH</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -430,7 +431,7 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>抓包改Content-Type即可。</p>
-<h3 id="Pass-03-黑名单绕过"><a href="#Pass-03-黑名单绕过" class="headerlink" title="Pass-03 黑名单绕过"></a>Pass-03 黑名单绕过</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+<h2 id="Pass-03-黑名单绕过"><a href="#Pass-03-黑名单绕过" class="headerlink" title="Pass-03 黑名单绕过"></a>Pass-03 黑名单绕过</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token constant">UPLOAD_PATH</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -472,7 +473,7 @@
 <p>但是需要mod_rewrite 开启；且AllowOverride All</p>
 <p>此时上传的 shell.jpg 会被解析成 php</p>
 <p>一般黑名单都可以利用apache解析漏洞绕过</p>
-<h3 id="Pass-04-htaccess绕过"><a href="#Pass-04-htaccess绕过" class="headerlink" title="Pass-04 .htaccess绕过"></a>Pass-04 .htaccess绕过</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+<h2 id="Pass-04-htaccess绕过"><a href="#Pass-04-htaccess绕过" class="headerlink" title="Pass-04 .htaccess绕过"></a>Pass-04 .htaccess绕过</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token constant">UPLOAD_PATH</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -501,7 +502,7 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>和上题一样，.htaccess绕过</p>
-<h3 id="Pass-05-大小写绕过"><a href="#Pass-05-大小写绕过" class="headerlink" title="Pass-05 大小写绕过"></a>Pass-05 大小写绕过</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+<h2 id="Pass-05-大小写绕过"><a href="#Pass-05-大小写绕过" class="headerlink" title="Pass-05 大小写绕过"></a>Pass-05 大小写绕过</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token constant">UPLOAD_PATH</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -529,9 +530,9 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>上传<code>Php</code>绕过黑名单</p>
-<h3 id="Pass-06-空格绕过"><a href="#Pass-06-空格绕过" class="headerlink" title="Pass-06 空格绕过"></a>Pass-06 空格绕过</h3><p>在文件后缀名上加一个空格就行了</p>
-<h3 id="Pass-07-点绕过"><a href="#Pass-07-点绕过" class="headerlink" title="Pass-07 点绕过"></a>Pass-07 点绕过</h3><p>上传<code>.php.</code>绕过</p>
-<h3 id="Pass-08-DATA-绕过"><a href="#Pass-08-DATA-绕过" class="headerlink" title="Pass-08 ::$DATA 绕过"></a>Pass-08 ::$DATA 绕过</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+<h2 id="Pass-06-空格绕过"><a href="#Pass-06-空格绕过" class="headerlink" title="Pass-06 空格绕过"></a>Pass-06 空格绕过</h2><p>在文件后缀名上加一个空格就行了</p>
+<h2 id="Pass-07-点绕过"><a href="#Pass-07-点绕过" class="headerlink" title="Pass-07 点绕过"></a>Pass-07 点绕过</h2><p>上传<code>.php.</code>绕过</p>
+<h2 id="Pass-08-DATA-绕过"><a href="#Pass-08-DATA-绕过" class="headerlink" title="Pass-08 ::$DATA 绕过"></a>Pass-08 ::$DATA 绕过</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token constant">UPLOAD_PATH</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -559,7 +560,7 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>利用Windows的特性如果文件名+ ::$DATA 会把::$DATA之后的数据当成文件流处理,不会检测后缀名.且保持 ::$DATA 之前的文件名 他的目的就是不检查后缀名,上传.php::$DATA绕过。</p>
-<h3 id="Pass-09-点-空格-点-绕过"><a href="#Pass-09-点-空格-点-绕过" class="headerlink" title="Pass-09 点 + 空格 + 点 绕过"></a>Pass-09 点 + 空格 + 点 绕过</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+<h2 id="Pass-09-点-空格-点-绕过"><a href="#Pass-09-点-空格-点-绕过" class="headerlink" title="Pass-09 点 + 空格 + 点 绕过"></a>Pass-09 点 + 空格 + 点 绕过</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token constant">UPLOAD_PATH</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -588,7 +589,7 @@
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>还是会删除文件结尾的点。和第七题一样的方法就可以绕过。</p>
-<h3 id="Pass-10-双写绕过"><a href="#Pass-10-双写绕过" class="headerlink" title="Pass-10 双写绕过"></a>Pass-10 双写绕过</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
+<h2 id="Pass-10-双写绕过"><a href="#Pass-10-双写绕过" class="headerlink" title="Pass-10 双写绕过"></a>Pass-10 双写绕过</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token variable">$is_upload</span> <span class="token operator">=</span> <span class="token constant boolean">false</span><span class="token punctuation">;</span>
 <span class="token variable">$msg</span> <span class="token operator">=</span> <span class="token constant">null</span><span class="token punctuation">;</span>
 <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'submit'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
     <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">file_exists</span><span class="token punctuation">(</span><span class="token constant">UPLOAD_PATH</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
@@ -611,7 +612,15 @@
 <p>主要是这个函数str_ireplace<code>$file_name = str_ireplace($deny_ext,&quot;&quot;, $file_name);</code></p>
 <p>会把后缀替换为空</p>
 <p>双写绕过<code>.pphphp</code></p>
-
+<h2 id="Pass-11-00截断"><a href="#Pass-11-00截断" class="headerlink" title="Pass-11 %00截断"></a>Pass-11 %00截断</h2><p>在保存路径设置自定义文件名及其后缀</p>
+<h2 id="Pass-12-00截断"><a href="#Pass-12-00截断" class="headerlink" title="Pass-12 %00截断"></a>Pass-12 %00截断</h2><p>和上面一样，就是换了请求方式，由于不会像GET那样自动解码，可以用010editor把0加进去</p>
+<h2 id="Pass-13-图片马"><a href="#Pass-13-图片马" class="headerlink" title="Pass-13 图片马"></a>Pass-13 图片马</h2><p>提示只检查开头两个字节</p>
+<p>文件头加个GIF89a</p>
+<h2 id="Pass-14-图片马"><a href="#Pass-14-图片马" class="headerlink" title="Pass-14 图片马"></a>Pass-14 图片马</h2><p>用了getimagesize()检查是否为图片文件</p>
+<p>制作一个图片马就行了</p>
+<h2 id="Pass-15-图片马"><a href="#Pass-15-图片马" class="headerlink" title="Pass-15 图片马"></a>Pass-15 图片马</h2><p>用exif_imagetype()检查是否为图片文件</p>
+<p>还是直接图片马</p>
+<h2 id="Pass-16-二次渲染"><a href="#Pass-16-二次渲染" class="headerlink" title="Pass-16 二次渲染"></a>Pass-16 二次渲染</h2>
                 
             </div>
             <hr/>
@@ -726,7 +735,7 @@
                 <a href="/2020/lou-dong/wen-jian-shang-chuan-lou-dong/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208205421280.png" class="responsive-img" alt="文件上传漏洞">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306203157463.png" class="responsive-img" alt="文件上传漏洞">
                         
                         <span class="card-title">文件上传漏洞</span>
                     </div>
@@ -991,7 +1000,7 @@
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">40.3k</span>&nbsp;字
+                class="white-color">41.8k</span>&nbsp;字
             
             
             
