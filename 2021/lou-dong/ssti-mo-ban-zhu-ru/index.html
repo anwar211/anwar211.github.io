@@ -358,21 +358,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-03
+                    2021-03-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    2.5k
+                    2.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:
-                    10 分
+                    11 分
                 </div>
                 
 
@@ -651,6 +651,36 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
 
 
 <p><strong>tplmap这个工具也是非常好用的</strong></p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><h3 id="Smarty-SSTI利用"><a href="#Smarty-SSTI利用" class="headerlink" title="Smarty SSTI利用"></a>Smarty SSTI利用</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">include</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'./libs/Smarty.class.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token string double-quoted-string">"pass a parameter and maybe the flag file's filename is random :>"</span><span class="token punctuation">;</span>
+<span class="token variable">$smarty</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Smarty</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token function">highlight_file</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'index.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">foreach</span> <span class="token punctuation">(</span><span class="token variable">$_GET</span> <span class="token keyword">AS</span> <span class="token variable">$key</span> <span class="token operator">=></span> <span class="token variable">$value</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#123;</span>
+        <span class="token keyword">print</span> <span class="token variable">$key</span><span class="token operator">.</span><span class="token string double-quoted-string">"\n"</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"/flag|\/flag/i"</span><span class="token punctuation">,</span> <span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            
+            <span class="token variable">$smarty</span><span class="token operator">-></span><span class="token function">display</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'./template.html'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+        <span class="token punctuation">&#125;</span><span class="token keyword">elseif</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"/system|readfile|gz|exec|eval|cat|assert|file|fgets/i"</span><span class="token punctuation">,</span> <span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+
+
+            <span class="token variable">$smarty</span><span class="token operator">-></span><span class="token function">display</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'./template.html'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            
+            
+        <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+            <span class="token variable">$smarty</span><span class="token operator">-></span><span class="token function">display</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"eval:"</span><span class="token operator">.</span><span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token operator">?</span><span class="token operator">></span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Smarty支持使用{php}{/php}标签来执行被包裹其中的php指令</p>
+<p>这题随便传一个参数<code>?a=&#123;phpinfo()&#125;</code>发现可以执行成功</p>
+<p>审查代码发现过滤了exec和eval</p>
+<p>所以只能用passthru执行命令了<code>?a=&#123;passthru(&#39;tac /_21372&#39;)&#125;</code></p>
 
                 
             </div>
@@ -1033,7 +1063,7 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">42.1k</span>&nbsp;字
+                class="white-color">42.2k</span>&nbsp;字
             
             
             

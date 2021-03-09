@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-03
+                    2021-03-09
                 </div>
                 
 
@@ -390,16 +390,21 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="ctf中常见的php漏洞"><a href="#ctf中常见的php漏洞" class="headerlink" title="ctf中常见的php漏洞"></a>ctf中常见的php漏洞</h2><p>刷题的时候遇到一些php代码审计的题目，其中也都一些是自己没遇到过，从网络上搜集的。</p>
-<h3 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h3><pre class="line-numbers language-none"><code class="language-none">$_POST &#x2F;&#x2F; 获取 post 数据，是一个字典
+                <h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>PHP中有四个执行系统外部命令的方法</p>
+<pre class="line-numbers language-none"><code class="language-none">exec()
+shell_exec()
+system()
+passthru()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h2><pre class="line-numbers language-none"><code class="language-none">$_POST &#x2F;&#x2F; 获取 post 数据，是一个字典
 $_GET &#x2F;&#x2F; 获取 get 数据，是一个字典
 $_COOKIE &#x2F;&#x2F; 获取 cookie
 $_SESSION &#x2F;&#x2F; 获取 session
 $_FILE &#x2F;&#x2F; 获取上传的文件
 $_REQUEST &#x2F;&#x2F; 获取 $_GET，$_POST，$_COOKIE 中的数据<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="错误控制运算符"><a href="#错误控制运算符" class="headerlink" title="错误控制运算符"></a>错误控制运算符</h3><p>PHP 支持一个错误控制运算符：@。当将其放置在一个PHP 表达式之前，该表达式可能产生的任何错误信息都被忽略掉。</p>
-<h3 id="弱类型漏洞"><a href="#弱类型漏洞" class="headerlink" title="弱类型漏洞"></a>弱类型漏洞</h3><p>PHP是弱类型语言，不须要明确的定义变量的类型，变量的类型根据使用时的上下文所决定，也就是变量会根据不一样表达式所须要的类型自动转换，好比求和，PHP会将两个相加的值转为long、double再进行加和。每种类型转为另一种类型都有固定的规则，当某个操做发现类型不符时就会按照这个规则进行转换，这个规则正是弱类型实现的基础。</p>
+<h2 id="错误控制运算符"><a href="#错误控制运算符" class="headerlink" title="错误控制运算符"></a>错误控制运算符</h2><p>PHP 支持一个错误控制运算符：@。当将其放置在一个PHP 表达式之前，该表达式可能产生的任何错误信息都被忽略掉。</p>
+<h2 id="弱类型漏洞"><a href="#弱类型漏洞" class="headerlink" title="弱类型漏洞"></a>弱类型漏洞</h2><p>PHP是弱类型语言，不须要明确的定义变量的类型，变量的类型根据使用时的上下文所决定，也就是变量会根据不一样表达式所须要的类型自动转换，好比求和，PHP会将两个相加的值转为long、double再进行加和。每种类型转为另一种类型都有固定的规则，当某个操做发现类型不符时就会按照这个规则进行转换，这个规则正是弱类型实现的基础。</p>
 <h4 id="和-的区别"><a href="#和-的区别" class="headerlink" title="==和===的区别"></a>==和===的区别</h4><pre class="line-numbers language-none"><code class="language-none">&#x3D;&#x3D;  会在比较的时候装化成相同的类型
 &#x3D;&#x3D;&#x3D; 先判断左右两者类型是否相等之后再作比较（这个更严格一些）
 整数和字符串进行比较的时候，字符串数字后的内容会被省略<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -464,7 +469,7 @@ if(intval($a) &gt; 1000) &#123;
 <pre class="line-numbers language-none"><code class="language-none">$a &#x3D; &quot;  \n\r\t\v\0abc  \f&quot;;
 var_dump(trim($a)); &#x2F;&#x2F; abc  \f<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><p>可以在这个网站学习学习正则[regex]:(<a target="_blank" rel="noopener" href="https://regexr.com/">https://regexr.com/</a>)</p>
+<h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><p>可以在这个网站学习学习正则[regex]:(<a target="_blank" rel="noopener" href="https://regexr.com/">https://regexr.com/</a>)</p>
 <h4 id="preg-match"><a href="#preg-match" class="headerlink" title="preg_match"></a>preg_match</h4><p>preg_match 函数用于进行正则表达式匹配，返回 pattern 的匹配次数，它的值将是 0 次（不匹配）或 1 次，因为 preg_match() 在第一次匹配后将会停止搜索。如果在进行正则表达式匹配的时候，没有限制字符串的开始和结束(<code>^</code> 和 <code>$</code>)，则可以存在绕过的问题</p>
 <pre class="line-numbers language-none"><code class="language-none">$ip &#x3D; &#39;1.1.1.1 abcd&#39;; &#x2F;&#x2F; 可以绕过
 if(!preg_match(&quot;&#x2F;(\d+)\.(\d+)\.(\d+)\.(\d+)&#x2F;&quot;,$ip)) &#123;
@@ -518,7 +523,7 @@ cg 即使全局匹配失败也允许搜索继续<span aria-hidden="true" class="
 ?&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这里 <code>a=abcd%001234</code>，可以绕过</p>
-<h3 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h3><h4 id="extract"><a href="#extract" class="headerlink" title="extract"></a>extract</h4><p>extract() 函数从数组中把变量导入到当前的符号表中。对于数组中的每个元素，键名用于变量名，键值用于变量值。</p>
+<h2 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="变量覆盖"></a>变量覆盖</h2><h4 id="extract"><a href="#extract" class="headerlink" title="extract"></a>extract</h4><p>extract() 函数从数组中把变量导入到当前的符号表中。对于数组中的每个元素，键名用于变量名，键值用于变量值。</p>
 <pre class="line-numbers language-none"><code class="language-none">&lt;?php  
     $auth &#x3D; &#39;0&#39;;  
     &#x2F;&#x2F; 这里可以覆盖$auth的变量值
@@ -574,7 +579,7 @@ echo &#39;&lt;br&gt;&#39;;
 echo $_SESSION[&quot;userinfo&quot;][&quot;username&quot;];<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>但是如果后面有 <code>session_start()</code> 会重新初始化上面的 <code>$_SESSION</code> 数据，因此又被还原回去。</p>
-<h3 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">include</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<h2 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h2><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">include</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">include_once</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">require_once</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
@@ -582,7 +587,7 @@ echo $_SESSION[&quot;userinfo&quot;][&quot;username&quot;];<span aria-hidden="tr
 <p>这四个函数会将包含的文件作为php文件解析</p>
 <p>_once表示同名文件只引入一次，include在引入不存文件时产生一个警告且脚本还会继续执行，require则会导致一个致命性错误且脚本停止执行。<br>include()是有条件包含函数，而 require()则是无条件包含函数<br>include有返回值，而require没有<br>理论上来说：include和require后面加不加括号对执行结果没有区别，但是加上括号效率较低，所以后面能不加括号就不加括号。</p>
 <p>可利用的文件包含漏洞条件：<br>1.include()等函数通过动态变量方式引入需要包含的文件<br>2.用户可控制该动态变量</p>
-<h3 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h3><p>涉及的相关协议：<code>file://</code>、<code>php://filter</code>、<code>php://input</code>、<code>zip://</code>、<code>compress.bzip2://</code>、<code>compress.zlib://</code>、<code>data://</code></p>
+<h2 id="php伪协议"><a href="#php伪协议" class="headerlink" title="php伪协议"></a>php伪协议</h2><p>涉及的相关协议：<code>file://</code>、<code>php://filter</code>、<code>php://input</code>、<code>zip://</code>、<code>compress.bzip2://</code>、<code>compress.zlib://</code>、<code>data://</code></p>
 <h4 id="php-input"><a href="#php-input" class="headerlink" title="php://input"></a>php://input</h4><ul>
 <li><p>简介<br><code>php://</code>:是个能够访问请求的原始数据的只读流。POST请求的状况下，最好用<code>php://input</code>来代替<code>$HTTP_RAW_POST_DATA</code>，由于他不依赖于特定的<code>php.ini</code>指令，并且，这样的状况下<code>$HTTP_RAW_POST_DATA</code>默认没有填充，比激活<code>always_populate_raw_post_data</code>潜在须要更少的内存，<code>enctype=&quot;multipart/form-data&quot;</code>的时候<code>php://input</code>是无效的。</p>
 <p>简单理解：除<code>enctype=&quot;multipart/form-data&quot;</code>外，获取POST数据（可做为php代码执行）。</p>
@@ -629,14 +634,14 @@ include($_GET[file]);
 
 </li>
 </ul>
-<h3 id="包含session"><a href="#包含session" class="headerlink" title="包含session"></a>包含session</h3><p>简介<br>PHP session 变量用于存储关于用户会话（session）的信息，或者更改用户会话（session）的设置。Session 变量存储单一用户的信息，而且对于应用程序中的全部页面都是可用的。在您把用户信息存储到 PHP session 中以前，首先必须使用<code>session_start()</code>启动会话。<br>php的session文件的保存路径能够再phpinfo的session.save_path查询到<br><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208203749051.png" alt="image-20210208203749051"><br>常见的php-session存放位置：</p>
+<h2 id="包含session"><a href="#包含session" class="headerlink" title="包含session"></a>包含session</h2><p>简介<br>PHP session 变量用于存储关于用户会话（session）的信息，或者更改用户会话（session）的设置。Session 变量存储单一用户的信息，而且对于应用程序中的全部页面都是可用的。在您把用户信息存储到 PHP session 中以前，首先必须使用<code>session_start()</code>启动会话。<br>php的session文件的保存路径能够再phpinfo的session.save_path查询到<br><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208203749051.png" alt="image-20210208203749051"><br>常见的php-session存放位置：</p>
 <pre class="line-numbers language-none"><code class="language-none">&#x2F;var&#x2F;lib&#x2F;php&#x2F;sess_PHPSESSID
 &#x2F;var&#x2F;lib&#x2F;php&#x2F;sess_PHPSESSID
 &#x2F;tmp&#x2F;sess_PHPSESSID
 &#x2F;tmp&#x2F;sessions&#x2F;sess_PHPSESSID  <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>session的文件名格式为sess_[phpsessid]。而phpsessid在发送的请求的cookie字段中能够看到。</p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h3><p>最近在复习，自己php的题目做的还比较少，只实践了部分php漏洞。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结:"></a>总结:</h2><p>最近在复习，自己php的题目做的还比较少，只实践了部分php漏洞。</p>
 <p>在整理漏洞的过程中发现一些漏洞对于我来说是非常陌生的，在整理的过程中也拓宽了自己的视野。</p>
 <p>最近php8也发布了，一些漏洞说不定已经过时，又会出现新的漏洞。只有不断的学习才能适应这个快速发展的时代！</p>
 
@@ -1019,7 +1024,7 @@ include($_GET[file]);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">42.1k</span>&nbsp;字
+                class="white-color">42.2k</span>&nbsp;字
             
             
             
