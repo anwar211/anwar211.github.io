@@ -358,21 +358,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-06
+                    2021-03-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    3.5k
+                    3.7k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:
-                    15 分
+                    16 分
                 </div>
                 
 
@@ -781,7 +781,62 @@ files <span class="token operator">=</span> os<span class="token punctuation">.<
 <p>flag可能在那个文件中访问试试</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306105659682.png" alt="image-20210306105659682"></p>
 <p>这段base64解码应该就是了</p>
+<h2 id="BJDCTF2020-Mark-loves-cat"><a href="#BJDCTF2020-Mark-loves-cat" class="headerlink" title="[BJDCTF2020]Mark loves cat"></a>[BJDCTF2020]Mark loves cat</h2><p>扫描网站目录发现有<code>.git</code>源码泄露</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210308150406235.png" alt="下载下来发现如下文件"></p>
+<p>有用的就是那两个php文件了</p>
+<p>flag.php:</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 
+<span class="token variable">$flag</span> <span class="token operator">=</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'/flag'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>index.php:</p>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
+
+<span class="token keyword">include</span> <span class="token string single-quoted-string">'flag.php'</span><span class="token punctuation">;</span>
+
+<span class="token variable">$yds</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"dog"</span><span class="token punctuation">;</span>
+<span class="token variable">$is</span> <span class="token operator">=</span> <span class="token string double-quoted-string">"cat"</span><span class="token punctuation">;</span>
+<span class="token variable">$handsome</span> <span class="token operator">=</span> <span class="token string single-quoted-string">'yds'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">foreach</span><span class="token punctuation">(</span><span class="token variable">$_POST</span> <span class="token keyword">as</span> <span class="token variable">$x</span> <span class="token operator">=></span> <span class="token variable">$y</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token variable">$$x</span> <span class="token operator">=</span> <span class="token variable">$y</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">foreach</span><span class="token punctuation">(</span><span class="token variable">$_GET</span> <span class="token keyword">as</span> <span class="token variable">$x</span> <span class="token operator">=></span> <span class="token variable">$y</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token variable">$$x</span> <span class="token operator">=</span> <span class="token variable">$$y</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">foreach</span><span class="token punctuation">(</span><span class="token variable">$_GET</span> <span class="token keyword">as</span> <span class="token variable">$x</span> <span class="token operator">=></span> <span class="token variable">$y</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'flag'</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token variable">$x</span> <span class="token operator">&amp;&amp;</span> <span class="token variable">$x</span> <span class="token operator">!==</span> <span class="token string single-quoted-string">'flag'</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">exit</span><span class="token punctuation">(</span><span class="token variable">$handsome</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'flag'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token keyword">isset</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'flag'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">exit</span><span class="token punctuation">(</span><span class="token variable">$yds</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token variable">$_POST</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'flag'</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string single-quoted-string">'flag'</span>  <span class="token operator">||</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'flag'</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string single-quoted-string">'flag'</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token keyword">exit</span><span class="token punctuation">(</span><span class="token variable">$is</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+
+
+<span class="token keyword">echo</span> <span class="token string double-quoted-string">"the flag is: "</span><span class="token operator">.</span><span class="token variable">$flag</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>接下来就要考虑如何绕过了</p>
+<p>这里可以利用变量覆盖漏洞获取flag</p>
+<p>第一个if条件要求GET参数flag的值绝对等于一个值，而这个值的键名不等于flag，这是个永假式</p>
+<p>第二个if要求没设置GET型flag参数，也没有设置POST型flag参数，这里可以利用变量覆盖漏洞让它返回$flag</p>
+<p>第三个if要求POST型参数flag的值为flag，或GET型flag的值为flag</p>
+<p>到这里有一下几个思路</p>
+<ol>
+<li><strong>单独的GET</strong>:<code>yds=flag</code></li>
+<li><strong>GET+POST</strong>:<code>is=flag&amp;flag=flag</code></li>
+<li><strong>GET+POST</strong>:<code>GET:yds=flag  POST:$flag=flag</code></li>
+</ol>
+<p>OK! 干饭去了</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2>
                 
             </div>
             <hr/>
@@ -1161,7 +1216,7 @@ files <span class="token operator">=</span> os<span class="token punctuation">.<
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">41.8k</span>&nbsp;字
+                class="white-color">42.1k</span>&nbsp;字
             
             
             
