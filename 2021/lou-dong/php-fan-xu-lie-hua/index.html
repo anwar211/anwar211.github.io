@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-01
+                    2021-03-19
                 </div>
                 
 
@@ -411,7 +411,7 @@ unserialize()   &#x2F;&#x2F;将字符串还原成一个对象<span aria-hidden="
 <span class="token keyword">echo</span> <span class="token variable">$data</span><span class="token punctuation">;</span>
 </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201707028.png" alt="image-20210208201707028"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201707028.png" alt="image-20210208201707028"></p>
 <pre class="line-numbers language-none"><code class="language-none">一些字符缩写
 a - array                  b - boolean  
 d - double                 i - integer
@@ -435,7 +435,7 @@ R - pointer reference      U - unicode string<span aria-hidden="true" class="lin
 <span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token variable">$obj</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208211045455.png" alt="image-20210208211045455"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208211045455.png" alt="image-20210208211045455"></p>
 <h3 id="魔术方法"><a href="#魔术方法" class="headerlink" title="魔术方法"></a>魔术方法</h3><p>在利用对PHP反序列化进行利用时，经常需要通过反序列化中的魔术方法，检查方法里有无敏感操作来进行利用。</p>
 <p>下面是一些常见的方法</p>
 <pre class="line-numbers language-none"><code class="language-none">__construct()&#x2F;&#x2F;创建对象时触发
@@ -501,7 +501,7 @@ __invoke() &#x2F;&#x2F;当脚本尝试将对象调用为函数时触发<span ari
 
 <span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201751912.png" alt="image-20210208201751912"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201751912.png" alt="image-20210208201751912"></p>
 <h4 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="__toString()"></a>__toString()</h4><blockquote>
 <p>__toString() 方法用于一个类被当成字符串时应怎样回应。例如 echo $obj; 应该显示些什么。此方法必须返回一个字符串，否则将发出一条 E_RECOVERABLE_ERROR 级别的致命错误。</p>
 </blockquote>
@@ -523,7 +523,7 @@ __invoke() &#x2F;&#x2F;当脚本尝试将对象调用为函数时触发<span ari
 <span class="token keyword">echo</span> <span class="token string single-quoted-string">'__toString:'</span> <span class="token operator">.</span> <span class="token variable">$me</span> <span class="token operator">.</span> <span class="token string single-quoted-string">'&lt;br>'</span><span class="token punctuation">;</span>
 <span class="token delimiter important">?></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201815930.png" alt="image-20210208201815930"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201815930.png" alt="image-20210208201815930"></p>
 <h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><h4 id="以前做过的一个题"><a href="#以前做过的一个题" class="headerlink" title="以前做过的一个题"></a>以前做过的一个题</h4><p>主要代码为</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 <span class="token keyword">include</span> <span class="token string single-quoted-string">'flag.php'</span><span class="token punctuation">;</span>
@@ -583,7 +583,7 @@ __invoke() &#x2F;&#x2F;当脚本尝试将对象调用为函数时触发<span ari
 <p>序列化之后并不是最终的payload，这里反序列的时候先调用_wakeup()函数，会把username初始化为guest，所以需要绕过它。</p>
 <p>而绕过_wakeup()函数只需要让对象的属性数比它实际的大就行</p>
 <h4 id="安洵杯-2019-easy-serialize-php"><a href="#安洵杯-2019-easy-serialize-php" class="headerlink" title="[安洵杯 2019]easy_serialize_php"></a>[安洵杯 2019]easy_serialize_php</h4><p>根据代码提示，在phpinfo里面找到一个这个</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201837952.png" alt="image-20210208201837952"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201837952.png" alt="image-20210208201837952"></p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token php language-php"><span class="token delimiter important">&lt;?php</span>
 
 <span class="token variable">$function</span> <span class="token operator">=</span> @<span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string single-quoted-string">'f'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -663,12 +663,12 @@ echo file_get_contents(base64_decode($userinfo[&#39;img&#39;]));<span aria-hidde
 <pre class="line-numbers language-none"><code class="language-none">_SESSION[flagflag]&#x3D;;s:1:&quot;1&quot;;s:3:&quot;img&quot;;s:20:&quot;ZDBnM19mMWFnLnBocA&#x3D;&#x3D;&quot;;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>所以这样子构造</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201854946.png" alt="image-20210208201854946"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201854946.png" alt="image-20210208201854946"></p>
 <p>提交之后发现一片空白，查看源码发现有个提示</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201905995.png" alt="image-20210208201905995"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201905995.png" alt="image-20210208201905995"></p>
 <p>flag就在这里面了</p>
 <p>还是同样的方法，对<code>/d0g3_fllllllag</code>base64加密，得<code>L2QwZzNfZmxsbGxsbGFn</code>，只需要把原来的base64换成这个就行了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208203425686.png" alt="image-20210208203425686"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208203425686.png" alt="image-20210208203425686"></p>
 
                 
             </div>
@@ -784,7 +784,7 @@ echo file_get_contents(base64_decode($userinfo[&#39;img&#39;]));<span aria-hidde
                 <a href="/2021/ba-chang/pikachu/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208204739854.png" class="responsive-img" alt="pikachu">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208204739854.png" class="responsive-img" alt="pikachu">
                         
                         <span class="card-title">pikachu</span>
                     </div>
@@ -829,12 +829,12 @@ echo file_get_contents(base64_decode($userinfo[&#39;img&#39;]));<span aria-hidde
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/ba-chang/upload-labs/">
+                <a href="/2020/lou-dong/wen-jian-shang-chuan-lou-dong/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306203157463.png" class="responsive-img" alt="upload-labs">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210306203157463.png" class="responsive-img" alt="文件上传漏洞">
                         
-                        <span class="card-title">upload-labs</span>
+                        <span class="card-title">文件上传漏洞</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -851,8 +851,8 @@ echo file_get_contents(base64_decode($userinfo[&#39;img&#39;]));<span aria-hidde
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/CTF/" class="post-category">
-                                    CTF
+                            <a href="/categories/%E6%BC%8F%E6%B4%9E/" class="post-category">
+                                    漏洞
                                 </a>
                             
                             

