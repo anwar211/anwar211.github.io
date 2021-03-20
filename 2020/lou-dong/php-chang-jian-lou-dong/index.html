@@ -358,7 +358,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-19
+                    2021-03-20
                 </div>
                 
 
@@ -405,14 +405,14 @@ $_REQUEST &#x2F;&#x2F; 获取 $_GET，$_POST，$_COOKIE 中的数据<span aria-h
 
 <h2 id="错误控制运算符"><a href="#错误控制运算符" class="headerlink" title="错误控制运算符"></a>错误控制运算符</h2><p>PHP 支持一个错误控制运算符：@。当将其放置在一个PHP 表达式之前，该表达式可能产生的任何错误信息都被忽略掉。</p>
 <h2 id="弱类型漏洞"><a href="#弱类型漏洞" class="headerlink" title="弱类型漏洞"></a>弱类型漏洞</h2><p>PHP是弱类型语言，不须要明确的定义变量的类型，变量的类型根据使用时的上下文所决定，也就是变量会根据不一样表达式所须要的类型自动转换，好比求和，PHP会将两个相加的值转为long、double再进行加和。每种类型转为另一种类型都有固定的规则，当某个操做发现类型不符时就会按照这个规则进行转换，这个规则正是弱类型实现的基础。</p>
-<h4 id="和-的区别"><a href="#和-的区别" class="headerlink" title="==和===的区别"></a>==和===的区别</h4><pre class="line-numbers language-none"><code class="language-none">&#x3D;&#x3D;  会在比较的时候装化成相同的类型
+<h3 id="和-的区别"><a href="#和-的区别" class="headerlink" title="==和===的区别"></a>==和===的区别</h3><pre class="line-numbers language-none"><code class="language-none">&#x3D;&#x3D;  会在比较的时候装化成相同的类型
 &#x3D;&#x3D;&#x3D; 先判断左右两者类型是否相等之后再作比较（这个更严格一些）
 整数和字符串进行比较的时候，字符串数字后的内容会被省略<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>当某些语句的判断条件是使用 “ == ”来判断时，就可以使用弱类型来替代。如果遇到了 “===” 则不会进行类型转换，但也并不代表无从下手。如果条件表达式中含有函数，也可以通过传入数组让函数返回 NULL 使得条件满足。</p>
-<h4 id="数组比较"><a href="#数组比较" class="headerlink" title="数组比较"></a>数组比较</h4><p>当数组(array)与任何非数组进行比较时，数组老是最大的</p>
-<h4 id="bool类型比较"><a href="#bool类型比较" class="headerlink" title="bool类型比较"></a>bool类型比较</h4><p>bool类型的true跟任意字符能够弱类型相等</p>
-<h4 id="md5-函数"><a href="#md5-函数" class="headerlink" title="md5()函数"></a>md5()函数</h4><p>1.md5()绕过<code>==</code></p>
+<h3 id="数组比较"><a href="#数组比较" class="headerlink" title="数组比较"></a>数组比较</h3><p>当数组(array)与任何非数组进行比较时，数组老是最大的</p>
+<h3 id="bool类型比较"><a href="#bool类型比较" class="headerlink" title="bool类型比较"></a>bool类型比较</h3><p>bool类型的true跟任意字符能够弱类型相等</p>
+<h3 id="md5-函数"><a href="#md5-函数" class="headerlink" title="md5()函数"></a>md5()函数</h3><p>1.md5()绕过<code>==</code></p>
 <p> PHP在处理哈希字符串时，会利用”!=”或”==”来对哈希值进行比较，它把每一个以”0E”开头的哈希值都解释为0，所以如果两个不同的密码经过哈希以后，其哈希值都是以”0E”开头的，那么PHP将会认为他们相同，都是0。</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">md5</span><span class="token punctuation">(</span><span class="token number">240610708</span><span class="token punctuation">)</span><span class="token punctuation">)</span>        <span class="token comment">//bool(true)</span>
 <span class="token function">var_dump</span><span class="token punctuation">(</span><span class="token function">md5</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'QNKCDZO'</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token function">md5</span><span class="token punctuation">(</span><span class="token number">240610708</span><span class="token punctuation">)</span><span class="token punctuation">)</span>        <span class="token comment">//bool(false)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -436,13 +436,13 @@ $_REQUEST &#x2F;&#x2F; 获取 $_GET，$_POST，$_COOKIE 中的数据<span aria-h
 
 <p><code>ffifdyop</code>，这个点的原理是 ffifdyop 这个字符串被 md5 哈希了之后会变成 276f722736c95d99e921722cf9ed621c，这个字符串前几位刚好是 ‘ or ‘6，<br>而 Mysql 刚好又会吧 hex 转成 ascii 解释，因此拼接之后的形式是1select * from ‘admin’ where password=’’ or ‘6xxxxx’</p>
 <p>等价于 or 一个永真式，因此相当于万能密码，可以绕过md5()函数</p>
-<h4 id="sha1-函数"><a href="#sha1-函数" class="headerlink" title="sha1()函数"></a>sha1()函数</h4><p>sha1()与md5()基本原理相同，因此此处仅列出sha1()开头为“0e”的字符串。</p>
+<h3 id="sha1-函数"><a href="#sha1-函数" class="headerlink" title="sha1()函数"></a>sha1()函数</h3><p>sha1()与md5()基本原理相同，因此此处仅列出sha1()开头为“0e”的字符串。</p>
 <pre class="line-numbers language-php" data-language="php"><code class="language-php"><span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaroZmOk'</span><span class="token punctuation">)</span>    <span class="token comment">//0e66507019969427134894567494305185566735</span>
 <span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaK1STfY'</span><span class="token punctuation">)</span>    <span class="token comment">//0e76658526655756207688271159624026011393</span>
 <span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aaO8zKZF'</span><span class="token punctuation">)</span>    <span class="token comment">//0e89257456677279068558073954252716165668</span>
 <span class="token function">sha1</span><span class="token punctuation">(</span><span class="token string single-quoted-string">'aa3OFF9m'</span><span class="token punctuation">)</span>    <span class="token comment">//0e36977786278517984959260394024281014729</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h4 id="strcmp-、strcasecmp-函数"><a href="#strcmp-、strcasecmp-函数" class="headerlink" title="strcmp()、strcasecmp()函数"></a>strcmp()、strcasecmp()函数</h4><ul>
+<h3 id="strcmp-、strcasecmp-函数"><a href="#strcmp-、strcasecmp-函数" class="headerlink" title="strcmp()、strcasecmp()函数"></a>strcmp()、strcasecmp()函数</h3><ul>
 <li><p><code>strcmp(string1, string2)</code>、<code>strcasecmp(string1, string2)</code></p>
 <p>比较两个字符串，前者不区分大小写，后者区分大小写。若<code>string1 &gt; string2</code>，返回<code>&gt; 0</code>；若<code>string1 &lt; string2</code>，string返回<code>&lt; 0</code>;若<code>string1 = string2</code>，返回<code>0</code>。然而该函数没法处理数组，当出现数组时，返回<code>null</code>。(下例中@表示忽略警告)</p>
 <pre class="line-numbers language-none"><code class="language-none">var_dump(@strcmp([],1));                &#x2F;&#x2F;NULL
@@ -451,7 +451,7 @@ var_dump(@strcmp([],&#39;flag&#39;) &#x3D;&#x3D;&#x3D; 0);    &#x2F;&#x2F;bool(f
 
 </li>
 </ul>
-<h4 id="intval"><a href="#intval" class="headerlink" title="intval"></a>intval</h4><p><code>intval()</code> 在转换的时候，会从字符串的开始进行转换直到遇到一个非数字的字符。即使出现无法转换的字符串，<code>intval()</code> 不会报错而是返回 0。</p>
+<h3 id="intval"><a href="#intval" class="headerlink" title="intval()"></a>intval()</h3><p><code>intval()</code> 在转换的时候，会从字符串的开始进行转换直到遇到一个非数字的字符。即使出现无法转换的字符串，<code>intval()</code> 不会报错而是返回 0。</p>
 <pre class="line-numbers language-none"><code class="language-none">var_dump(intval(&#39;2&#39;)) &#x2F;&#x2F; 2
 var_dump(intval(&#39;3abcd&#39;)) &#x2F;&#x2F; 3
 var_dump(intval(&#39;abcd&#39;)) &#x2F;&#x2F; 0
@@ -1022,7 +1022,7 @@ include($_GET[file]);
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">42.5k</span>&nbsp;字
+                class="white-color">42.8k</span>&nbsp;字
             
             
             

