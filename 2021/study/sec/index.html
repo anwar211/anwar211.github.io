@@ -397,89 +397,89 @@
                 <h2 id="网络发包测试"><a href="#网络发包测试" class="headerlink" title="网络发包测试"></a>网络发包测试</h2><h3 id="hping发包"><a href="#hping发包" class="headerlink" title="hping发包"></a>hping发包</h3><p>hping可进行防火墙测试，DDoS ，端口扫描等功能。</p>
 <p>命令挺多的，忘记了可以用man查看下，或者查看帮助。</p>
 <pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">  -c  --count     发送数据包的数目
-  -i  --interval  发送数据包间隔的时间 (uX即X微秒, 例如： -i u1000)
-      --fast      等同 -i u10000 (每秒10个包)
-      --faster    等同 -i u1000 (每秒100个包)
+  -i  --interval  发送数据包间隔的时间 <span class="token punctuation">(</span>uX即X微秒, 例如： -i u1000<span class="token punctuation">)</span>
+      --fast      等同 -i u10000 <span class="token punctuation">(</span>每秒10个包<span class="token punctuation">)</span>
+      --faster    等同 -i u1000 <span class="token punctuation">(</span>每秒100个包<span class="token punctuation">)</span>
       --flood	  尽最快发送数据包，不显示回复。
   -n  --numeric   数字化输出，象征性输出主机地址。
   -q  --quiet     安静模式
-  -I  --interface 网卡接口 (默认路由接口)
+  -I  --interface 网卡接口 <span class="token punctuation">(</span>默认路由接口<span class="token punctuation">)</span>
   -V  --verbose   详细模式
   -D  --debug     调试信息
       --beep      对于接收到的每个匹配数据包蜂鸣声提示
 模式选择
-  default mode     TCP   &#x2F;&#x2F; 默认模式是 TCP
+  default mode     TCP   // 默认模式是 TCP
   -0  --rawip      RAWIP模式，原始IP模式。在此模式下HPING会发送带数据的IP头。即裸IP方式。使用RAWSOCKET方式。
-  -1  --icmp       ICMP模式，此模式下HPING会发送IGMP应答报，你可以用--ICMPTYPE --ICMPCODE选项发送其他类型&#x2F;模式的ICMP报文。
+  -1  --icmp       ICMP模式，此模式下HPING会发送IGMP应答报，你可以用--ICMPTYPE --ICMPCODE选项发送其他类型/模式的ICMP报文。
   -2  --udp        UDP 模式，缺省下，HPING会发送UDP报文到主机的0端口，你可以用--baseport --destport --keep选项指定其模式。
   -8  --scan       扫描模式 指定扫描对应的端口。
-                   Example: hping --scan 1-30,70-90 -S www.target.host    &#x2F;&#x2F; 扫描
+                   Example: hping --scan <span class="token number">1</span>-30,70-90 -S www.target.host    // 扫描
   -9  --listen     监听模式
   
 IP 模式
   -a  --spoof      源地址欺骗。伪造IP攻击，防火墙就不会记录你的真实IP了，当然回应的包你也接收不到了。
-  --rand-dest      随机目的地址模式。详细使用 man 命令
-  --rand-source    随机源地址模式。详细使用 man 命令
-  -t  --ttl        ttl (默认 64)  &#x2F;&#x2F;修改 ttl 值
-  -N  --id         id (默认 随机)  &#x2F;&#x2F; hping 中的 ID 值，缺省为随机值
-  -W  --winid      使用win* id字节顺序  &#x2F;&#x2F;使用winid模式，针对不同的操作系统。UNIX ,WINDIWS的id回应不同的，这选项可以让你的ID回应和WINDOWS一样。
-  -r  --rel        相对id字段(估计主机流量)  &#x2F;&#x2F;更改ID的，可以让ID曾递减输出，详见HPING-HOWTO。
-  -f  --frag       拆分数据包更多的frag.  (may pass weak acl)   &#x2F;&#x2F;分段，可以测试对方或者交换机碎片处理能力，缺省16字节。
-  -x  --morefrag   设置更多的分段标志    &#x2F;&#x2F; 大量碎片，泪滴攻击。
-  -y  --dontfrag   设置不分段标志    &#x2F;&#x2F; 发送不可恢复的IP碎片，这可以让你了解更多的MTU PATH DISCOVERY。
-  -g  --fragoff    set the fragment offset    &#x2F;&#x2F; 设置断偏移。
-  -m  --mtu        设置虚拟最大传输单元, implies --frag if packet size &gt; mtu    &#x2F;&#x2F; 设置虚拟MTU值，当大于mtu的时候分段。
+  --rand-dest      随机目的地址模式。详细使用 <span class="token function">man</span> 命令
+  --rand-source    随机源地址模式。详细使用 <span class="token function">man</span> 命令
+  -t  --ttl        ttl <span class="token punctuation">(</span>默认 <span class="token number">64</span><span class="token punctuation">)</span>  //修改 ttl 值
+  -N  --id         <span class="token function">id</span> <span class="token punctuation">(</span>默认 随机<span class="token punctuation">)</span>  // hping 中的 ID 值，缺省为随机值
+  -W  --winid      使用win* id字节顺序  //使用winid模式，针对不同的操作系统。UNIX ,WINDIWS的id回应不同的，这选项可以让你的ID回应和WINDOWS一样。
+  -r  --rel        相对id字段<span class="token punctuation">(</span>估计主机流量<span class="token punctuation">)</span>  //更改ID的，可以让ID曾递减输出，详见HPING-HOWTO。
+  -f  --frag       拆分数据包更多的frag.  <span class="token punctuation">(</span>may pass weak acl<span class="token punctuation">)</span>   //分段，可以测试对方或者交换机碎片处理能力，缺省16字节。
+  -x  --morefrag   设置更多的分段标志    // 大量碎片，泪滴攻击。
+  -y  --dontfrag   设置不分段标志    // 发送不可恢复的IP碎片，这可以让你了解更多的MTU <span class="token environment constant">PATH</span> DISCOVERY。
+  -g  --fragoff    <span class="token builtin class-name">set</span> the fragment offset    // 设置断偏移。
+  -m  --mtu        设置虚拟最大传输单元, implies --frag <span class="token keyword">if</span> packet size <span class="token operator">></span> mtu    // 设置虚拟MTU值，当大于mtu的时候分段。
   -o  --tos        tos字段，缺省0x00
   -G  --rroute     记录IP路由，并显示路由缓冲。
-  --lsrr           松散源路由并记录路由        &#x2F;&#x2F; 松散源路由
-  --ssrr           严格源路由并记录路由      &#x2F;&#x2F; 严格源路由
+  --lsrr           松散源路由并记录路由        // 松散源路由
+  --ssrr           严格源路由并记录路由      // 严格源路由
   -H  --ipproto    在RAW IP模式里选择IP协议。设置ip协议域，仅在RAW ip模式使用。
 
 ICMP 模式
-  -C  --icmptype   icmp类型(默认echo请求)    &#x2F;&#x2F; ICMP类型，缺省回显请求。
-  -K  --icmpcode   icmp代号(默认0)     &#x2F;&#x2F; ICMP代码。
-      --force-icmp 发送所有icmp类型(默认仅发送支持的类型)    &#x2F;&#x2F; 强制ICMP类型。
-      --icmp-gw    设置ICMP重定向网关地址(默认0.0.0.0)    &#x2F;&#x2F; ICMP重定向
-      --icmp-ts    等同 --icmp --icmptype 13 (ICMP 时间戳)            &#x2F;&#x2F; icmp时间戳
-      --icmp-addr  等同 --icmp --icmptype 17 (ICMP 地址子网掩码)  &#x2F;&#x2F; icmp子网地址
-      --icmp-help  显示其他icmp选项帮助      &#x2F;&#x2F; ICMP帮助
+  -C  --icmptype   icmp类型<span class="token punctuation">(</span>默认echo请求<span class="token punctuation">)</span>    // ICMP类型，缺省回显请求。
+  -K  --icmpcode   icmp代号<span class="token punctuation">(</span>默认0<span class="token punctuation">)</span>     // ICMP代码。
+      --force-icmp 发送所有icmp类型<span class="token punctuation">(</span>默认仅发送支持的类型<span class="token punctuation">)</span>    // 强制ICMP类型。
+      --icmp-gw    设置ICMP重定向网关地址<span class="token punctuation">(</span>默认0.0.0.0<span class="token punctuation">)</span>    // ICMP重定向
+      --icmp-ts    等同 --icmp --icmptype <span class="token number">13</span> <span class="token punctuation">(</span>ICMP 时间戳<span class="token punctuation">)</span>            // icmp时间戳
+      --icmp-addr  等同 --icmp --icmptype <span class="token number">17</span> <span class="token punctuation">(</span>ICMP 地址子网掩码<span class="token punctuation">)</span>  // icmp子网地址
+      --icmp-help  显示其他icmp选项帮助      // ICMP帮助
 
-UDP&#x2F;TCP 模式
-  -s  --baseport   base source port             (default random)              &#x2F;&#x2F; 缺省随机源端口
-  -p  --destport   [+][+]&lt;port&gt; destination port(default 0) ctrl+z inc&#x2F;dec    &#x2F;&#x2F; 缺省随机源端口
-  -k  --keep       keep still source port      &#x2F;&#x2F; 保持源端口
-  -w  --win        winsize (default 64)        &#x2F;&#x2F; win的滑动窗口。windows发送字节(默认64)
-  -O  --tcpoff     set fake tcp data offset     (instead of tcphdrlen &#x2F; 4)    &#x2F;&#x2F; 设置伪造tcp数据偏移量(取代tcp地址长度除4)
-  -Q  --seqnum     shows only tcp sequence number        &#x2F;&#x2F; 仅显示tcp序列号
-  -b  --badcksum   (尝试)发送具有错误IP校验和数据包。许多系统将修复发送数据包的IP校验和。所以你会得到错误UDP&#x2F;TCP校验和。
+UDP/TCP 模式
+  -s  --baseport   base <span class="token builtin class-name">source</span> port             <span class="token punctuation">(</span>default random<span class="token punctuation">)</span>              // 缺省随机源端口
+  -p  --destport   <span class="token punctuation">[</span>+<span class="token punctuation">]</span><span class="token punctuation">[</span>+<span class="token punctuation">]</span><span class="token operator">&lt;</span>port<span class="token operator">></span> destination port<span class="token punctuation">(</span>default <span class="token number">0</span><span class="token punctuation">)</span> ctrl+z inc/dec    // 缺省随机源端口
+  -k  --keep       keep still <span class="token builtin class-name">source</span> port      // 保持源端口
+  -w  --win        winsize <span class="token punctuation">(</span>default <span class="token number">64</span><span class="token punctuation">)</span>        // win的滑动窗口。windows发送字节<span class="token punctuation">(</span>默认64<span class="token punctuation">)</span>
+  -O  --tcpoff     <span class="token builtin class-name">set</span> fake tcp data offset     <span class="token punctuation">(</span>instead of tcphdrlen / <span class="token number">4</span><span class="token punctuation">)</span>    // 设置伪造tcp数据偏移量<span class="token punctuation">(</span>取代tcp地址长度除4<span class="token punctuation">)</span>
+  -Q  --seqnum     shows only tcp sequence number        // 仅显示tcp序列号
+  -b  --badcksum   <span class="token punctuation">(</span>尝试<span class="token punctuation">)</span>发送具有错误IP校验和数据包。许多系统将修复发送数据包的IP校验和。所以你会得到错误UDP/TCP校验和。
   -M  --setseq     设置TCP序列号 
-  -L  --setack     设置TCP的ack   ------------------------------------- (不是 TCP 的 ACK 标志位)
-  -F  --fin        set FIN flag
-  -S  --syn        set SYN flag
-  -R  --rst        set RST flag
-  -P  --push       set PUSH flag
-  -A  --ack        set ACK flag   ------------------------------------- （设置 TCP 的 ACK 标志 位）
-  -U  --urg        set URG flag      &#x2F;&#x2F; 一大堆IP抱头的设置。
-  -X  --xmas       set X unused flag (0x40)
-  -Y  --ymas       set Y unused flag (0x80)
-  --tcpexitcode    使用last tcp-&gt; th_flags作为退出码
+  -L  --setack     设置TCP的ack   ------------------------------------- <span class="token punctuation">(</span>不是 TCP 的 ACK 标志位<span class="token punctuation">)</span>
+  -F  --fin        <span class="token builtin class-name">set</span> FIN flag
+  -S  --syn        <span class="token builtin class-name">set</span> SYN flag
+  -R  --rst        <span class="token builtin class-name">set</span> RST flag
+  -P  --push       <span class="token builtin class-name">set</span> PUSH flag
+  -A  --ack        <span class="token builtin class-name">set</span> ACK flag   ------------------------------------- （设置 TCP 的 ACK 标志 位）
+  -U  --urg        <span class="token builtin class-name">set</span> URG flag      // 一大堆IP抱头的设置。
+  -X  --xmas       <span class="token builtin class-name">set</span> X unused flag <span class="token punctuation">(</span>0x40<span class="token punctuation">)</span>
+  -Y  --ymas       <span class="token builtin class-name">set</span> Y unused flag <span class="token punctuation">(</span>0x80<span class="token punctuation">)</span>
+  --tcpexitcode    使用last tcp-<span class="token operator">></span> th_flags作为退出码
   --tcp-mss        启用具有给定值的TCP MSS选项
-  --tcp-timestamp  启用TCP时间戳选项来猜测HZ&#x2F;uptime
+  --tcp-timestamp  启用TCP时间戳选项来猜测HZ/uptime
 
-Common &#x2F;&#x2F;通用设置
-  -d  --data       data size    (default is 0)    &#x2F;&#x2F; 发送数据包大小，缺省是0。
+Common //通用设置
+  -d  --data       data size    <span class="token punctuation">(</span>default is <span class="token number">0</span><span class="token punctuation">)</span>    // 发送数据包大小，缺省是0。
   -E  --file       文件数据
   -e  --sign       添加“签名”
   -j  --dump       转储为十六进制数据包
   -J  --print      转储为可打印字符
   -B  --safe       启用“安全”协议
   -u  --end        告诉你什么时候--file达到EOF并防止倒回
-  -T  --traceroute traceroute模式(等同使用 --bind 且--ttl 1)
+  -T  --traceroute traceroute模式<span class="token punctuation">(</span>等同使用 --bind 且--ttl <span class="token number">1</span><span class="token punctuation">)</span>
   --tr-stop        在traceroute模式下收到第一个不是ICMP时退出
   --tr-keep-ttl    保持源TTL固定，仅用于监视一跳
-  --tr-no-rtt	   不要在跟踪路由模式下计算&#x2F;显示RTT信息 ARS包描述（新增功能，不稳定）
-ARS packet description (new, unstable)
-  --apd-send       发送APD描述数据包(参见docs &#x2F; APD.txt)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  --tr-no-rtt	   不要在跟踪路由模式下计算/显示RTT信息 ARS包描述（新增功能，不稳定）
+ARS packet description <span class="token punctuation">(</span>new, unstable<span class="token punctuation">)</span>
+  --apd-send       发送APD描述数据包<span class="token punctuation">(</span>参见docs / APD.txt<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="发送syn包"><a href="#发送syn包" class="headerlink" title="发送syn包"></a>发送syn包</h4><p>设置两台在相同网段下的虚拟机</p>
 <p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210419154452206.png"></p>
@@ -669,12 +669,12 @@ ARS packet description (new, unstable)
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/other/bat-wait/">
+                <a href="/2021/awd/awd/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210319181608457.png" class="responsive-img" alt="bat_wait">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/v2-63d2ac24e61775b755ed490f7ee348bf_1440w.jpg" class="responsive-img" alt="AWD">
                         
-                        <span class="card-title">bat_wait</span>
+                        <span class="card-title">AWD</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -685,14 +685,14 @@ ARS packet description (new, unstable)
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-10
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Others/" class="post-category">
-                                    Others
+                            <a href="/categories/AWD/" class="post-category">
+                                    AWD
                                 </a>
                             
                             
@@ -702,8 +702,8 @@ ARS packet description (new, unstable)
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/win/">
-                        <span class="chip bg-color">win</span>
+                    <a href="/tags/AWD/">
+                        <span class="chip bg-color">AWD</span>
                     </a>
                     
                 </div>
@@ -889,7 +889,7 @@ ARS packet description (new, unstable)
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">44.5k</span>&nbsp;字
+                class="white-color">47.5k</span>&nbsp;字
             
             
             
