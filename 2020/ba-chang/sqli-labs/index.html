@@ -731,12 +731,12 @@ username&#x3D;1&#39;) and extractvalue(1,concat(1,(select concat(username,0x3a,p
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/ba-chang/upload-labs/">
+                <a href="/2020/lou-dong/wen-jian-shang-chuan-lou-dong/">
                     <div class="card-image">
                         
-                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210306203157463.png" class="responsive-img" alt="upload-labs">
+                        <img src="https://cdn.jsdelivr.net/gh/anwarnu/img/image-20210306203157463.png" class="responsive-img" alt="文件上传漏洞">
                         
-                        <span class="card-title">upload-labs</span>
+                        <span class="card-title">文件上传漏洞</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -753,8 +753,8 @@ username&#x3D;1&#39;) and extractvalue(1,concat(1,(select concat(username,0x3a,p
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/CTF/" class="post-category">
-                                    CTF
+                            <a href="/categories/%E6%BC%8F%E6%B4%9E/" class="post-category">
+                                    漏洞
                                 </a>
                             
                             
@@ -826,43 +826,6 @@ username&#x3D;1&#39;) and extractvalue(1,concat(1,(select concat(username,0x3a,p
 
 </div>
 
-
-<script>
-    $('#articleContent').on('copy', function (e) {
-        // IE8 or earlier browser is 'undefined'
-        if (typeof window.getSelection === 'undefined') return;
-
-        var selection = window.getSelection();
-        // if the selection is short let's not annoy our users.
-        if (('' + selection).length < Number.parseInt('20')) {
-            return;
-        }
-
-        // create a div outside of the visible area and fill it with the selected text.
-        var bodyElement = document.getElementsByTagName('body')[0];
-        var newdiv = document.createElement('div');
-        newdiv.style.position = 'absolute';
-        newdiv.style.left = '-99999px';
-        bodyElement.appendChild(newdiv);
-        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
-
-        // we need a <pre> tag workaround.
-        // otherwise the text inside "pre" loses all the line breaks!
-        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
-            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
-        }
-
-        var url = document.location.href;
-        newdiv.innerHTML += '<br />'
-            + '来源: Amy<br />'
-            + '文章作者: Amy<br />'
-            + '文章链接: <a href="' + url + '">' + url + '</a><br />'
-            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
-
-        selection.selectAllChildren(newdiv);
-        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
-    });
-</script>
 
 
 <!-- 代码块功能依赖 -->
